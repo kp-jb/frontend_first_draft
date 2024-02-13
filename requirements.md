@@ -1,45 +1,7 @@
-# PROJECT NAME
-First Draft
-
----
-
-## DEVELOPERS:
-
-KP Gomez
-Jacob Bassett
-
----
+# Software Requirements
 
 ## Vision
-
-Our application aims to ease a significant challenge encountered during the job application process: the laborious process of crafting a tailored cover letter. What sets us apart from conventional AI-generated cover letters is our ability to not only incorporate the job description and a users resume, but also integrate a sample of the user's own writing style, such as a previous cover letter. This ensures that the generated cover letter retains the user's voice and reflects their unique writing style, resulting in a more authentic representation compared to typical AI-generated content.
-
----
-
-## PROJECT PLAN:
-
-This is a simple diagram of our project architecture. Using React for our frontend, Django for our server, ElephantSQL for our database, and requests going out to ChatGPT's API.
-
-![Project Design](./public/images/project_design.png)
-
-The user experience will follow this flow chart.
-
-![User Experience](./public/images/user_experience.png)
-
-The frontend will look something like these wireframes.
-
-![Frontend Wireframe](./public/images/wireframe.png)
-
-The frontend components, data, and pages will be constructed based on this diagram.
-
-![Frontend Diagram](./public/images/frontend_diagram.png)
-
-The database schema will follow this diagram. 
-![Database Schema](./public/images/database_schema.png)
-
-Note that will all of these diagrams some stretch goals are included beyond the planned minimal viable product.
-
----
+Our application aims to ease a significant challenge encountered during the job application process: the laborious process of crafting a tailored cover letter. What sets us apart from conventional AI-generated cover letters is our ability to not only incorporate the job description and a cover letter template but also integrate a sample of the user's own writing style, such as a previous resume or cover letter. This ensures that the generated cover letter retains the user's voice and reflects their unique writing style, resulting in a more authentic representation compared to typical AI-generated content.
 
 ## Scope (In/Out)
 
@@ -65,8 +27,6 @@ Note that will all of these diagrams some stretch goals are included beyond the 
 4. A built-in typo checker.
 5. Write automated UI testing using the Playwright library. 
 6. The generated cover letter will reflect the user's personal writing style.
-
----
 
 ## Functional Requirements
 
@@ -111,8 +71,4 @@ Note that will all of these diagrams some stretch goals are included beyond the 
 ### 3. Security Requirements
 &nbsp; 3.1. A user can only access and change their individual content.
 
----
 
-## Links
-
-[Project Management Board](https://github.com/orgs/kp-jb/projects/2)
