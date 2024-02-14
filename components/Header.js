@@ -2,6 +2,11 @@ import { useAuthContext } from "@/contexts/AuthContext";
 
 export default function Header(props) {
   let { user, logoutFunction } = useAuthContext();
+
+  function navigateToLogin () {
+    window.location.href="/login";
+  };
+
   return(
     <header className="text-red-500">
       <h1 
@@ -24,7 +29,9 @@ export default function Header(props) {
         :
         <div>
           <button 
-            className="">
+            className=""
+            onClick={navigateToLogin}
+            >
             Login
           </button>
         </div>
