@@ -36,17 +36,6 @@ export default function NavSideBar() {
               </li>}
 
               { userData?
-                <></>:
-                <li>
-                  <Link
-                    href="/registration"
-                    className={`${currPage==="/registration"?"text-red-900":""}`}
-                  >
-                  Registration
-                  </Link>
-                </li>}
-
-              { userData?
               <li>
                 <Link
                   href="/records"
