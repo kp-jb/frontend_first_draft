@@ -5,6 +5,8 @@ import ErrorProvider from "@/contexts/ErrorContext";
 import PageProvider from "@/contexts/PageContext";
 import PromptProvider from "@/contexts/PromptContext";
 
+import Layout from "@/components/Layout";
+
 
 export default function App({ Component, pageProps }) {
 
@@ -13,7 +15,9 @@ export default function App({ Component, pageProps }) {
             <AuthProvider>
               <PageProvider>
                 <PromptProvider>
-                  <Component {...pageProps} />
+                  <Layout>
+                    <Component {...pageProps} />
+                  </Layout>
                 </PromptProvider>
               </PageProvider>
             </AuthProvider>;

@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import React from "react";
 
-import defaultUser from "@/public/data/data";
 import {useErrorContext} from "@/contexts/ErrorContext";
 
 
@@ -19,7 +18,12 @@ export default function AuthProvider(props) {
   const { updateError } = useErrorContext();
   const [stateAuth, setStateAuth] = React.useState({
     // userData: null,
-    userData: defaultUser || {first_name:"",last_name:"",email:"",id:null},
+    userData: {
+      first_name:"john",
+      last_name:"doe",
+      email:"email",
+      id:3030
+    },
     tokens:null,
     loginFunction: loginFunction,
     logoutFunction: logoutFunction,

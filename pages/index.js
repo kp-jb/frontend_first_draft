@@ -1,9 +1,9 @@
 
 
-export default function homePage() {
+export default function HomePage() {
   return (
       <>
-        <p>boogers</p>
+        <p>HomePage</p>
       </>
   );
 }
