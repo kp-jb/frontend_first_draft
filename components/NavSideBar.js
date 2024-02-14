@@ -1,11 +1,15 @@
 import Link from "next/link";
+import {useRouter} from "next/router";
 
 import { useAuthContext } from "@/contexts/AuthContext";
 
 export default function NavSideBar() {
   const { userData } = useAuthContext();
+  const router = useRouter();
+  const currPage = router.pathname;
 
-  console.log("NavSideBar",userData);
+
+  // console.log("NavSideBar",currPage);
   return (
     <div className="text-purple-500">
       <nav className="">
@@ -14,7 +18,7 @@ export default function NavSideBar() {
               <li>
                 <Link
                   href="/"
-                  className=""
+                  className={`${currPage==="/"?"text-red-900":""}`}
                 >
                 Home
                 </Link>
@@ -25,7 +29,7 @@ export default function NavSideBar() {
               <li>
                 <Link
                   href="/login"
-                  className=""
+                  className={`${currPage==="/login"?"text-red-900":""}`}
                 >
                 Login
                 </Link>
@@ -36,7 +40,7 @@ export default function NavSideBar() {
                 <li>
                   <Link
                     href="/registration"
-                    className=""
+                    className={`${currPage==="/registration"?"text-red-900":""}`}
                   >
                   Registration
                   </Link>
@@ -46,7 +50,7 @@ export default function NavSideBar() {
               <li>
                 <Link
                   href="/records"
-                  className=""
+                  className={`${currPage==="/records"?"text-red-900":""}`}
                 >
                 Records
                 </Link>
@@ -57,7 +61,7 @@ export default function NavSideBar() {
               <li>
                 <Link
                   href="editandsave"
-                  className=""
+                  className={`${currPage==="/editandsave"?"text-red-900":""}`}
                 >
                 Edit and Save
                 </Link>
@@ -68,7 +72,7 @@ export default function NavSideBar() {
               <li>
                 <Link
                   href="query"
-                  className=""
+                  className={`${currPage==="/query"?"text-red-900":""}`}
                 >
                 Query
                 </Link>
@@ -79,7 +83,7 @@ export default function NavSideBar() {
               <li>
                 <Link
                   href="description"
-                  className=""
+                  className={`${currPage==="/description"?"text-red-900":""}`}
                 >
                 Description
                 </Link>
@@ -90,7 +94,7 @@ export default function NavSideBar() {
               <li>
                 <Link
                   href="resume"
-                  className=""
+                  className={`${currPage==="/resume"?"text-red-900":""}`}
                 >
                 Resume
                 </Link>
@@ -101,7 +105,7 @@ export default function NavSideBar() {
               <li>
                 <Link
                   href="coverletter"
-                  className=""
+                  className={`${currPage==="/coverletter"?"text-red-900":""}`}
                 >
                 Cover Letter
                 </Link>

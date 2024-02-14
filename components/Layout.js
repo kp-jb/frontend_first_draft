@@ -10,5 +10,5 @@ export default function Layout(props) {
             <NavSideBar></NavSideBar>
               {props.children}
             <Footer></Footer>
-         </div>;
+         </div>
 };
