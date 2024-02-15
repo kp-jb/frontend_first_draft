@@ -1,7 +1,7 @@
 import { useAuthContext } from "@/contexts/AuthContext";
 
 export default function Header(props) {
-  let { user, logoutFunction } = useAuthContext();
+  let { userData, logoutFunction } = useAuthContext();
 
   function navigateToLogin () {
     window.location.href="/login";
@@ -13,12 +13,12 @@ export default function Header(props) {
         className=""
         >First Draft</h1>
       <p>Header</p>
-      {user
+      {userData
         ?
         <div>
           <button 
             className="">
-           {user.first_name}
+           {userData.first_name}
           </button>
           <button 
             className=""
