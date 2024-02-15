@@ -60,12 +60,13 @@ export default function AuthProvider(props) {
         // Update the authentication state with the new data
         setStateAuth((prevState) => ({ ...prevState, ...newState }));
       } else {
-        console.error("AuthContext: setStateAuth is not defined");
+        //TODO
+        // console.error("AuthContext: setStateAuth is not defined");
       }
 
     // catch error if failure to login
     } catch(error){
-      console.log("AuthContext: Failure to login");
+      // console.log("AuthContext: Failure to login");
       updateError(["*"],`Failure to login: ${error.message}`);
     };
   };
@@ -86,15 +87,16 @@ export default function AuthProvider(props) {
         headers: { "Content-Type": "application/json" },
       };
       const response = await fetch(registerUrl, options);
-      const data = await response.json();
-      // catch error if failure to register
+      console.log("AuthContext", response);
+
+      if (response && response.ok){
+        loginFunction(email, password);
+      };
+
     } catch(error){
       console.log("AuthContext: Failure to register.");
-      updateError(["*"],`Failure to register: ${error.message}`);
-    };
-    // login after successful registry
-    if (response.ok){
-      loginFunction(email, password);
+      console.error(error);
+      // updateError(["*"],`Failure to register: ${error.message}`);
     };
   };
 

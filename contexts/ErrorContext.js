@@ -13,7 +13,7 @@ export default function ErrorProvider(props) {
     errorMessage:null
   })
 
-  function updateError(newPages=[], newErrorMessage=""){
+  function updateError(newPages=[], newErrorMessage=null){
     setStateError(prevState => ({...prevState, pages:newPages, errorMessage:newErrorMessage}));
   };
 

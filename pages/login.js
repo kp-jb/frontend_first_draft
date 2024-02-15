@@ -3,7 +3,7 @@ import { useAuthContext } from "@/contexts/AuthContext";
 
 
 export default function LoginPage() {
-  let { userData, loginFunction } = useAuthContext();
+  let { userData, loginFunction, registerFunction } = useAuthContext();
 
   const [stateLoginPage, setStateLoginPage] = React.useState(() => {
     let storedData = null
@@ -43,16 +43,30 @@ export default function LoginPage() {
       loginFunction(email,password)
     } else {
       //TODO: raise proper error
-      console.log("Login Page: failed to login", email, password);
+      // console.log("Login Page: failed to login", email, password);
     };
   };
 
   function handlerOnRegistration(event) {
     event.preventDefault();
-    console.log(event.target);
+    let first_name = event.target.first_name.value;
+    let last_name = event.target.last_name.value;
+    let email = event.target.email.value;
+    let registerPassword = event.target.registerPassword.value;
+    let confirmPassword = event.target.confirmPassword.value;
+    console.log("Login Page:",first_name, last_name, email, registerPassword, confirmPassword);
+
+    if (registerPassword !== confirmPassword){
+      //TODO: raise proper error
+      // console.log("Login Page: passwords must match.")
+
+    } else {
+      registerFunction(first_name, last_name, email, registerPassword);
+      // console.log("Login Page: attempted registration.")
+    };
   };
 
-  console.log("Login Page:", userData);
+  // console.log("Login Page:", userData);
   return (
     <>
       {stateLoggingIn?
