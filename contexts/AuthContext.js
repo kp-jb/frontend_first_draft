@@ -6,6 +6,7 @@ import { defaultUser } from "@/public/data/data";
 
 
 const tokenUrl = process.env.NEXT_PUBLIC_API_URL + "api/token/";
+const tokenRefreshUrl = process.env.NEXT_PUBLIC_API_URL + "api/token/refresh/";
 const registerUrl = process.env.NEXT_PUBLIC_API_URL + "api/register/";
 const AuthContext = React.createContext();
 
@@ -40,25 +41,33 @@ export default function AuthProvider(props) {
         body: JSON.stringify({ email, password }),
         headers: { "Content-Type": "application/json" },
       };
+      // console.log("AuthContext",options);
       const response = await fetch(tokenUrl, options);
       const data = await response.json();
       const decodedAccess = jwt.decode(data.access);
       const newState = {
         tokens: data,
         userData: {
-          first_name: decodedAccess.first_name,
-          last_name: decodedAccess.last_name,
+          first_name: decodedAccess.first_name || "",
+          last_name: decodedAccess.last_name || "",
           email: decodedAccess.email,
           id: decodedAccess.user_id,
         },
       };
+
+      // set user data and token into state
+      if (setStateAuth) {
+        // Update the authentication state with the new data
+        setStateAuth((prevState) => ({ ...prevState, ...newState }));
+      } else {
+        console.error("AuthContext: setStateAuth is not defined");
+      }
+
     // catch error if failure to login
     } catch(error){
       console.log("AuthContext: Failure to login");
       updateError(["*"],`Failure to login: ${error.message}`);
     };
-    // set user data and token into state
-    setStateAuth((prevState) => ({ ...prevState, ...newState }));
   };
     
 

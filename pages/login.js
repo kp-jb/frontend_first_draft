@@ -1,7 +1,10 @@
 import React from "react";
+import { useAuthContext } from "@/contexts/AuthContext";
 
 
 export default function LoginPage() {
+  let { userData, loginFunction } = useAuthContext();
+
   const [stateLoginPage, setStateLoginPage] = React.useState(() => {
     let storedData = null
     if (typeof window !== 'undefined') {
@@ -10,7 +13,6 @@ export default function LoginPage() {
     return storedData ? JSON.parse(storedData) : { first_name: '', last_name: '', email: '' };
   }
   );
-  
   const [stateLoggingIn, setStateLoggingIn] = React.useState(true);
 
   React.useEffect(() => {
@@ -35,7 +37,14 @@ export default function LoginPage() {
 
   function handlerOnLogin(event) {
     event.preventDefault();
-    console.log(event.target);
+    let email = event.target.email.value;
+    let password = event.target.loginPassword.value;
+    if (email && password){
+      loginFunction(email,password)
+    } else {
+      //TODO: raise proper error
+      console.log("Login Page: failed to login", email, password);
+    };
   };
 
   function handlerOnRegistration(event) {
@@ -43,6 +52,7 @@ export default function LoginPage() {
     console.log(event.target);
   };
 
+  console.log("Login Page:", userData);
   return (
     <>
       {stateLoggingIn?
