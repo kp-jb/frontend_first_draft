@@ -1,11 +1,9 @@
 import { useAuthContext } from "@/contexts/AuthContext";
+import {useRouter} from "next/router";
 
 export default function Header(props) {
   let { userData, logoutFunction } = useAuthContext();
-
-  function navigateToLogin () {
-    window.location.href="/login";
-  };
+  const router = useRouter();
 
   return(
     <header className="text-red-500">
@@ -30,7 +28,7 @@ export default function Header(props) {
         <div>
           <button 
             className=""
-            onClick={navigateToLogin}
+            onClick={()=>router.push("/login")}
             >
             Login
           </button>

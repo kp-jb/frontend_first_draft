@@ -1,6 +1,7 @@
+import axios from 'axios';
 import jwt from "jsonwebtoken";
 import React from "react";
-import axios from 'axios';
+import {useRouter} from "next/router";
 
 import {useErrorContext} from "@/contexts/ErrorContext";
 import { defaultUser } from "@/public/data/data";
@@ -18,6 +19,7 @@ export function useAuthContext() {
 
 // create function to provide context
 export default function AuthProvider(props) {
+  const router = useRouter();
   const { updateError } = useErrorContext();
   const [stateAuth, setStateAuth] = React.useState({
     userData: null,
@@ -63,6 +65,7 @@ export default function AuthProvider(props) {
           };
         })
         .then(newState => setStateAuth(prevState => ({ ...prevState, ...newState })))
+        .then(last => router.push("/records"))
         .catch(error => updateError(["*"],`Failure to login: ${error.message}`));
     };
     
@@ -71,6 +74,8 @@ export default function AuthProvider(props) {
   function logoutFunction() {
     // remove user data from state
     setStateAuth((prevState) => ({ ...prevState, tokens: null, userData: null }));
+    // return user to home page after logout
+    router.push("/");
   };
 
   function registerFunction(first_name, last_name, email, password) {
