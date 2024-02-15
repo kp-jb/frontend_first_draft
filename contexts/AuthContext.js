@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import React from "react";
+import axios from 'axios';
 
 import {useErrorContext} from "@/contexts/ErrorContext";
 import { defaultUser } from "@/public/data/data";
@@ -33,43 +34,37 @@ export default function AuthProvider(props) {
     registerFunction: registerFunction,
   });
 
-  // login user
-  async function loginFunction(email, password) {
-    try {
-      const options = {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: { "Content-Type": "application/json" },
+    // login user
+    function loginFunction(email, password) {
+      const requestData = {
+        email,
+        password,
       };
-      // console.log("AuthContext",options);
-      const response = await fetch(tokenUrl, options);
-      const data = await response.json();
-      const decodedAccess = jwt.decode(data.access);
-      const newState = {
-        tokens: data,
-        userData: {
-          first_name: decodedAccess.first_name || "",
-          last_name: decodedAccess.last_name || "",
-          email: decodedAccess.email,
-          id: decodedAccess.user_id,
+      const options = {
+        method: 'POST',
+        url: tokenUrl,
+        data: requestData,
+        headers: {
+          'Content-Type': 'application/json',
         },
       };
-
-      // set user data and token into state
-      if (setStateAuth) {
-        // Update the authentication state with the new data
-        setStateAuth((prevState) => ({ ...prevState, ...newState }));
-      } else {
-        //TODO
-        // console.error("AuthContext: setStateAuth is not defined");
-      }
-
-    // catch error if failure to login
-    } catch(error){
-      // console.log("AuthContext: Failure to login");
-      updateError(["*"],`Failure to login: ${error.message}`);
+      axios(options)
+        .then(response => {
+          const data = response.data; 
+          const decoded = jwt.decode(data.access);
+          return {
+            tokens: data,
+            userData: {
+              first_name: decoded.first_name || "",
+              last_name: decoded.last_name || "",
+              email: decoded.email,
+              id: decoded.user_id,
+            },
+          };
+        })
+        .then(newState => setStateAuth(prevState => ({ ...prevState, ...newState })))
+        .catch(error => updateError(["*"],`Failure to login: ${error.message}`));
     };
-  };
     
 
   // logout user
@@ -78,26 +73,29 @@ export default function AuthProvider(props) {
     setStateAuth((prevState) => ({ ...prevState, tokens: null, userData: null }));
   };
 
-  // register and login new user
-  async function registerFunction(first_name, last_name, email, password) {
-    try {
-      const options = {
-        method: "POST",
-        body: JSON.stringify({ first_name, last_name, email, password}),
-        headers: { "Content-Type": "application/json" },
-      };
-      const response = await fetch(registerUrl, options);
-      console.log("AuthContext", response);
-
-      if (response && response.ok){
-        loginFunction(email, password);
-      };
-
-    } catch(error){
-      console.log("AuthContext: Failure to register.");
-      console.error(error);
-      // updateError(["*"],`Failure to register: ${error.message}`);
+  function registerFunction(first_name, last_name, email, password) {
+    const requestData = {
+      first_name,
+      last_name,
+      email,
+      password,
     };
+    const options = {
+      method: 'POST',
+      url: registerUrl,
+      data: requestData,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    axios(options)
+      .then(response => {
+        if (response && response.status == 201){
+          loginFunction(email, password);
+        } else {
+          updateError(["*"],`Failure to login:`)
+        }})
+      .catch(error => updateError(["*"],`Failure to register: ${error.message}`));   
   };
 
 

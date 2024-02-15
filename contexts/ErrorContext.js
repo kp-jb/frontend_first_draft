@@ -17,6 +17,7 @@ export default function ErrorProvider(props) {
     setStateError(prevState => ({...prevState, pages:newPages, errorMessage:newErrorMessage}));
   };
 
+  console.log("ErrorContext",stateError.errorMessage);
   return <ErrorContext.Provider value={{...stateError, updateError}}>
             {props.children}
           </ErrorContext.Provider>
