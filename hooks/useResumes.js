@@ -67,7 +67,7 @@ export default function useResource() {
   };
 
   return {
-    data: data,
+    resumesData: data || [],
     // loading: tokens.accessToken && !data,
     createResume,
     deleteResume,
