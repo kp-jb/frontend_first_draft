@@ -5,28 +5,50 @@ let editPlaceholder = "Paste resumes or cover letters here to be saved. Or revie
 
 export default function EditAndSavePage() {
   let [ editState, setEditState] = useState(editPlaceholder);
-  let [ openModal, setOpenModal] = useState(false);
+  let [ modalIsOpen, setModalIsOpen] = useState(false);
+  let [fileType, setFileType] = useState("resume");
+  let [fileName, setFileName] = useState("");
+  let [isAI, setIsAI] = useState(false);
+  let [isFinalDraft, setIsFinalDraft] = useState(false);
   
   const handleChange = (event) => {
-    setEditState(event.target.value)
+    setEditState(event.target.value);
   }
   
   const handleClear = (event) => {
-    setEditState(editPlaceholder)
+    setEditState(editPlaceholder);
   }
   
   const handleSave = () => {
-    setOpenModal(true)
+    console.log("Save button clicked")
+    setModalIsOpen(true);
   }
 
-  const handleSaveEdit = {
+  // const handleSaveEdit = {
     
-  }
+  // }
 
   const closeModal = () => {
-    setOpenModal(false)
+    console.log("Modal closed")
+    setModalIsOpen(false);
   }
   
+  const handleFileTypeChange = (event) => {
+    setFileType(event.target.value);
+  };
+
+  const handleFileNameChange = (event) => {
+    setFileName(event.target.value);
+  };
+
+  const handleIsAI = (event) => {
+    setIsAI(event.target.checked);
+  };
+
+  const handleIsFinalDraft = (event) => {
+    setIsFinalDraft(event.target.checked);
+  };
+
   return (
       <div>
         <form>
@@ -53,19 +75,40 @@ export default function EditAndSavePage() {
         </form>
         <p>EditAndSavePage</p>
         <Modal
-          isOpen={openModal}
-          onClose={closeModal}
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
           contentLabel="Save Modal"
+          shouldCloseOnOverlayClick={false}
+          className="fixed inset-0 flex items-center justify-center"
+          overlayClassName="fixed inset-0 bg-black opacity-50"
         >
-          <div>
-            <p>FILE TYPE:</p>
-            <p>FILE NAME:</p>
-            <p>AI GENERATED: (cover letters only)</p>
-            <p>EARLY OR FINAL DRAFT:</p>
+          <div className="p-6 bg-white rounded-lg w-[600px] h-[300px]">
+            <label>
+              FILE TYPE:
+              <select value={fileType} onChange={handleFileTypeChange}>
+                <option value="resume">Resume</option>
+                <option value="cover-letter">Cover Letter</option>
+              </select>
+            </label>
+            <br/>
+            <label>
+              FILE NAME:
+              <input type="text" value={fileName} onChange={handleFileNameChange} />
+            </label>
+            <br/>
+            <label>
+              AI GENERATED: (cover letters only)
+              <input type="radio" checked={isAI} onChange={handleIsAI}/>
+            </label>
+            <br/>
+            <label>
+              FINAL DRAFT:
+              <input type="radio" checked={isFinalDraft} onChange={handleIsFinalDraft}/>
+            </label>
           </div>
           <div className="flex flex-row">
             <button onClick={closeModal} className="bg-red-400 border">CANCEL</button>
-            <button onClick={handleSaveEdit} className="bg-green-400 border">SAVE</button>
+            <button onClick={closeModal} className="bg-green-400 border">SAVE</button>
           </div>
         
         </Modal>
