@@ -4,31 +4,29 @@ import useSWR from 'swr';
 export const ResumesUrl = process.env.NEXT_PUBLIC_RESUMES_URL;
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useErrorContext } from "@/contexts/ErrorContext";
+// import { isTokenValid } from "@/hooks/useTokenExpired";
 
 export default function useResource() {
   const { tokens } = useAuthContext();
   const { errorMessage, updateError } = useErrorContext();
-  const { data, error, mutate } = useSWR([ResumeUrl, tokens.accessToken], fetchResource);
+  const { data, error, mutate } = useSWR([ResumesUrl, tokens], getResumes);
 
   function getResumes(url) {
-    if (!tokens.accessToken) {
-      // TODO: Fetch new access token
-      updateError(["*"],"Unable to fetch user resumes, access token has expired. New token has be requested. If problem persists, logout and login again.")
-      return Promise.reject('Access token is missing');
-    }
-    let options = config('GET',ResumesUrl);
+    // TODO: handle token refresh here
+    // if (!isTokenValid(tokens)) {
+    //   updateError(["*"],"Unable to fetch user resumes, access token has expired. New token has be requested. If problem persists, logout and login again.")
+    //   return Promise.reject('Access token is missing');
+    // }
+    let options = config(ResumesUrl);
     return axios(options)
-      .then(response => response.data)
+      .then(response => {
+        return response.data})
       .catch(error => updateError(["*"],`Unable to fetch user resumes: ${error.message}`));
   };
 
   function createResume(info) {
-    if (!tokens.accessToken) {
-      // TODO: Fetch new access token
-      updateError(["*"],"Unable to create resume record, access token has expired. New token has be requested. If problem persists, logout and login again.")
-      return Promise.reject('Access token is missing');
-    }
-    let options = config('POST',ResumesUrl);
+    let options = config(ResumesUrl);
+    options.method = 'POST';
     options.body = JSON.stringify(info);
     return axios(options)
       .then(response => {
@@ -38,12 +36,8 @@ export default function useResource() {
   }
 
   function deleteResume(id) {
-    if (!tokens.accessToken) {
-      // TODO: Fetch new access token
-      updateError(["*"],"Unable to delete resume record, access token has expired. New token has be requested. If problem persists, logout and login again.")
-      return Promise.reject('Access token is missing');
-    }
-    let options = config('DELETE',ResumesUrl+id+"/");
+    let options = config(ResumesUrl+id+"/");
+    options.method = 'DELETE';
     return axios(options)
       .then(response => {
         mutate()
@@ -52,12 +46,8 @@ export default function useResource() {
   }
 
   function updateResume(resource) {
-    if (!tokens.accessToken) {
-      // TODO: Fetch new access token
-      updateError(["*"],"Unable to update resume record, access token has expired. New token has be requested. If problem persists, logout and login again.")
-      return Promise.reject('Access token is missing');
-    }
-    let options = config('PUT',ResumesUrl+resource.id+"/");
+    let options = config(ResumesUrl+resource.id+"/");
+    options.method = 'PUT';
     options.body = JSON.stringify(resource);
     return axios(options)
       .then(response => {
@@ -66,21 +56,19 @@ export default function useResource() {
       .catch(error => updateError(["*"],`Unable to update record: ${error.message}`)); 
   }
 
-  function config(method, url) {
+  function config(url) {
     return {
-      method: method,
       url: url,
       headers: {
-        Authorization: 'Bearer ' + tokens.accessToken,
+        'Authorization': 'Bearer ' + tokens.access,
         'Content-Type': 'application/json',
       },
     };
   };
 
   return {
-    resources: data,
-    error,
-    loading: tokens.accessToken && !errorMessage && !data,
+    data: data,
+    // loading: tokens.accessToken && !data,
     createResume,
     deleteResume,
     updateResume,

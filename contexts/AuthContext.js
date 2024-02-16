@@ -29,7 +29,6 @@ export default function AuthProvider(props) {
     //   email:"email",
     //   id:3030
     // },
-    // userData: defaultUser,
     tokens:null,
     loginFunction: loginFunction,
     logoutFunction: logoutFunction,

@@ -2,9 +2,12 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import {useRouter} from "next/router";
 
 export default function Header(props) {
-  let { userData, logoutFunction } = useAuthContext();
+  let { tokens, userData, logoutFunction } = useAuthContext();
   const router = useRouter();
 
+  // if (tokens){
+  //   console.log("Header", tokens);
+  // }
   return(
     <header className="text-red-500">
       <h1 
