@@ -22,13 +22,13 @@ export default function AuthProvider(props) {
   const router = useRouter();
   const { updateError } = useErrorContext();
   const [stateAuth, setStateAuth] = React.useState({
-    userData: null,
-    // userData: {
-    //   first_name:"john",
-    //   last_name:"doe",
-    //   email:"email",
-    //   id:3030
-    // },
+    // userData: null,
+    userData: {
+      first_name:"john",
+      last_name:"doe",
+      email:"email",
+      id:2
+    },
     tokens:null,
     loginFunction: loginFunction,
     logoutFunction: logoutFunction,
