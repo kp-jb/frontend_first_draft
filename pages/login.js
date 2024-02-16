@@ -54,7 +54,7 @@ export default function LoginPage() {
     let email = event.target.email.value;
     let registerPassword = event.target.registerPassword.value;
     let confirmPassword = event.target.confirmPassword.value;
-    console.log("Login Page:",first_name, last_name, email, registerPassword, confirmPassword);
+    // console.log("Login Page:",first_name, last_name, email, registerPassword, confirmPassword);
 
     if (registerPassword !== confirmPassword){
       //TODO: raise proper error
@@ -78,6 +78,7 @@ export default function LoginPage() {
           <input
             type="email"
             name="email"
+            required
             value={stateLoginPage.email}
             onChange={handlerOnChange}
           />
@@ -86,6 +87,7 @@ export default function LoginPage() {
         <label>
           Password:
           <input
+            required
             type="password"
             name="loginPassword"
           />
@@ -105,6 +107,7 @@ export default function LoginPage() {
         <label>
           First Name:
           <input
+            required
             type="text"
             name="first_name"
             value={stateLoginPage.first_name}
@@ -115,6 +118,7 @@ export default function LoginPage() {
         <label>
           Last Name:
           <input
+            required
             type="text"
             name="last_name"
             value={stateLoginPage.last_name}
@@ -125,6 +129,7 @@ export default function LoginPage() {
         <label>
           Email:
           <input
+            required
             type="email"
             name="email"
             value={stateLoginPage.email}
@@ -135,6 +140,7 @@ export default function LoginPage() {
         <label>
           Password:
           <input
+            required
             type="password"
             name="registerPassword"
           />
@@ -143,6 +149,7 @@ export default function LoginPage() {
         <label>
           Confirm Password:
           <input
+            required
             type="password"
             name="confirmPassword"
           />
