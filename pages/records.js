@@ -1,11 +1,12 @@
 import React from "react";
+import {userRouter} from "next/router";
 
 import useResumes from "@/hooks/useResumes";
 import {defaultResumes} from "@/public/data/data.js";
 
 export default function RecordsPage() {
   let { resumesData , deleteResume} = useResumes();
-  // resumesData = defaultResumes;
+  let router = useRouter();
 
   let [ stateRecordsPage, setStateRecordsPage] = React.useState({
     selectedResume:null,
@@ -39,12 +40,24 @@ export default function RecordsPage() {
     );
   });
 
-  function handlerDeleteRecord(type, id){
+  function handlerDeleteRecord(type, item){
     if (type==="resume"){
-      deleteResume(id);
-      setStateRecordsPage(prevState=>({...prevState,selectedResume:null}));
+      deleteResume(item.id);
+      handlerUpdateRecords("selectedResume",item);
     } else if (type === "coverLetter"){
       //TODO: enable user to delete cover letter
+    };
+  };
+
+  function handlerEditRecord(type,item){
+    if (type==="resume"){
+      handlerUpdateRecords("selectedResume",item);
+      router.push({
+        pathname:"/editandsave",
+        query:{data:encodeURIComponent({...item,isResume:true})}
+      });
+    } else if (type === "coverLetter"){
+      //TODO: enable user to edit cover letter
     };
   };
   
@@ -70,10 +83,12 @@ export default function RecordsPage() {
             stateRecordsPage.selectedResume &&
           <div>
             <button
-              onClick={()=>handlerDeleteRecord("resume", stateRecordsPage.selectedResume.id)}
+              onClick={()=>handlerDeleteRecord("resume", stateRecordsPage.selectedResume)}
             >DELETE</button>
             <br></br>
-            <button>EDIT</button>
+            <button
+              onClick={()=>handlerEditRecord("resume", stateRecordsPage.selectedResume)}
+              >EDIT</button>
           </div>
           }
         </div>
