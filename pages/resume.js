@@ -42,7 +42,7 @@ export default function ResumePage() {
     <>
       <div>
         <div>
-          <h2>Resumes</h2>
+          <h2>Resumes:</h2>
           <table>
             <thead>
               <tr>
@@ -83,4 +83,4 @@ export default function ResumePage() {
       </div>
     </>
   );
-}
+};

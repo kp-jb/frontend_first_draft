@@ -1,7 +1,88 @@
+import React from "react";
+import { useRouter } from "next/router";
+
+import useRecords from "@/hooks/useRecords";
+import { usePromptContext } from "@/contexts/PromptContext";
+
 export default function CoverLetterPage() {
+  let { recordsData } = useRecords();
+  let { coverLetter, updatePrompt } = usePromptContext();
+  let router = useRouter();
+
+  let coverLettersData = recordsData.filter((item) => !item.is_resume);
+
+  function handlerUpdateCoverLetter(item) {
+    updatePrompt("coverLetter", item);
+  };
+
+  let coverLettersRows = coverLettersData.map((item, idx) => {
+    let createdDate = new Date(item.created_date);
+    let modifiedDate = new Date(item.modified_date);
+
+    const options = { month: "2-digit", day: "2-digit", year: "2-digit" };
+
+    return (
+      <tr key={`coverLetterRow${idx}`}>
+        <td>
+        <input
+            type="checkbox"
+            onClick={() => handlerUpdateCoverLetter(item)}
+            checked={coverLetter && coverLetter.id === item.id}
+          />
+        </td>
+        <td>{item.name}</td>
+        <td>{createdDate.toLocaleDateString(undefined, options)}</td>
+        <td>{modifiedDate.toLocaleDateString(undefined, options)}</td>
+      </tr>
+    );
+  });
+
+  // console.log("CoverLetter Page: ", recordsData);
   return (
-      <>
-        <p>CoverLetterPage</p>
-      </>
+    <>
+      <div>
+        <div>
+          <h2>Cover Letters:</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Select</th>
+                <th>Name</th>
+                <th>Created</th>
+                <th>Modified</th>
+              </tr>
+            </thead>
+            <tbody>
+              {coverLettersData.length === 0 ? (
+                <tr>
+                  <td></td>
+                  <td>no resumes on record</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              ) : (
+                coverLettersRows
+              )}
+            </tbody>
+          </table>
+          <button 
+            type="button" 
+            onClick={() => router.push("/resume")}>
+            Previous
+          </button>
+          <br />
+          {coverLetter && (
+            <div>
+              <button onClick={() => handlerUpdateCoverLetter("")}>Remove</button>
+            </div>
+          )}
+          <br></br>
+          {/* TODO: add submit function */}
+          <button type="button">
+            Submit
+          </button>
+        </div>
+      </div>
+    </>
   );
 }
