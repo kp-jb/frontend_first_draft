@@ -74,7 +74,7 @@ export default function RecordsPage() {
     });
   };
   
-  console.log("Records Page: ", recordsData);
+  // console.log("Records Page: ", recordsData);
   return (
       <>
         <div>

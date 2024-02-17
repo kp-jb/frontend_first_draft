@@ -65,7 +65,7 @@ export default function AuthProvider(props) {
         })
         .then(newState => setStateAuth(prevState => ({ ...prevState, ...newState })))
         .then(last => router.push("/records"))
-        .catch(error => updateError(["*"],`Failure to login: ${error.message}`));
+        .catch(error => updateError(["login"],`Failure to login: ${error.message}`));
     };
     
 
@@ -97,9 +97,9 @@ export default function AuthProvider(props) {
         if (response && response.status == 201){
           loginFunction(email, password);
         } else {
-          updateError(["*"],`Failure to login:`)
+          updateError(["login"],`Failure to login:`)
         }})
-      .catch(error => updateError(["*"],`Failure to register: ${error.message}`));   
+      .catch(error => updateError(["login"],`Failure to register: ${error.message}`));   
   };
 
 

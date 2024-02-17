@@ -21,7 +21,7 @@ export default function useRecords() {
     return axios(options)
       .then(response => {
         return response.data})
-      .catch(error => updateError(["*"],`Unable to fetch user records: ${error.message}`));
+      .catch(error => updateError(["records","editandsave"],`Unable to fetch user records: ${error.message}`));
   };
 
   function createRecord(info) {
@@ -32,7 +32,7 @@ export default function useRecords() {
       .then(response => {
         mutate()
         return response.data})
-      .catch(error => updateError(["*"],`Unable to create record: ${error.message}`)); 
+      .catch(error => updateError(["records","editandsave"],`Unable to create record: ${error.message}`)); 
   }
 
   function deleteRecord(id) {
@@ -42,7 +42,7 @@ export default function useRecords() {
       .then(response => {
         mutate()
         return response.data})
-      .catch(error => updateError(["*"],`Unable to delete record: ${error.message}`)); 
+      .catch(error => updateError(["records","editandsave"],`Unable to delete record: ${error.message}`)); 
   }
 
   function updateRecord(resource) {
@@ -53,7 +53,7 @@ export default function useRecords() {
       .then(response => {
         mutate()
         return response.data})
-      .catch(error => updateError(["*"],`Unable to update record: ${error.message}`)); 
+      .catch(error => updateError(["records","editandsave"],`Unable to update record: ${error.message}`)); 
   }
 
   function config(url) {
