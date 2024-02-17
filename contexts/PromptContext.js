@@ -1,6 +1,6 @@
 import React from "react";
 
-import defaultQuery from "@/public/data/data";
+import {defaultQuery} from "@/public/data/data";
 import { useErrorContext } from "./ErrorContext";
 
 const PromptContext = React.createContext();
@@ -25,11 +25,12 @@ function reducer(state,action) {
 
 export default function PromptProvider(props) {
   const {updateError} = useErrorContext();
-  const [statePrompt, setStatePrompt] = React.useReducer(reducer,{
-      query: defaultQuery || "",
-      description:"",
-      resume:"",
-      coverLetter:""})
+  const [statePrompt, setStatePrompt] = React.useReducer(reducer, {
+    query: defaultQuery,
+    description: "",
+    resume: "",
+    coverLetter: ""
+  });
 
   function updatePrompt (type, payload){
     try{
@@ -38,6 +39,8 @@ export default function PromptProvider(props) {
       updateError(["query","description","resume","coverLetter"],`Failture to update prompt: ${error.message}`);
     };  
   };
+
+  // console.log("PromptContext", statePrompt.query);
 
   return <PromptContext.Provider value={{...statePrompt, updatePrompt}}>
             {props.children}

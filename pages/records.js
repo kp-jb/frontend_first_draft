@@ -1,23 +1,25 @@
 import React from "react";
-import {userRouter} from "next/router";
+import {useRouter} from "next/router";
 
-import useResumes from "@/hooks/useResumes";
+import useRecords from "@/hooks/useRecords";
 import {defaultResumes} from "@/public/data/data.js";
 
 export default function RecordsPage() {
-  let { resumesData , deleteResume} = useResumes();
+  let { recordsData , deleteRecord } = useRecords();
   let router = useRouter();
 
+  let resumesData = recordsData.filter(item => item.is_resume);
+  let coverLettersData = recordsData.filter(item => !item.is_resume);
+
   let [ stateRecordsPage, setStateRecordsPage] = React.useState({
-    selectedResume:null,
-    selectedCoverLetter:null,
+    selectedRecord:null
   });
 
-  function handlerUpdateRecords(type,item){
-    if (stateRecordsPage[type]===item){
-      setStateRecordsPage(prevState => ({...prevState, [type]:null}))
+  function handlerUpdateRecords(item){
+    if (stateRecordsPage.selectedRecord===item){
+      setStateRecordsPage(prevState => ({...prevState, selectedRecord:null}))
     } else {
-      setStateRecordsPage(prevState => ({...prevState, [type]:item}))
+      setStateRecordsPage(prevState => ({...prevState, selectedRecord:item}))
     };
   };
 
@@ -31,8 +33,8 @@ export default function RecordsPage() {
       <tr key={`resumeRow${idx}`}>
         <td><input 
               type="checkbox" 
-              onClick={()=>handlerUpdateRecords("selectedResume",item)}
-              checked={stateRecordsPage.selectedResume && stateRecordsPage.selectedResume.id === item.id}/></td>
+              onClick={()=>handlerUpdateRecords(item)}
+              checked={stateRecordsPage.selectedRecord && stateRecordsPage.selectedRecord.id === item.id}/></td>
         <td>{item.name}</td>
         <td>{createdDate.toLocaleDateString(undefined, options)}</td>
         <td>{modifiedDate.toLocaleDateString(undefined, options)}</td>
@@ -40,57 +42,115 @@ export default function RecordsPage() {
     );
   });
 
-  function handlerDeleteRecord(type, item){
-    if (type==="resume"){
-      deleteResume(item.id);
-      handlerUpdateRecords("selectedResume",item);
-    } else if (type === "coverLetter"){
-      //TODO: enable user to delete cover letter
-    };
+  let coverLettersRows = coverLettersData.map((item, idx) => {
+    let createdDate = new Date(item.created_date);
+    let modifiedDate = new Date(item.modified_date);
+
+    const options = { month: '2-digit', day: '2-digit', year: '2-digit' };
+  
+    return (
+      <tr key={`coverLetterRow${idx}`}>
+        <td><input 
+              type="checkbox" 
+              onClick={()=>handlerUpdateRecords(item)}
+              checked={stateRecordsPage.selectedRecord && stateRecordsPage.selectedRecord.id === item.id}/></td>
+        <td>{item.name}</td>
+        <td>{createdDate.toLocaleDateString(undefined, options)}</td>
+        <td>{modifiedDate.toLocaleDateString(undefined, options)}</td>
+      </tr>
+    );
+  });
+
+  function handlerDeleteRecord(item){
+    deleteRecord(item.id);
+    handlerUpdateRecords(item);
   };
 
-  function handlerEditRecord(type,item){
-    if (type==="resume"){
-      handlerUpdateRecords("selectedResume",item);
-      router.push({
-        pathname:"/editandsave",
-        query:{data:encodeURIComponent({...item,isResume:true})}
-      });
-    } else if (type === "coverLetter"){
-      //TODO: enable user to edit cover letter
-    };
+  function handlerEditRecord(item){
+    handlerUpdateRecords(item);
+    router.push({
+      pathname:"/editandsave",
+      query:{data:encodeURIComponent(item)}
+    });
   };
   
-  console.log("Records Page: ", resumesData);
+  // console.log("Records Page: ", recordsData);
   return (
       <>
         <div>
-          <h2>Resumes</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Select</th>
-                <th>Name</th>
-                <th>Created</th>
-                <th>Modified</th>
-              </tr>
-            </thead>
-            <tbody>
-              {resumeRows}
-            </tbody>
-          </table>
-          {
-            stateRecordsPage.selectedResume &&
           <div>
-            <button
-              onClick={()=>handlerDeleteRecord("resume", stateRecordsPage.selectedResume)}
-            >DELETE</button>
-            <br></br>
-            <button
-              onClick={()=>handlerEditRecord("resume", stateRecordsPage.selectedResume)}
-              >EDIT</button>
+            <h2>Resumes</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Select</th>
+                  <th>Name</th>
+                  <th>Created</th>
+                  <th>Modified</th>
+                </tr>
+              </thead>
+              <tbody>
+                {resumesData.length===0?
+                <tr>
+                  <td></td>
+                  <td>no resumes on record</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                :resumeRows}
+              </tbody>
+            </table>
+            {
+              stateRecordsPage.selectedRecord && stateRecordsPage.selectedRecord.is_resume &&
+            <div>
+              <button
+                onClick={()=>handlerDeleteRecord(stateRecordsPage.selectedRecord)}
+              >DELETE</button>
+              <br></br>
+              <button
+                onClick={()=>handlerEditRecord(stateRecordsPage.selectedRecord)}
+                >EDIT</button>
+            </div>
+            }
           </div>
-          }
+          <br></br>
+          <div>
+            <h2>Cover Letters</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Select</th>
+                  <th>Name</th>
+                  <th>Created</th>
+                  <th>Modified</th>
+                </tr>
+              </thead>
+              <tbody>
+              {coverLettersData.length===0?
+                <tr>
+                  <td></td>
+                  <td>no cover letters on record</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                :coverLettersRows}
+              </tbody>
+            </table>
+            {
+              stateRecordsPage.selectedRecord && !stateRecordsPage.selectedRecord.is_resume &&
+            <div>
+              <button
+                onClick={()=>handlerDeleteRecord(stateRecordsPage.selectedRecord)}
+              >DELETE</button>
+              <br></br>
+              <button
+                onClick={()=>handlerEditRecord(stateRecordsPage.selectedRecord)}
+                >EDIT</button>
+            </div>
+            }
+          </div>
+
+
         </div>
       </>
   );
