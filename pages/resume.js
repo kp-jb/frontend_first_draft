@@ -26,7 +26,7 @@ export default function ResumePage() {
         <td>
           <input
             type="checkbox"
-            onClick={() => handlerUpdateResume(item)}
+            onChange={() => handlerUpdateResume(item)}
             checked={resume && resume.id === item.id}
           />
         </td>

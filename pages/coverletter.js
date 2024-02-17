@@ -26,7 +26,7 @@ export default function CoverLetterPage() {
         <td>
         <input
             type="checkbox"
-            onClick={() => handlerUpdateCoverLetter(item)}
+            onChange={() => handlerUpdateCoverLetter(item)}
             checked={coverLetter && coverLetter.id === item.id}
           />
         </td>
