@@ -67,9 +67,9 @@ export default function EditAndSavePage() {
               />
             </div>
             <div className="m-1">
-              <button className="m-1 border bg-slate-100" onClick={handleClear}>CLEAR</button>
-              <button className="m-1 border bg-slate-100">DOWNLOAD</button>
-              <button className="m-1 border bg-slate-100" onClick={handleSave}>SAVE</button>
+              <button className="m-1 border bg-slate-100" onClick={handleClear} type="button">CLEAR</button>
+              <button className="m-1 border bg-slate-100" type="button">DOWNLOAD</button>
+              <button className="m-1 border bg-slate-100" onClick={handleSave} type="button">SAVE</button>
             </div>
           </fieldset>
         </form>
@@ -83,7 +83,7 @@ export default function EditAndSavePage() {
           overlayClassName="fixed inset-0 bg-black opacity-50"
         >
           <div className="p-6 bg-white rounded-lg w-[600px] h-[300px]">
-            <label>
+            <label className="flex justify-between">
               FILE TYPE:
               <select value={fileType} onChange={handleFileTypeChange}>
                 <option value="resume">Resume</option>
@@ -91,26 +91,25 @@ export default function EditAndSavePage() {
               </select>
             </label>
             <br/>
-            <label>
+            <label className="flex justify-between">
               FILE NAME:
-              <input type="text" value={fileName} onChange={handleFileNameChange} />
+              <input type="text" value={fileName} onChange={handleFileNameChange} className="border"/>
             </label>
             <br/>
-            <label>
+            <label className="flex justify-between">
               AI GENERATED: (cover letters only)
               <input type="radio" checked={isAI} onChange={handleIsAI}/>
             </label>
             <br/>
-            <label>
+            <label className="flex justify-between">
               FINAL DRAFT:
               <input type="radio" checked={isFinalDraft} onChange={handleIsFinalDraft}/>
             </label>
           </div>
-          <div className="flex flex-row">
+          <div>
             <button onClick={closeModal} className="bg-red-400 border">CANCEL</button>
             <button onClick={closeModal} className="bg-green-400 border">SAVE</button>
           </div>
-        
         </Modal>
       </div>
   );
