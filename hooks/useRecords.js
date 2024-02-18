@@ -51,13 +51,14 @@ export default function useRecords() {
   }
 
   function updateRecord(resource) {
-    let options = config(RecordUrl+resource.id+"/");
+    let options = config(RecordsUrl+resource.id+"/");
     options.method = 'PUT';
-    options.body = JSON.stringify(resource);
+    options.data = JSON.stringify(resource);
+    console.log(options.data)
     return axios(options)
       .then(response => {
         mutate()
-        return response.data})
+        return response.status})
       .catch(error => updateError(["records","editandsave"],`Unable to update record: ${error.message}`)); 
   }
 

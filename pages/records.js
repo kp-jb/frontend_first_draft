@@ -70,7 +70,7 @@ export default function RecordsPage() {
   };
 
   function handlerEditRecord(item){
-    console.log(item)
+    // console.log(item)
 
     let info = { 
       content_name: item.name,

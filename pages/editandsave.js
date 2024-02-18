@@ -17,14 +17,13 @@ import useRecords from "@/hooks/useRecords";
 
 export default function EditAndSavePage() {
   let [ modalIsOpen, setModalIsOpen] = useState(false);
-  let { content_name, is_resume, content, updateContent } = useContentContext();
-  console.log(content_name) 
-  console.log(is_resume)
-  let { createRecord, updateRecord } = useRecords();
+  let { content_name, is_resume, content, id, updateContent} = useContentContext();
+  let { recordsData, createRecord, updateRecord } = useRecords();
   let { userData } = useAuthContext();
   let router = useRouter();
-
   
+  console.log("recordsData in editandsave", recordsData);
+
   const handlerChange = (event) => {
     let {name, value} = event.target;
     if (name === "is_resume") {
@@ -49,22 +48,39 @@ export default function EditAndSavePage() {
 
   async function handlerSaveContent() {
    // validate is_resume, name, content, id and update locate error if invalid
-    let id = userData.id;
+   // need to check if new or existing record, if new send POST, new existing send PUT
+    let user_id = userData.id;
     let info = { 
       name: content_name, 
-      owner: id, 
+      owner: user_id, 
       content: content,
-      is_resume: is_resume
+      is_resume: is_resume,
+      id: id
     };
-
-    try {
-      let response = await createRecord(info)
-      if (response === 201) {
-        // possibly add message to user confirming save was successful instead of reroute
-        router.push("/records");
-      } 
-    } catch (error) {
-      console.error("Error in handlerSaveContent:", error)
+    
+    // console.log(info.id)
+    
+    if (info.id) {
+      try {
+        let response = await updateRecord(info)
+        console.log("response.status in handlerSaveContent", response)
+        if (response === 200) {
+          // possibly add message to user confirming save was successful instead of reroute
+          router.push("/records");
+        } 
+      } catch (error) {
+        console.error("Error in handlerSaveContent:", error)
+      }
+    } else {
+        try {
+        let response = await createRecord(info)
+        if (response === 201) {
+          // possibly add message to user confirming save was successful instead of reroute
+          router.push("/records");
+        } 
+      } catch (error) {
+        console.error("Error in handlerSaveContent:", error)
+      }
     }
   }
 

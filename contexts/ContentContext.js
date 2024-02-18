@@ -14,6 +14,7 @@ export default function ContentProvider(props) {
     content: "",
     is_resume: false,
     content_name: "",
+    id: null
   });
 
   function updateContent (type, newState){
