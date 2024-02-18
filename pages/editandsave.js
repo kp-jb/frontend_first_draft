@@ -18,6 +18,8 @@ import useRecords from "@/hooks/useRecords";
 export default function EditAndSavePage() {
   let [ modalIsOpen, setModalIsOpen] = useState(false);
   let { content_name, is_resume, content, updateContent } = useContentContext();
+  console.log(content_name) 
+  console.log(is_resume)
   let { createRecord, updateRecord } = useRecords();
   let { userData } = useAuthContext();
   let router = useRouter();
@@ -84,9 +86,23 @@ export default function EditAndSavePage() {
               />
             </div>
             <div className="m-1">
-              <button className="m-1 border bg-slate-100" onClick={() => handlerReset("content", "")} type="button">CLEAR</button>
-              <button className="m-1 border bg-slate-100" type="button">DOWNLOAD</button>
-              <button className="m-1 border bg-slate-100" onClick={handlerControlModal} type="button">SAVE</button>
+              <button 
+                className="m-1 border bg-slate-100" 
+                onClick={() => handlerReset("content", "")} 
+                type="button">
+                  CLEAR
+              </button>
+              <button 
+                className="m-1 border bg-slate-100" 
+                type="button">
+                  DOWNLOAD
+              </button>
+              <button 
+                className="m-1 border bg-slate-100" 
+                onClick={handlerControlModal} 
+                type="button">
+                  SAVE
+              </button>
             </div>
           </fieldset>
         </form>
@@ -103,15 +119,24 @@ export default function EditAndSavePage() {
             <label className="flex justify-between">
               FILE TYPE:
               {/* <input type="radio" checked={is_resume} value={is_resume} name="is_resume" onChange={handlerChange}></input> */}
-              <select name="is_resume" value={is_resume} onChange={handlerChange} >
-                <option value="true" >Resume</option>
-                <option value="false">Cover Letter</option>
+              <select 
+                name="is_resume" 
+                value={is_resume} 
+                onChange={handlerChange} >
+                  <option value="true" >Resume</option>
+                  <option value="false">Cover Letter</option>
               </select>
             </label>
             <br/>
             <label className="flex justify-between">
               FILE NAME:
-              <input type="text" name="content_name" value={content_name} onChange={handlerChange} className="border text-slate-600"/>
+              <input 
+                type="text" 
+                name="content_name" 
+                value={content_name} 
+                placeholder={content_name}
+                onChange={handlerChange} 
+                className="border text-slate-600"/>
             </label>
             <br/>
             {/* <label className="flex justify-between">
@@ -124,8 +149,16 @@ export default function EditAndSavePage() {
               <input type="radio" checked={isFinalDraft} onChange={handleIsFinalDraft}/>
             </label> */}
             <div className="justify-center m-1">
-              <button onClick={handlerCancel} className="bg-red-400 border">CANCEL</button>
-              <button onClick={handlerSaveContent} className="bg-green-400 border">SAVE</button>
+              <button 
+                onClick={handlerCancel} 
+                className="bg-red-400 border">
+                  CANCEL
+              </button>
+              <button 
+                onClick={handlerSaveContent} 
+                className="bg-green-400 border">
+                  SAVE
+              </button>
             </div>
           </div>
         </Modal>

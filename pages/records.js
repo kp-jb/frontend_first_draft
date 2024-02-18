@@ -70,10 +70,10 @@ export default function RecordsPage() {
   };
 
   function handlerEditRecord(item){
-    // console.log(item)
+    console.log(item)
 
     let info = { 
-      name: item.name,
+      content_name: item.name,
       content: item.content,
       owner: item.owner, 
       is_resume: item.is_resume,
