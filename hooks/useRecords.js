@@ -25,14 +25,27 @@ export default function useRecords() {
   };
 
   function createRecord(info) {
+    // console.log(info)
+    // if (!info.hasOwnProperty('name') || !info.hasOwnProperty('is_resume')) {
+    //   // Handle the case where 'name' or 'is_resume' is missing from the body
+    //   console.error("Missing 'name' or 'is_resume' in the request body");
+    //   return Promise.reject(new Error("Missing 'name' or 'is_resume' in the request body"));
+    // }
     let options = config(RecordsUrl);
     options.method = 'POST';
     options.body = JSON.stringify(info);
+    // console.log(options.body);
+
     return axios(options)
       .then(response => {
-        mutate()
-        return response})
-      .catch(error => updateError(["editandsave"],`Unable to create record: ${error.message}`)); 
+        mutate();
+        return response.status;
+      })
+      // .catch(error => updateError(["editandsave"],`Unable to create record: ${error.message}`)); 
+      .catch(error => {
+        updateError(["editandsave"],`Unable to create record: ${error.message}`);
+        return Promise.reject(error)
+      });
   }
 
   function deleteRecord(id) {
