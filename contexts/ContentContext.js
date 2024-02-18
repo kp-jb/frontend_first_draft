@@ -1,6 +1,5 @@
 import React from "react";
 
-import { defaultEditAndSave } from "@/public/data/data";
 import { useErrorContext } from "./ErrorContext";
 
 const ContentContext = React.createContext();
@@ -12,7 +11,7 @@ export function useContentContext() {
 export default function ContentProvider(props) {
   const {updateError} = useErrorContext();
   const [stateContent, setStateContent] = React.useState({
-    content: defaultEditAndSave,
+    content: "",
     is_resume: false,
     content_name: "",
   });
@@ -25,7 +24,7 @@ export default function ContentProvider(props) {
     };  
   };
 
-  console.log("ContentContext", stateContent);
+  // console.log("ContentContext", stateContent);
 
   return <ContentContext.Provider value={{...stateContent, updateContent}}>
             {props.children}
