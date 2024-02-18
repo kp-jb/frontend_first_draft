@@ -70,7 +70,6 @@ export default function RecordsPage() {
     handlerUpdateRecords(item);
     router.push({
       pathname:"/editandsave",
-      query:{data:encodeURIComponent(item)}
     });
   };
   
