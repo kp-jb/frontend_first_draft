@@ -27,8 +27,6 @@ export default function EditAndSavePage() {
     if (name === "is_resume") {
       value = value === "true"
     }
-    // console.log("handlerChange name", name)
-    // console.log("handlerChange value", value)
     updateContent(name, value);
   }
   
