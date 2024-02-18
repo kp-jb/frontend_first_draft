@@ -1,4 +1,4 @@
-import Modal from "react-modal";
+import Modal from "react-modal"
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -23,7 +23,12 @@ export default function EditAndSavePage() {
   let router = useRouter();
   
   const handlerChange = (event) => {
-    let {name, value} = event.target
+    let {name, value} = event.target;
+    if (name === "is_resume") {
+      value = value === "true"
+    }
+    // console.log("handlerChange name", name)
+    // console.log("handlerChange value", value)
     updateContent(name, value);
   }
   
@@ -45,17 +50,25 @@ export default function EditAndSavePage() {
    // validate is_resume, name, content, id and update locate error if invalid
     let id = userData.id;
     let info = { 
-      owner: id, 
       name: content_name, 
-      is_resume: is_resume,
+      owner: id, 
       content: content,
+      is_resume: is_resume
     };
+
     let response = await createRecord(info)
     console.log(response)
-    if ("error" in response && !response.error) {
-      router.push("/records");
-    }
   }
+//     if ("error" in response && !response.error) {
+//       router.push("/records");
+// } catch (error) {
+//   console.error("Error in handlerSaveContent:", error);
+// }
+    
+//     if ("error" in response && !response.error) {
+//       router.push("/records");
+    
+
 
   return (
       <div>
@@ -75,7 +88,7 @@ export default function EditAndSavePage() {
               />
             </div>
             <div className="m-1">
-              <button className="m-1 border bg-slate-100" onClick={() => handlerReset("content", defaultEditAndSave)} type="button">CLEAR</button>
+              <button className="m-1 border bg-slate-100" onClick={() => handlerReset("content", "")} type="button">CLEAR</button>
               <button className="m-1 border bg-slate-100" type="button">DOWNLOAD</button>
               <button className="m-1 border bg-slate-100" onClick={handlerControlModal} type="button">SAVE</button>
             </div>
@@ -88,12 +101,16 @@ export default function EditAndSavePage() {
           contentLabel="Save Modal"
           shouldCloseOnOverlayClick={false}
           className="fixed inset-0 flex items-center justify-center"
-          overlayClassName="fixed inset-0 bg-black opacity-0"
+          overlayClassName="fixed inset-0 bg-black opacity-50"
         >
           <div className="p-6 bg-white rounded-lg w-[600px] h-[300px] flex flex-col">
             <label className="flex justify-between">
               FILE TYPE:
-              <input type="radio" checked={is_resume} value={is_resume} name="is_resume" onChange={handlerChange}></input>
+              {/* <input type="radio" checked={is_resume} value={is_resume} name="is_resume" onChange={handlerChange}></input> */}
+              <select name="is_resume" value={is_resume} onChange={handlerChange} >
+                <option value="true" >Resume</option>
+                <option value="false">Cover Letter</option>
+              </select>
             </label>
             <br/>
             <label className="flex justify-between">
@@ -115,7 +132,6 @@ export default function EditAndSavePage() {
               <button onClick={handlerSaveContent} className="bg-green-400 border">SAVE</button>
             </div>
           </div>
-       
         </Modal>
       </div>
   );
