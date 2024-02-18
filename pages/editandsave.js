@@ -54,19 +54,16 @@ export default function EditAndSavePage() {
       is_resume: is_resume
     };
 
-    let response = await createRecord(info)
-    console.log(response)
+    try {
+      let response = await createRecord(info)
+      if (response === 201) {
+        // possibly add message to user confirming save was successful instead of reroute
+        router.push("/records");
+      } 
+    } catch (error) {
+      console.error("Error in handlerSaveContent:", error)
+    }
   }
-//     if ("error" in response && !response.error) {
-//       router.push("/records");
-// } catch (error) {
-//   console.error("Error in handlerSaveContent:", error);
-// }
-    
-//     if ("error" in response && !response.error) {
-//       router.push("/records");
-    
-
 
   return (
       <div>
