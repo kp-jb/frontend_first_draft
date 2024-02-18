@@ -31,8 +31,8 @@ export default function useRecords() {
     return axios(options)
       .then(response => {
         mutate()
-        return response.data})
-      .catch(error => updateError(["records","editandsave"],`Unable to create record: ${error.message}`)); 
+        return response})
+      .catch(error => updateError(["editandsave"],`Unable to create record: ${error.message}`)); 
   }
 
   function deleteRecord(id) {

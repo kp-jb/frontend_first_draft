@@ -41,3 +41,5 @@ export const defaultResumes = [
     "modified_date": "2024-02-16T04:12:55.405493Z"
   }
 ]
+
+export const defaultEditAndSave = "Paste resumes or cover letters here to be saved. Or review the cover letter generated from the query."
