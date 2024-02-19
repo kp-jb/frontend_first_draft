@@ -1,4 +1,4 @@
-import Modal from "react-modal";
+import Modal from "react-modal"
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -17,13 +17,18 @@ import useRecords from "@/hooks/useRecords";
 
 export default function EditAndSavePage() {
   let [ modalIsOpen, setModalIsOpen] = useState(false);
-  let { content_name, is_resume, content, updateContent } = useContentContext();
-  let { createRecord, updateRecord } = useRecords();
+  let { content_name, is_resume, content, id, updateContent} = useContentContext();
+  let { recordsData, createRecord, updateRecord } = useRecords();
   let { userData } = useAuthContext();
   let router = useRouter();
   
+  console.log("recordsData in editandsave", recordsData);
+
   const handlerChange = (event) => {
-    let {name, value} = event.target
+    let {name, value} = event.target;
+    if (name === "is_resume") {
+      value = value === "true"
+    }
     updateContent(name, value);
   }
   
@@ -43,17 +48,39 @@ export default function EditAndSavePage() {
 
   async function handlerSaveContent() {
    // validate is_resume, name, content, id and update locate error if invalid
-    let id = userData.id;
+   // need to check if new or existing record, if new send POST, new existing send PUT
+    let user_id = userData.id;
     let info = { 
-      owner: id, 
       name: content_name, 
-      is_resume: is_resume,
+      owner: user_id, 
       content: content,
+      is_resume: is_resume,
+      id: id
     };
-    let response = await createRecord(info)
-    console.log(response)
-    if ("error" in response && !response.error) {
-      router.push("/records");
+    
+    console.log(info.id)
+    
+    if (info.id) {
+      try {
+        let response = await updateRecord(info)
+        console.log("response.status in handlerSaveContent", response)
+        if (response === 200) {
+          // possibly add message to user confirming save was successful instead of reroute
+          router.push("/records");
+        } 
+      } catch (error) {
+        console.error("Error in handlerSaveContent:", error)
+      }
+    } else {
+        try {
+        let response = await createRecord(info)
+        if (response === 201) {
+          // possibly add message to user confirming save was successful instead of reroute
+          router.push("/records");
+        } 
+      } catch (error) {
+        console.error("Error in handlerSaveContent:", error)
+      }
     }
   }
 
@@ -75,9 +102,23 @@ export default function EditAndSavePage() {
               />
             </div>
             <div className="m-1">
-              <button className="m-1 border bg-slate-100" onClick={() => handlerReset("content", defaultEditAndSave)} type="button">CLEAR</button>
-              <button className="m-1 border bg-slate-100" type="button">DOWNLOAD</button>
-              <button className="m-1 border bg-slate-100" onClick={handlerControlModal} type="button">SAVE</button>
+              <button 
+                className="m-1 border bg-slate-100" 
+                onClick={() => handlerReset("content", "")} 
+                type="button">
+                  CLEAR
+              </button>
+              <button 
+                className="m-1 border bg-slate-100" 
+                type="button">
+                  DOWNLOAD
+              </button>
+              <button 
+                className="m-1 border bg-slate-100" 
+                onClick={handlerControlModal} 
+                type="button">
+                  SAVE
+              </button>
             </div>
           </fieldset>
         </form>
@@ -88,17 +129,30 @@ export default function EditAndSavePage() {
           contentLabel="Save Modal"
           shouldCloseOnOverlayClick={false}
           className="fixed inset-0 flex items-center justify-center"
-          overlayClassName="fixed inset-0 bg-black opacity-0"
+          overlayClassName="fixed inset-0 bg-black opacity-50"
         >
           <div className="p-6 bg-white rounded-lg w-[600px] h-[300px] flex flex-col">
             <label className="flex justify-between">
               FILE TYPE:
-              <input type="radio" checked={is_resume} value={is_resume} name="is_resume" onChange={handlerChange}></input>
+              {/* <input type="radio" checked={is_resume} value={is_resume} name="is_resume" onChange={handlerChange}></input> */}
+              <select 
+                name="is_resume" 
+                value={is_resume} 
+                onChange={handlerChange} >
+                  <option value="true" >Resume</option>
+                  <option value="false">Cover Letter</option>
+              </select>
             </label>
             <br/>
             <label className="flex justify-between">
               FILE NAME:
-              <input type="text" name="content_name" value={content_name} onChange={handlerChange} className="border text-slate-600"/>
+              <input 
+                type="text" 
+                name="content_name" 
+                value={content_name} 
+                placeholder={content_name}
+                onChange={handlerChange} 
+                className="border text-slate-600"/>
             </label>
             <br/>
             {/* <label className="flex justify-between">
@@ -111,11 +165,18 @@ export default function EditAndSavePage() {
               <input type="radio" checked={isFinalDraft} onChange={handleIsFinalDraft}/>
             </label> */}
             <div className="justify-center m-1">
-              <button onClick={handlerCancel} className="bg-red-400 border">CANCEL</button>
-              <button onClick={handlerSaveContent} className="bg-green-400 border">SAVE</button>
+              <button 
+                onClick={handlerCancel} 
+                className="bg-red-400 border">
+                  CANCEL
+              </button>
+              <button 
+                onClick={handlerSaveContent} 
+                className="bg-green-400 border">
+                  SAVE
+              </button>
             </div>
           </div>
-       
         </Modal>
       </div>
   );

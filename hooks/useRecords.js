@@ -4,12 +4,16 @@ import useSWR from 'swr';
 export const RecordsUrl = process.env.NEXT_PUBLIC_API_URL + "api/v1/records/";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useErrorContext } from "@/contexts/ErrorContext";
+import { useContentContext } from "@/contexts/ContentContext";
 // import { isTokenValid } from "@/hooks/useTokenExpired";
 
 export default function useRecords() {
   const { tokens } = useAuthContext();
   const { errorMessage, updateError } = useErrorContext();
   const { data, error, mutate } = useSWR([RecordsUrl, tokens], getRecords);
+  const { id } = useContentContext();
+  
+  let recordId = id;
 
   function getRecords(url) {
     // TODO: handle token refresh here
@@ -27,17 +31,28 @@ export default function useRecords() {
   function createRecord(info) {
     let options = config(RecordsUrl);
     options.method = 'POST';
-    options.body = JSON.stringify(info);
+    options.data = JSON.stringify(info);
+
     return axios(options)
       .then(response => {
-        mutate()
-        return response})
-      .catch(error => updateError(["editandsave"],`Unable to create record: ${error.message}`)); 
+        mutate();
+        return response.status;
+      })
+      .catch(error => {
+        updateError(["editandsave"],`Unable to create record: ${error.message}`);
+        return Promise.reject(error)
+      });
   }
 
   function deleteRecord(id) {
     let options = config(RecordsUrl+id+"/");
     options.method = 'DELETE';
+
+    // check id and remove from ContentContext
+    if (id === recordId) {
+      updateContent(id, null)
+    }
+    
     return axios(options)
       .then(response => {
         mutate()
@@ -46,13 +61,14 @@ export default function useRecords() {
   }
 
   function updateRecord(resource) {
-    let options = config(RecordUrl+resource.id+"/");
+    let options = config(RecordsUrl+resource.id+"/");
     options.method = 'PUT';
-    options.body = JSON.stringify(resource);
+    options.data = JSON.stringify(resource);
+    console.log(options.data)
     return axios(options)
       .then(response => {
         mutate()
-        return response.data})
+        return response.status})
       .catch(error => updateError(["records","editandsave"],`Unable to update record: ${error.message}`)); 
   }
 

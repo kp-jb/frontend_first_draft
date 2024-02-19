@@ -1,6 +1,7 @@
 import React from "react";
 import {useRouter} from "next/router";
 
+import { useContentContext } from "@/contexts/ContentContext";
 import useRecords from "@/hooks/useRecords";
 import {defaultResumes} from "@/public/data/data.js";
 
@@ -14,6 +15,8 @@ export default function RecordsPage() {
   let [ stateRecordsPage, setStateRecordsPage] = React.useState({
     selectedRecord:null
   });
+
+  let { content_name, is_resume, content, updateContent } = useContentContext();
 
   function handlerUpdateRecords(item){
     if (stateRecordsPage.selectedRecord===item){
@@ -67,11 +70,25 @@ export default function RecordsPage() {
   };
 
   function handlerEditRecord(item){
+    // console.log(item)
+
+    let info = { 
+      content_name: item.name,
+      content: item.content,
+      owner: item.owner, 
+      is_resume: item.is_resume,
+      id: item.id
+    };
+
+    Object.entries(info).map(([key, value]) => {
+      updateContent(key, value);
+    });
+
     handlerUpdateRecords(item);
     router.push({
-      pathname:"/editandsave",
-      query:{data:encodeURIComponent(item)}
+      pathname:"/editandsave"
     });
+    
   };
   
   // console.log("Records Page: ", recordsData);
@@ -105,11 +122,15 @@ export default function RecordsPage() {
             <div>
               <button
                 onClick={()=>handlerDeleteRecord(stateRecordsPage.selectedRecord)}
-              >DELETE</button>
-              <br></br>
+              >
+                DELETE
+              </button>
+              <br/>
               <button
                 onClick={()=>handlerEditRecord(stateRecordsPage.selectedRecord)}
-                >EDIT</button>
+              >
+                EDIT
+              </button>
             </div>
             }
           </div>
