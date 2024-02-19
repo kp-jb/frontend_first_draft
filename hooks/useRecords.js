@@ -64,7 +64,7 @@ export default function useRecords() {
     let options = config(RecordsUrl+resource.id+"/");
     options.method = 'PUT';
     options.data = JSON.stringify(resource);
-    console.log(options.data)
+    // console.log(options.data)
     return axios(options)
       .then(response => {
         mutate()

@@ -3,8 +3,12 @@ import { useAuthContext } from "@/contexts/AuthContext";
 
 
 export default function LoginPage() {
+  // unpack useAuthContext to manage login
   let { userData, loginFunction, registerFunction } = useAuthContext();
 
+  // set state for login page
+  const [stateLoggingIn, setStateLoggingIn] = React.useState(true);
+  // update user login info on login if stored in local storage
   const [stateLoginPage, setStateLoginPage] = React.useState(() => {
     let storedData = null
     if (typeof window !== 'undefined') {
@@ -13,20 +17,13 @@ export default function LoginPage() {
     return storedData ? JSON.parse(storedData) : { first_name: '', last_name: '', email: '' };
   }
   );
-  const [stateLoggingIn, setStateLoggingIn] = React.useState(true);
 
-  React.useEffect(() => {
-    const storedData = localStorage.getItem('stateLoginPage');
-    if (storedData) {
-      setStateLoginPage(JSON.parse(storedData));
-    };
-  }, []);
-
-
+  // change state between login and registration
   function handlerLoginOrRegistration() {
     setStateLoggingIn((prevState) => !prevState);
   };
 
+  // update user info and save to local storage as needed
   function handlerOnChange(event) {
     const { name, value } = event.target;
     setStateLoginPage((prevData) => {
@@ -35,6 +32,7 @@ export default function LoginPage() {
       return newState});
   };
 
+  // login user
   function handlerOnLogin(event) {
     event.preventDefault();
     let email = event.target.email.value;
@@ -47,6 +45,7 @@ export default function LoginPage() {
     };
   };
 
+  // user registration
   function handlerOnRegistration(event) {
     event.preventDefault();
     let first_name = event.target.first_name.value;
@@ -57,7 +56,7 @@ export default function LoginPage() {
     // console.log("Login Page:",first_name, last_name, email, registerPassword, confirmPassword);
 
     if (registerPassword !== confirmPassword){
-      //TODO: raise proper error
+      //TODO: raise local error
       // console.log("Login Page: passwords must match.")
 
     } else {
@@ -71,99 +70,99 @@ export default function LoginPage() {
     <>
       {stateLoggingIn?
 
-      <form onSubmit={handlerOnLogin}>
-        <h2>LOGIN FORM:</h2>
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            required
-            value={stateLoginPage.email}
-            onChange={handlerOnChange}
-          />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input
-            required
-            type="password"
-            name="loginPassword"
-          />
-        </label>
-        <br />
-        <button 
-          type="button"
-          onClick={handlerLoginOrRegistration}>
-            Register Instead</button>
-        <button 
-          type="submit">
-            Login</button>
-      </form>
-
-      :<form onSubmit={handlerOnRegistration}>
-        <h2>REGISTRATION FORM:</h2>
-        <label>
-          First Name:
-          <input
-            required
-            type="text"
-            name="first_name"
-            value={stateLoginPage.first_name}
-            onChange={handlerOnChange}
-          />
-        </label>
-        <br />
-        <label>
-          Last Name:
-          <input
-            required
-            type="text"
-            name="last_name"
-            value={stateLoginPage.last_name}
-            onChange={handlerOnChange}
-          />
-        </label>
-        <br />
-        <label>
-          Email:
-          <input
-            required
-            type="email"
-            name="email"
-            value={stateLoginPage.email}
-            onChange={handlerOnChange}
-          />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input
-            required
-            type="password"
-            name="registerPassword"
-          />
-        </label>
-        <br />
-        <label>
-          Confirm Password:
-          <input
-            required
-            type="password"
-            name="confirmPassword"
-          />
-        </label>
-        <br />
-        <button 
-          type="button"
-          onClick={handlerLoginOrRegistration}>
-            Login Instead</button>
-        <button 
-          type="submit">
-            Register</button>
-      </form>
-      }
+        <form onSubmit={handlerOnLogin}>
+          <h2>LOGIN FORM:</h2>
+          <label>
+            Email:
+            <input
+              type="email"
+              name="email"
+              required
+              value={stateLoginPage.email}
+              onChange={handlerOnChange}
+            />
+          </label>
+          <br />
+          <label>
+            Password:
+            <input
+              required
+              type="password"
+              name="loginPassword"
+            />
+          </label>
+          <br />
+          <button 
+            type="button"
+            onClick={handlerLoginOrRegistration}>
+              Register Instead</button>
+          <button 
+            type="submit">
+              Login</button>
+        </form>
+  
+        :<form onSubmit={handlerOnRegistration}>
+          <h2>REGISTRATION FORM:</h2>
+          <label>
+            First Name:
+            <input
+              required
+              type="text"
+              name="first_name"
+              value={stateLoginPage.first_name}
+              onChange={handlerOnChange}
+            />
+          </label>
+          <br />
+          <label>
+            Last Name:
+            <input
+              required
+              type="text"
+              name="last_name"
+              value={stateLoginPage.last_name}
+              onChange={handlerOnChange}
+            />
+          </label>
+          <br />
+          <label>
+            Email:
+            <input
+              required
+              type="email"
+              name="email"
+              value={stateLoginPage.email}
+              onChange={handlerOnChange}
+            />
+          </label>
+          <br />
+          <label>
+            Password:
+            <input
+              required
+              type="password"
+              name="registerPassword"
+            />
+          </label>
+          <br />
+          <label>
+            Confirm Password:
+            <input
+              required
+              type="password"
+              name="confirmPassword"
+            />
+          </label>
+          <br />
+          <button 
+            type="button"
+            onClick={handlerLoginOrRegistration}>
+              Login Instead</button>
+          <button 
+            type="submit">
+              Register</button>
+        </form>
+        }
     </>
   );
 }
