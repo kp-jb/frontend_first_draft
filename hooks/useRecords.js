@@ -4,12 +4,16 @@ import useSWR from 'swr';
 export const RecordsUrl = process.env.NEXT_PUBLIC_API_URL + "api/v1/records/";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useErrorContext } from "@/contexts/ErrorContext";
+import { useContentContext } from "@/contexts/ContentContext";
 // import { isTokenValid } from "@/hooks/useTokenExpired";
 
 export default function useRecords() {
   const { tokens } = useAuthContext();
   const { errorMessage, updateError } = useErrorContext();
   const { data, error, mutate } = useSWR([RecordsUrl, tokens], getRecords);
+  const { id } = useContentContext();
+  
+  let recordId = id;
 
   function getRecords(url) {
     // TODO: handle token refresh here
@@ -43,6 +47,12 @@ export default function useRecords() {
   function deleteRecord(id) {
     let options = config(RecordsUrl+id+"/");
     options.method = 'DELETE';
+
+    // check id and remove from ContentContext
+    if (id === recordId) {
+      updateContent(id, null)
+    }
+    
     return axios(options)
       .then(response => {
         mutate()

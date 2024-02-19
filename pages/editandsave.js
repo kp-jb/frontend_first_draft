@@ -58,7 +58,7 @@ export default function EditAndSavePage() {
       id: id
     };
     
-    // console.log(info.id)
+    console.log(info.id)
     
     if (info.id) {
       try {
