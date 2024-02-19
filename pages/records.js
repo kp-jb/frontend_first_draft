@@ -3,21 +3,24 @@ import {useRouter} from "next/router";
 
 import { useContentContext } from "@/contexts/ContentContext";
 import useRecords from "@/hooks/useRecords";
-import {defaultResumes} from "@/public/data/data.js";
+// import {defaultResumes} from "@/public/data/data.js";
 
 export default function RecordsPage() {
-  let { recordsData , deleteRecord } = useRecords();
-  let router = useRouter();
-
-  let resumesData = recordsData.filter(item => item.is_resume);
-  let coverLettersData = recordsData.filter(item => !item.is_resume);
-
+  // state for selected record
   let [ stateRecordsPage, setStateRecordsPage] = React.useState({
     selectedRecord:null
   });
-
+  // get request for all records
+  // separate into resumes and cover letters
+  let { recordsData , deleteRecord } = useRecords();
+  let resumesData = recordsData.filter(item => item.is_resume);
+  let coverLettersData = recordsData.filter(item => !item.is_resume);
+  // access contentContext
   let { content_name, is_resume, content, updateContent } = useContentContext();
+  let router = useRouter();
 
+  // will remove item from local state if exists already
+  // otherwise will add to local state
   function handlerUpdateRecords(item){
     if (stateRecordsPage.selectedRecord===item){
       setStateRecordsPage(prevState => ({...prevState, selectedRecord:null}))
@@ -26,6 +29,7 @@ export default function RecordsPage() {
     };
   };
 
+  // generate the rows for resumes
   let resumeRows = resumesData.map((item, idx) => {
     let createdDate = new Date(item.created_date);
     let modifiedDate = new Date(item.modified_date);
@@ -45,6 +49,7 @@ export default function RecordsPage() {
     );
   });
 
+  // generate the rows for cover letters
   let coverLettersRows = coverLettersData.map((item, idx) => {
     let createdDate = new Date(item.created_date);
     let modifiedDate = new Date(item.modified_date);
@@ -64,14 +69,15 @@ export default function RecordsPage() {
     );
   });
 
+  // delete records from database and local state
   function handlerDeleteRecord(item){
     deleteRecord(item.id);
     handlerUpdateRecords(item);
   };
 
+  // enable user to 
   function handlerEditRecord(item){
-    // console.log(item)
-
+    // move record data to contentContext
     let info = { 
       content_name: item.name,
       content: item.content,
@@ -79,12 +85,12 @@ export default function RecordsPage() {
       is_resume: item.is_resume,
       id: item.id
     };
-
     Object.entries(info).map(([key, value]) => {
       updateContent(key, value);
     });
-
+    // remove record from local state
     handlerUpdateRecords(item);
+    // move user to editandsave page
     router.push({
       pathname:"/editandsave"
     });
