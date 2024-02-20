@@ -2,25 +2,35 @@ import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/router";
 
+import useChatGPT from "@/hooks/useChatGPT";
 import ErrorModal from "@/components/ErrorModal";
 import NoRecords from "@/components/NoRecords";
 import useRecords from "@/hooks/useRecords";
 import { useErrorContext } from "@/contexts/ErrorContext";
 import { usePromptContext } from "@/contexts/PromptContext";
 
+
 export default function CoverLetterPage() {
   // unpack all user records
   let { recordsData } = useRecords();
-  // unpack prompt context
-  let { coverLetter, updatePrompt } = usePromptContext();
+  let { coverLetter, updatePrompt, formatPrompt } = usePromptContext();
   // unpack error context
   let { errorPages, errorMessage, updateError } = useErrorContext();
+  let { getChatGPT } = useChatGPT();
   let router = useRouter();
 
-  // on select update cover letter in prompt context
+  async function handlerSubmit() {
+    let formattedPrompt = await formatPrompt();
+    let responseData = await getChatGPT(formattedPrompt);
+    console.log(responseData);
+    console.log(responseData.success);
+    console.log(responseData.generated_text);
+  };
+
   function handlerUpdateCoverLetter(item) {
     updatePrompt("coverLetter", item);
   };
+
   // filter down to only cover letters
   let coverLettersData = recordsData.filter((item) => !item.is_resume);
   // make cover letter row components
@@ -88,7 +98,9 @@ export default function CoverLetterPage() {
           )}
           <br></br>
           {/* TODO: add submit function */}
-          <button type="button">
+          <button 
+          type="button"
+          onClick={handlerSubmit}>
             Submit
           </button>
         </div>
