@@ -1,15 +1,26 @@
 import React from "react";
 import { useRouter } from "next/router";
 
+import useChatGPT from "@/hooks/useChatGPT";
 import useRecords from "@/hooks/useRecords";
 import { usePromptContext } from "@/contexts/PromptContext";
 
+
 export default function CoverLetterPage() {
   let { recordsData } = useRecords();
-  let { coverLetter, updatePrompt } = usePromptContext();
+  let { coverLetter, updatePrompt, formatPrompt } = usePromptContext();
+  let { getChatGPT } = useChatGPT();
   let router = useRouter();
 
   let coverLettersData = recordsData.filter((item) => !item.is_resume);
+
+  async function handlerSubmit() {
+    let formattedPrompt = await formatPrompt();
+    let responseData = await getChatGPT(formattedPrompt);
+    console.log(responseData);
+    console.log(responseData.success);
+    console.log(responseData.generated_text);
+  }
 
   function handlerUpdateCoverLetter(item) {
     updatePrompt("coverLetter", item);
@@ -78,7 +89,9 @@ export default function CoverLetterPage() {
           )}
           <br></br>
           {/* TODO: add submit function */}
-          <button type="button">
+          <button 
+          type="button"
+          onClick={handlerSubmit}>
             Submit
           </button>
         </div>

@@ -10,7 +10,9 @@ export default function ResumePage() {
   let router = useRouter();
 
   let resumesData = recordsData.filter((item) => item.is_resume);
-
+  
+  // console.log(resumesData)
+  
   function handlerUpdateResume(item) {
     updatePrompt("resume", item);
   }
