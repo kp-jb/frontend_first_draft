@@ -23,12 +23,6 @@ export default function AuthProvider(props) {
   const { updateError } = useErrorContext();
   const [stateAuth, setStateAuth] = React.useState({
     userData: null,
-    // userData: {
-    //   first_name:"john",
-    //   last_name:"doe",
-    //   email:"email",
-    //   id:2
-    // },
     tokens:null,
     loginFunction: loginFunction,
     logoutFunction: logoutFunction,
@@ -65,7 +59,9 @@ export default function AuthProvider(props) {
         })
         .then(newState => setStateAuth(prevState => ({ ...prevState, ...newState })))
         .then(last => router.push("/records"))
-        .catch(error => updateError(["login"],`Failure to login: ${error.message}`));
+        .catch(error => {
+          // console.log("AuthContext:",error);
+          updateError(["login"],`Failure to login:\n\nEmail or password is incorrect.`);});
     };
     
 
@@ -99,7 +95,7 @@ export default function AuthProvider(props) {
         } else {
           updateError(["login"],`Failure to login:`)
         }})
-      .catch(error => updateError(["login"],`Failure to register: ${error.message}`));   
+      .catch(error => updateError(["login"],`Failure to register:\n\nEmail is already registered.`));   
   };
 
 

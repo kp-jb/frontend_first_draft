@@ -1,25 +1,37 @@
 import { useRouter } from "next/router";
 
-
+import ErrorModal from "@/components/ErrorModal";
+import { useErrorContext } from "@/contexts/ErrorContext";
 import {usePromptContext} from "@/contexts/PromptContext";
 
+
 export default function DescriptionPage() {
+  // unpack prompt context
   let {description, updatePrompt} = usePromptContext();
+  // unpack error context
+  let { errorPages, errorMessage, updateError } = useErrorContext();
   let router = useRouter();
 
+  // update prompt context
   function handlerOnChange(event) {
     const { value } = event.target;
     updatePrompt("description",value)
   };
 
-  const handlerResetClick = () => {
+  // reset prompt context
+  const handlerReset = () => {
     updatePrompt("description", "");
   };
 
   
   // console.log("Description Page",description);
   return (
-    <>
+    <div>
+      <ErrorModal 
+        isOpen={Array.isArray(errorPages) && errorPages.includes("description")} 
+        updateError={updateError}
+        errorMessage={errorMessage}
+        />
       <form>
         <h2>Job Description:</h2>
         <label>
@@ -27,7 +39,7 @@ export default function DescriptionPage() {
           <input
             type="text"
             name="description"
-            value={description}
+            value={description || ""}
             onChange={handlerOnChange}
           />
         </label>
@@ -40,7 +52,7 @@ export default function DescriptionPage() {
         <br />
         <button 
           type="button"
-          onClick={handlerResetClick}
+          onClick={handlerReset}
           >
             Reset</button>
         <br></br>
@@ -50,6 +62,6 @@ export default function DescriptionPage() {
           >
             Next</button>
       </form>
-  </>
+  </div>
   );
 };

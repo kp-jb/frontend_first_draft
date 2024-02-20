@@ -21,7 +21,7 @@ export default function ContentProvider(props) {
     try{
       setStateContent((prevState) => ({...prevState, [type]: newState}));      
     } catch(error){
-      updateError(["editandsave"],`Failure to update content: ${error.message}`);
+      updateError(["editandsave"],`Failure to update content:\n\n${error.message}`);
     };  
   };
 

@@ -3,8 +3,10 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 import { defaultEditAndSave } from "@/public/data/data";
+import ErrorModal from "@/components/ErrorModal";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useContentContext } from "@/contexts/ContentContext";
+import { useErrorContext } from "@/contexts/ErrorContext";
 import useRecords from "@/hooks/useRecords";
 
 export default function EditAndSavePage() {
@@ -17,6 +19,8 @@ export default function EditAndSavePage() {
   let { recordsData, createRecord, updateRecord } = useRecords();
   // unpack auth context, user login
   let { userData } = useAuthContext();
+  // unpack error context
+  let { errorPages, errorMessage, updateError } = useErrorContext();
   let router = useRouter();
 
   // control modal state
@@ -48,24 +52,29 @@ export default function EditAndSavePage() {
   // test if form input is valid to process with save
   // output false and raise local error otherwise
   function inputIsInvalid(content_name, content, is_resume) {
-    if (content_name === "" || typeof content_name !== "string") {
+    const forbiddenCharacters = /[!@#\$%\^&*\(\)\+={}\[\];:'\,<>/\\|]/;
+    if (typeof content_name !== "string" || content_name.trim() === "" || content_name.length > 50 || forbiddenCharacters.test(content_name)) {
+      updateError(["editandsave"],"Invalid file name:\nCannot be empty.\nMust be less than 50 characters.\nCannot contain these characters: ! @ # $ % ^ & * ( ) + = { } [ ] ; : ' , < > / ? \ |.");
       return true;
-    }
-    if (content === "" || typeof content_name !== "string") {
+    };
+    if (typeof content_name !== "string" || content === "") {
+      updateError(["editandsave"],"Invalid file contents:\t Cannot be empty.");
       return true;
-    }
+    };
     if (typeof is_resume !== "boolean") {
+      updateError(["editandsave"],"Invalid file contents:\tFile type must be specified.");
       return true;
-    }
+    };
   }
 
   // save new records
   // or update old records
-  async function handlerSaveContent() {
+  function handlerSaveContent() {
+    handlerControlModal()
     // raise errors and stop function if input is invalid
     if (inputIsInvalid(content_name, content, is_resume)) {
       return;
-    }
+    };
 
     let info = {
       name: content_name,
@@ -77,35 +86,20 @@ export default function EditAndSavePage() {
 
     // if record has id
     if (info.id) {
-      // update record
-      try {
-        let response = await updateRecord(info);
-        // console.log("response.status in handlerSaveContent", response)
-        if (response === 200) {
-          // possibly add message to user confirming save was successful instead of reroute
-          router.push("/records");
-        }
-      } catch (error) {
-        // TODO: handler error locally
-        // console.error("Error in handlerSaveContent:", error)
-      }
+      updateRecord(info);
     } else {
-      // else create new record
-      try {
-        let response = await createRecord(info);
-        if (response === 201) {
-          // TODO: add message to user confirming save was successful instead of reroute
-          router.push("/records");
-        }
-      } catch (error) {
-        // TODO: handler error locally
-        // console.error("Error in handlerSaveContent:", error)
-      }
+      createRecord(info);
     }
-  }
+  };
+
   // console.log("Editandsave Page", recordsData);
   return (
     <div>
+      <ErrorModal 
+        isOpen={Array.isArray(errorPages) && errorPages.includes("editandsave")} 
+        updateError={updateError}
+        errorMessage={errorMessage}
+        />
       <form>
         <fieldset>
           <div className="flex flex-col w-96">
@@ -117,7 +111,7 @@ export default function EditAndSavePage() {
               rows={20}
               cols={40}
               className="border"
-              value={content}
+              value={content || ""}
               onChange={handlerChange}
             />
           </div>
@@ -157,7 +151,7 @@ export default function EditAndSavePage() {
           <label className="flex justify-between">
             FILE TYPE:
             {/* <input type="radio" checked={is_resume} value={is_resume} name="is_resume" onChange={handlerChange}></input> */}
-            <select name="is_resume" value={is_resume} onChange={handlerChange}>
+            <select name="is_resume" value={is_resume || "false"} onChange={handlerChange}>
               <option value="true">Resume</option>
               <option value="false">Cover Letter</option>
             </select>
@@ -168,7 +162,7 @@ export default function EditAndSavePage() {
             <input
               type="text"
               name="content_name"
-              value={content_name}
+              value={content_name || ""}
               placeholder={content_name}
               onChange={handlerChange}
               className="border text-slate-600"

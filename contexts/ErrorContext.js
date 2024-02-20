@@ -9,12 +9,12 @@ export function useErrorContext() {
 
 export default function ErrorProvider(props) {
   const [stateError, setStateError] = React.useState({
-    pages:[],
+    errorPages:[],
     errorMessage:null
   })
 
-  function updateError(newPages=[], newErrorMessage=null){
-    setStateError(prevState => ({...prevState, pages:newPages, errorMessage:newErrorMessage}));
+  function updateError(newErrorPages=[], newErrorMessage=null){
+    setStateError(prevState => ({...prevState, errorPages:newErrorPages, errorMessage:newErrorMessage}));
   };
 
   // console.log("ErrorContext",stateError.errorMessage);
