@@ -20,5 +20,5 @@ export default function useChatGPT(prompt) {
   return axios(options)
     .then(response => {
       return response.data})
-    .catch(error => updateError(["coverletter"],`Failed request: ${error.message}`));
+    .catch(error => updateError(["coverletter"],`Failed request:\n\n${error.message}`));
 };

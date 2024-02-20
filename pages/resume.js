@@ -1,20 +1,30 @@
 import React from "react";
 import { useRouter } from "next/router";
 
+import ErrorModal from "@/components/ErrorModal";
+import NoRecords from "@/components/NoRecords";
 import useRecords from "@/hooks/useRecords";
+import { useErrorContext } from "@/contexts/ErrorContext";
 import { usePromptContext } from "@/contexts/PromptContext";
 
 export default function ResumePage() {
+  // unpack user records
   let { recordsData } = useRecords();
+  // unpack prompt context
   let { resume, updatePrompt } = usePromptContext();
+  // unpack error context
+  let { errorPages, errorMessage, updateError } = useErrorContext();
   let router = useRouter();
 
-  let resumesData = recordsData.filter((item) => item.is_resume);
-
+  // on select, update resume in prompt context
   function handlerUpdateResume(item) {
     updatePrompt("resume", item);
-  }
+  };
 
+  // filter down to resumes
+  let resumesData = recordsData.filter((item) => item.is_resume);
+
+  // make row components from resumes
   let resumeRows = resumesData.map((item, idx) => {
     let createdDate = new Date(item.created_date);
     let modifiedDate = new Date(item.modified_date);
@@ -39,32 +49,33 @@ export default function ResumePage() {
 
   // console.log("Resume Page: ", recordsData);
   return (
-    <>
       <div>
+        <ErrorModal 
+          isOpen={Array.isArray(errorPages) && errorPages.includes("resume")} 
+          updateError={updateError}
+          errorMessage={errorMessage}
+          />
         <div>
-          <h2>Resumes:</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Select</th>
-                <th>Name</th>
-                <th>Created</th>
-                <th>Modified</th>
-              </tr>
-            </thead>
-            <tbody>
-              {resumesData.length === 0 ? (
-                <tr>
-                  <td></td>
-                  <td>no resumes on record</td>
-                  <td></td>
-                  <td></td>
-                </tr>
+          {resumesData.length === 0 ? (
+              <NoRecords title="No Resumes:" message="Follow the link to create new resumes."/>
               ) : (
-                resumeRows
+              <>
+                <h2>Resumes:</h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Select</th>
+                      <th>Name</th>
+                      <th>Created</th>
+                      <th>Modified</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      {resumeRows}
+                  </tbody>
+                </table>
+              </>
               )}
-            </tbody>
-          </table>
           <button type="button" onClick={() => router.push("/description")}>
             Previous
           </button>
@@ -81,6 +92,6 @@ export default function ResumePage() {
           </button>
         </div>
       </div>
-    </>
+  
   );
 };

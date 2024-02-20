@@ -1,5 +1,8 @@
 import React from "react";
+
+import ErrorModal from "@/components/ErrorModal";
 import { useAuthContext } from "@/contexts/AuthContext";
+import { useErrorContext } from "@/contexts/ErrorContext";
 
 
 export default function LoginPage() {
@@ -17,6 +20,9 @@ export default function LoginPage() {
     return storedData ? JSON.parse(storedData) : { first_name: '', last_name: '', email: '' };
   }
   );
+
+  // unpack error context
+  let { errorPages, errorMessage, updateError } = useErrorContext();
 
   // change state between login and registration
   function handlerLoginOrRegistration() {
@@ -40,8 +46,7 @@ export default function LoginPage() {
     if (email && password){
       loginFunction(email,password)
     } else {
-      //TODO: raise proper error
-      // console.log("Login Page: failed to login", email, password);
+      updateError(["login"],"Failure to login:\n\nMust provide a email address and password.");
     };
   };
 
@@ -56,18 +61,20 @@ export default function LoginPage() {
     // console.log("Login Page:",first_name, last_name, email, registerPassword, confirmPassword);
 
     if (registerPassword !== confirmPassword){
-      //TODO: raise local error
-      // console.log("Login Page: passwords must match.")
-
+      updateError(["login"],"Failure to register:\n\nPasswords must match.");
     } else {
       registerFunction(first_name, last_name, email, registerPassword);
-      // console.log("Login Page: attempted registration.")
     };
   };
 
   // console.log("Login Page:", userData);
   return (
     <>
+      <ErrorModal 
+        isOpen={Array.isArray(errorPages) && errorPages.includes("login")} 
+        updateError={updateError}
+        errorMessage={errorMessage}
+        />
       {stateLoggingIn?
 
         <form onSubmit={handlerOnLogin}>
