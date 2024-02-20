@@ -39,7 +39,7 @@ export default function DescriptionPage() {
           <input
             type="text"
             name="description"
-            value={description}
+            value={description || ""}
             onChange={handlerOnChange}
           />
         </label>

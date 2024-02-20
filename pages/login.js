@@ -69,7 +69,7 @@ export default function LoginPage() {
 
   // console.log("Login Page:", userData);
   return (
-    <>
+    <div>
       <ErrorModal 
         isOpen={Array.isArray(errorPages) && errorPages.includes("login")} 
         updateError={updateError}
@@ -85,7 +85,7 @@ export default function LoginPage() {
               type="email"
               name="email"
               required
-              value={stateLoginPage.email}
+              value={stateLoginPage.email || ""}
               onChange={handlerOnChange}
             />
           </label>
@@ -116,7 +116,7 @@ export default function LoginPage() {
               required
               type="text"
               name="first_name"
-              value={stateLoginPage.first_name}
+              value={stateLoginPage.first_name || ""}
               onChange={handlerOnChange}
             />
           </label>
@@ -127,7 +127,7 @@ export default function LoginPage() {
               required
               type="text"
               name="last_name"
-              value={stateLoginPage.last_name}
+              value={stateLoginPage.last_name || ""}
               onChange={handlerOnChange}
             />
           </label>
@@ -138,7 +138,7 @@ export default function LoginPage() {
               required
               type="email"
               name="email"
-              value={stateLoginPage.email}
+              value={stateLoginPage.email || ""}
               onChange={handlerOnChange}
             />
           </label>
@@ -170,6 +170,6 @@ export default function LoginPage() {
               Register</button>
         </form>
         }
-    </>
+    </div>
   );
 }

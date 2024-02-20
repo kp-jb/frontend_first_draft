@@ -111,7 +111,7 @@ export default function EditAndSavePage() {
               rows={20}
               cols={40}
               className="border"
-              value={content}
+              value={content || ""}
               onChange={handlerChange}
             />
           </div>
@@ -151,7 +151,7 @@ export default function EditAndSavePage() {
           <label className="flex justify-between">
             FILE TYPE:
             {/* <input type="radio" checked={is_resume} value={is_resume} name="is_resume" onChange={handlerChange}></input> */}
-            <select name="is_resume" value={is_resume} onChange={handlerChange}>
+            <select name="is_resume" value={is_resume || "false"} onChange={handlerChange}>
               <option value="true">Resume</option>
               <option value="false">Cover Letter</option>
             </select>
@@ -162,7 +162,7 @@ export default function EditAndSavePage() {
             <input
               type="text"
               name="content_name"
-              value={content_name}
+              value={content_name || ""}
               placeholder={content_name}
               onChange={handlerChange}
               className="border text-slate-600"

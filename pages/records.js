@@ -24,6 +24,7 @@ export default function RecordsPage() {
   let { errorPages, errorMessage, updateError } = useErrorContext();
   let router = useRouter();
 
+
   // will remove item from local state if exists already
   // otherwise will add to local state
   function handlerUpdateRecords(item) {
@@ -121,7 +122,7 @@ export default function RecordsPage() {
 
   // console.log("Records Page: ", recordsData);
   return (
-    <>
+    <div>
       <ErrorModal
         isOpen={Array.isArray(errorPages) && errorPages.includes("records")}
         updateError={updateError}
@@ -216,6 +217,6 @@ export default function RecordsPage() {
             )}
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -41,7 +41,7 @@ export default function QueryPage() {
           <input
             type="text"
             name="query"
-            value={query}
+            value={query || ""}
             onChange={handlerOnChange}
           />
         </label>
