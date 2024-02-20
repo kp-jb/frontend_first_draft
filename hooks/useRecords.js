@@ -1,19 +1,19 @@
 import axios from "axios";
 import useSWR from 'swr';
+import {useRouter} from "next/router";
 
 export const RecordsUrl = process.env.NEXT_PUBLIC_API_URL + "api/v1/records/";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useErrorContext } from "@/contexts/ErrorContext";
 import { useContentContext } from "@/contexts/ContentContext";
-// import { isTokenValid } from "@/hooks/useTokenExpired";
 
 export default function useRecords() {
   const { tokens } = useAuthContext();
   const { errorMessage, updateError } = useErrorContext();
   const { data, error, mutate } = useSWR([RecordsUrl, tokens], getRecords);
-  const { id } = useContentContext();
+  const { updateContent } = useContentContext();
+  const router = useRouter();
   
-  let recordId = id;
 
   function getRecords(url) {
     // TODO: handle token refresh here
@@ -25,7 +25,7 @@ export default function useRecords() {
     return axios(options)
       .then(response => {
         return response.data})
-      .catch(error => updateError(["records","editandsave"],`Unable to fetch user records: ${error.message}`));
+      .catch(error => updateError(["records","editandsave"],`Unable to fetch user records:\n\n${error.message}`));
   };
 
   function createRecord(info) {
@@ -36,40 +36,56 @@ export default function useRecords() {
     return axios(options)
       .then(response => {
         mutate();
-        return response.status;
-      })
+        if (response.status==201){
+          updateContent("id", null);
+          updateContent("content_name", "");
+          updateContent("content","");
+          router.push("/records");
+        } else {
+          throw new Error(`Response status ${response.status}.`);
+        }; 
+        return})
       .catch(error => {
-        updateError(["editandsave"],`Unable to create record: ${error.message}`);
-        return Promise.reject(error)
+        updateError(["records","editandsave"],`Unable to create record:\n\n${error.message}`);
       });
   }
 
   function deleteRecord(id) {
     let options = config(RecordsUrl+id+"/");
     options.method = 'DELETE';
-
-    // check id and remove from ContentContext
-    if (id === recordId) {
-      updateContent(id, null)
-    }
     
     return axios(options)
       .then(response => {
         mutate()
-        return response.data})
-      .catch(error => updateError(["records","editandsave"],`Unable to delete record: ${error.message}`)); 
+        if (response.status==204){
+          updateContent("id", null);
+          updateContent("content_name", "");
+          updateContent("content","");
+          router.push("/records");
+        } else {
+          throw new Error(`Response status ${response.status}.`);
+        };
+        return})
+      .catch(error => updateError(["records"],`Unable to delete record:\n\n${error.message}`)); 
   }
 
   function updateRecord(resource) {
     let options = config(RecordsUrl+resource.id+"/");
     options.method = 'PUT';
     options.data = JSON.stringify(resource);
-    // console.log(options.data)
     return axios(options)
       .then(response => {
         mutate()
-        return response.status})
-      .catch(error => updateError(["records","editandsave"],`Unable to update record: ${error.message}`)); 
+        if (response.status==200){
+          updateContent("id", null);
+          updateContent("content_name", "");
+          updateContent("content","");
+          router.push("/records");
+        } else {
+          throw new Error(`Response status ${response.status}.`);
+        };
+        return})
+      .catch(error => updateError(["records","editandsave"],`Unable to update record:\n\n${error.message}`)); 
   }
 
   function config(url) {

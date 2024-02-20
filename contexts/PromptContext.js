@@ -34,9 +34,9 @@ export default function PromptProvider(props) {
 
   function updatePrompt (type, payload){
     try{
-      setStatePrompt({type:type,payload:payload});      
+      setStatePrompt({type:type,payload:payload});    
     } catch(error){
-      updateError(["query","description","resume","coverLetter"],`Failture to update prompt: ${error.message}`);
+      updateError(["query","description","resume","coverletter"],`Failure to update prompt:\n\n${error.message}`);
     };  
   };
 
