@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }) {
                     </Layout>
                   </ContentProvider>
                 </PromptProvider>
-            </AuthProvider>;
+            </AuthProvider>
           </ErrorProvider>
         </>
 };
