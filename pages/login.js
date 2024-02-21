@@ -69,19 +69,21 @@ export default function LoginPage() {
 
   // console.log("Login Page:", userData);
   return (
-    <div>
+    <div className="flex justify-center">
       <ErrorModal 
         isOpen={Array.isArray(errorPages) && errorPages.includes("login")} 
         updateError={updateError}
         errorMessage={errorMessage}
         />
       {stateLoggingIn?
-
-        <form onSubmit={handlerOnLogin}>
-          <h2>LOGIN FORM:</h2>
-          <label>
-            Email:
+      
+        <form className="flex flex-col flex-nowrap justify-center items-center w-4/6 p-10 border border-red-500"
+          onSubmit={handlerOnLogin}>
+          <h2 className="p-5 text-2xl font-bold">LOGIN FORM:</h2>
+          <label className="flex flex-col lg:flex-row lg:flex-nowrap lg:justify-between w-5/6 p-5 font-bold">
+            EMAIL:
             <input
+              className="w-full lg:w-4/5 border border-black mt-2 lg:mt-0 lg:ml-2"
               type="email"
               name="email"
               required
@@ -89,30 +91,38 @@ export default function LoginPage() {
               onChange={handlerOnChange}
             />
           </label>
-          <br />
-          <label>
-            Password:
+          <label className="flex flex-col lg:flex-row lg:flex-nowrap lg:justify-between w-5/6 p-5 font-bold">
+            PASSWORD:
             <input
+            className="w-full lg:w-4/5 border border-black mt-2 lg:mt-0 lg:ml-2"
               required
               type="password"
               name="loginPassword"
             />
           </label>
-          <br />
           <button 
-            type="button"
-            onClick={handlerLoginOrRegistration}>
-              Register Instead</button>
-          <button 
+            className="w-full sm:w-1/2  md:w-1/3 lg:1/6 m-5 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg"
             type="submit">
               Login</button>
+          <p
+            className=""
+            >Not a member? <button 
+            className="font-bold text-blue-500 hover:text-blue-800"
+            type="button"
+            onClick={handlerLoginOrRegistration}>
+              Register Instead</button></p>
         </form>
   
-        :<form onSubmit={handlerOnRegistration}>
-          <h2>REGISTRATION FORM:</h2>
-          <label>
-            First Name:
+        :<form 
+          className="flex flex-col flex-nowrap justify-center items-center w-4/6 p-10 border border-red-500"
+          onSubmit={handlerOnRegistration}>
+          <h2
+            className="p-5 text-2xl font-bold"
+            >REGISTRATION FORM:</h2>
+          <label className="flex flex-col lg:flex-row lg:flex-nowrap lg:justify-between w-5/6 p-5 font-bold">
+            FIRST NAME:
             <input
+              className="w-full lg:w-3/5 border border-black mt-2 lg:mt-0 lg:ml-2"
               required
               type="text"
               name="first_name"
@@ -120,10 +130,10 @@ export default function LoginPage() {
               onChange={handlerOnChange}
             />
           </label>
-          <br />
-          <label>
-            Last Name:
+          <label className="flex flex-col lg:flex-row lg:flex-nowrap lg:justify-between w-5/6 p-5 font-bold">
+            LAST NAME:
             <input
+              className="w-full lg:w-3/5 border border-black mt-2 lg:mt-0 lg:ml-2"
               required
               type="text"
               name="last_name"
@@ -131,10 +141,10 @@ export default function LoginPage() {
               onChange={handlerOnChange}
             />
           </label>
-          <br />
-          <label>
-            Email:
+          <label className="flex flex-col lg:flex-row lg:flex-nowrap lg:justify-between w-5/6 p-5 font-bold">
+            EMAIL:
             <input
+              className="w-full lg:w-3/5 border border-black mt-2 lg:mt-0 lg:ml-2"
               required
               type="email"
               name="email"
@@ -142,32 +152,35 @@ export default function LoginPage() {
               onChange={handlerOnChange}
             />
           </label>
-          <br />
-          <label>
-            Password:
+          <label className="flex flex-col lg:flex-row lg:flex-nowrap lg:justify-between w-5/6 p-5 font-bold">
+            PASSWORD:
             <input
+              className="w-full lg:w-3/5 border border-black mt-2 lg:mt-0 lg:ml-2"
               required
               type="password"
               name="registerPassword"
             />
           </label>
-          <br />
-          <label>
-            Confirm Password:
+          <label className="flex flex-col lg:flex-row lg:flex-nowrap lg:justify-between w-5/6 p-5 font-bold">
+            CONFIRM PASSWORD:
             <input
+              className="w-full lg:w-3/5 border border-black mt-2 lg:mt-0 lg:ml-2"
               required
               type="password"
               name="confirmPassword"
             />
           </label>
-          <br />
           <button 
-            type="button"
-            onClick={handlerLoginOrRegistration}>
-              Login Instead</button>
-          <button 
+            className="w-full sm:w-1/2  md:w-1/3 lg:1/6 m-5 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg"
             type="submit">
               Register</button>
+          <p
+            className="flex flex-col lg:flex-row lg:flex-nowrap lg:justify-between"
+            >Already a member?<button 
+            className="ml-3 font-bold text-blue-500 hover:text-blue-800"
+            type="button"
+            onClick={handlerLoginOrRegistration}>
+              Login Instead</button></p>
         </form>
         }
     </div>

@@ -11,7 +11,7 @@ export default function NavSideBar() {
 
   // console.log("NavSideBar",currPage);
   return (
-    <div className="text-purple-500">
+    <div className=" text-purple-500 border">
       <nav className="">
           <div className="">
             <ul className="">
