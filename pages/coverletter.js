@@ -38,7 +38,7 @@ export default function CoverLetterPage() {
     refreshContent(responseData)
 
     // move user to response page if request is OK
-    router.push("/response")
+    router.push("/editandsave")
   };
 
   // enable user to
