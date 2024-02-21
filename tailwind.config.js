@@ -34,7 +34,7 @@ module.exports = {
       
         '2xl': '1536px',
         // => @media (min-width: 1536px) { ... }
-
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

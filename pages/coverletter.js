@@ -99,40 +99,53 @@ export default function CoverLetterPage() {
               <NoRecords title="No Cover Letters:" message="Follow the link to create new cover letters."/>
               ) : (
               <>
-                <h2>Cover Letters:</h2>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Select</th>
-                      <th>Name</th>
-                      <th>Created</th>
-                      <th>Modified</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                      {coverLettersRows}
-                  </tbody>
-                </table>
+                <h2 className="text-lg font-bold text-center">Cover Letters:</h2>         
+                <div className="m-4">
+                  <table className="w-full text-center">
+                    <thead>
+                      <tr>
+                        <th className="px-2 py-2">Select</th>
+                        <th className="px-2 py-2">Name</th>
+                        <th className="px-2 py-2">Created</th>
+                        <th className="px-2 py-2">Modified</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {coverLettersRows}
+                    </tbody>
+                  </table>
+                </div>
               </>
               )}
-          <button 
-            type="button" 
-            onClick={() => router.push("/resume")}>
-            Previous
-          </button>
-          <br />
-          {coverLetter && (
-            <div>
-              <button onClick={() => handlerUpdateCoverLetter("")}>Remove</button>
+              <div className="flex gap-4">
+                <button 
+                  type="button" 
+                  onClick={() => router.push("/resume")}
+                  className="px-2 py-1 my-1 rounded-md text-slate-50 bg-slate-900 outline-double"
+                >
+                  Previous
+                </button>
+                <br />
+                {coverLetter && (
+                <div>
+                  <button 
+                    onClick={() => handlerUpdateCoverLetter("")}
+                    className="px-2 py-1 my-1 rounded-md text-slate-50 bg-slate-900 outline-double"
+                  >
+                    Remove
+                  </button>
+                </div>
+              )}
+                <br />
+                <button 
+                  type="button"
+                  onClick={handlerSubmit}
+                  className="px-2 py-1 my-1 rounded-md text-slate-50 bg-slate-900 outline-double"
+                >
+                  Submit
+                </button>
+              </div>
             </div>
-          )}
-          <br></br>
-          <button 
-          type="button"
-          onClick={handlerSubmit}>
-            Submit
-          </button>
-        </div>
-      </div>
+          </div>
   );
 }
