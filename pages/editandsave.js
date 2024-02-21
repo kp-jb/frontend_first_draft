@@ -102,15 +102,15 @@ export default function EditAndSavePage() {
         />
       <form>
         <fieldset>
-          <div className="flex flex-col w-96">
+          <div className="flex flex-col w-full">
             <label>EDIT AND SAVE:</label>
             <textarea
               placeholder={defaultEditAndSave}
               maxLength="10000"
               name="content"
               rows={20}
-              cols={40}
-              className="border"
+              columns={40}
+              className="w-full h-full border resize-none"
               value={content || ""}
               onChange={handlerChange}
             />
