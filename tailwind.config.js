@@ -11,6 +11,9 @@ module.exports = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "typewriter":"url('../public/images/pereanu-sebastian-unsplash.jpg')",
+        "corona-kraplak-typewriter":"url('../public/images/daria-kraplak-unsplash.jpg')",
+        "corona-fore-typewriter":"url('../public/images/patrick-fore-unsplash.jpg')",
       },
     },
   },
