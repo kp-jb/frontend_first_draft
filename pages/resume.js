@@ -60,38 +60,54 @@ export default function ResumePage() {
               <NoRecords title="No Resumes:" message="Follow the link to create new resumes."/>
               ) : (
               <>
-                <h2>Resumes:</h2>
-                <table>
+                <h2 className="text-lg font-bold text-center">Resumes:</h2>
+                <div className="m-4">
+                  <table className="w-full text-center">
                   <thead>
                     <tr>
-                      <th>Select</th>
-                      <th>Name</th>
-                      <th>Created</th>
-                      <th>Modified</th>
+                      <th className="px-2 py-2">Select</th>
+                      <th className="px-2 py-2">Name</th>
+                      <th className="px-2 py-2">Created</th>
+                      <th className="px-2 py-2">Modified</th>
                     </tr>
                   </thead>
                   <tbody>
                       {resumeRows}
                   </tbody>
-                </table>
+                  </table>
+                </div>
               </>
               )}
-          <button type="button" onClick={() => router.push("/description")}>
-            Previous
-          </button>
-          <br />
-          {resume && (
-            <div>
-              <button onClick={() => handlerUpdateResume("")}>Remove</button>
-              <br></br>
+              <div className="flex gap-4">
+                <button 
+                  type="button" 
+                  onClick={() => router.push("/description")}
+                  className="px-2 py-1 my-1 rounded-md text-slate-50 bg-slate-900 outline-double"
+                >
+                  Previous
+                </button>
+                <br />
+                {resume && (
+                <div>
+                  <button 
+                    onClick={() => handlerUpdateResume("")}
+                    className="px-2 py-1 my-1 rounded-md text-slate-50 bg-slate-900 outline-double"
+                  >
+                    Remove
+                  </button>
+                  <br />
+                </div>
+              )}
+                <br />
+                <button 
+                  type="button" 
+                  onClick={() => router.push("/coverletter")}
+                  className="px-2 py-1 my-1 rounded-md text-slate-50 bg-slate-900 outline-double"
+                >
+                  Next
+                </button>
+              </div>
             </div>
-          )}
-          <br></br>
-          <button type="button" onClick={() => router.push("/coverletter")}>
-            Next
-          </button>
-        </div>
-      </div>
-  
+          </div>
   );
 };
