@@ -33,34 +33,47 @@ export default function DescriptionPage() {
         errorMessage={errorMessage}
         />
       <form>
-        <h2>Job Description:</h2>
-        <label>
+        <h2 className="font-semibold">Job Description:</h2>
+        <div className="flex flex-col">
+          <label>
           Enter job details below:
-          <input
+          <textarea
             type="text"
             name="description"
             value={description || ""}
             onChange={handlerOnChange}
+            className="w-full h-full"
+            rows={20}
+            columns={40}
           />
         </label>
-        <br></br>
-        <button 
-          type="button"
-          onClick={()=>router.push("/query")}
-          >
-            Previous</button>
+        </div>
         <br />
-        <button 
-          type="button"
-          onClick={handlerReset}
+        <div className="flex gap-3">
+          <button 
+            type="button"
+            onClick={()=>router.push("/query")}
+            className="px-2 py-1 my-1 rounded-md text-slate-50 bg-slate-900 outline-double"
           >
-            Reset</button>
-        <br></br>
-        <button 
+            Previous
+          </button>
+          <br />
+          <button 
+            type="button"
+            onClick={handlerReset}
+            className="px-2 py-1 my-1 rounded-md text-slate-50 bg-slate-900 outline-double"
+          >
+            Reset
+          </button>
+          <br></br>
+          <button 
           type="button"
           onClick={()=>router.push("/resume")}
+          className="px-2 py-1 my-1 rounded-md text-slate-50 bg-slate-900 outline-double"
           >
             Next</button>
+        </div>
+        
       </form>
   </div>
   );
