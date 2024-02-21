@@ -33,13 +33,8 @@ export default function CoverLetterPage() {
   async function handlerSubmit() {
     let formattedPrompt = await formatPrompt();
     let responseData = await getChatGPT(formattedPrompt);
-    // console.log(responseData);
-    // console.log(responseData.success);
-    // console.log(responseData.generated_text);
-    // console.log(typeof(responseData.generated_text));
 
     // update ContentContext
-    // console.log(responseData)
     refreshContent(responseData)
 
     // move user to response page if request is OK
@@ -48,8 +43,6 @@ export default function CoverLetterPage() {
 
   // enable user to
   function refreshContent(data) {
-    // move record data to contentContext
-
     let userId = userData.id
 
     let info = {
@@ -59,19 +52,9 @@ export default function CoverLetterPage() {
       is_resume: false,
     };
 
-    // console.log(info)
-
     Object.entries(info).map(([key, value]) => {
       updateContent(key, value);
     });
-
-    // remove record from local state
-    // handlerUpdateRecords(info);
-
-    // move user to editandsave page
-    // router.push({
-    //   pathname: "/editandsave",
-    // });
   }
 
   function handlerUpdateCoverLetter(item) {
@@ -144,7 +127,6 @@ export default function CoverLetterPage() {
             </div>
           )}
           <br></br>
-          {/* TODO: add submit function */}
           <button 
           type="button"
           onClick={handlerSubmit}>
