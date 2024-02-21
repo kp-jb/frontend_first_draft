@@ -141,7 +141,7 @@ export default function RecordsPage() {
               <table>
                 <thead>
                   <tr>
-                    <th>Select</th>
+                    <th className="text-xs">Select</th>
                     <th>Name</th>
                     <th>Created</th>
                     <th>Modified</th>

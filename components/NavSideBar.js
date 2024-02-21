@@ -11,11 +11,11 @@ export default function NavSideBar() {
 
   // console.log("NavSideBar",currPage);
   return (
-    <div className=" text-purple-500 border">
-      <nav className="">
-          <div className="">
+    <div className="text-gray-50">
+      <nav className="flex flex-col items-start rounded-lg w-36 h-72 bg-gray-950">
+          <div className="p-4 m-1">
             <ul className="">
-              <li>
+              <li className="my-2">
                 <Link
                   href="/"
                   className={`${currPage==="/"?"text-red-900":""}`}
@@ -26,7 +26,7 @@ export default function NavSideBar() {
 
               { userData?
                 <></>:
-              <li>
+              <li className="my-2">
                 <Link
                   href="/login"
                   className={`${currPage==="/login"?"text-red-900":""}`}
@@ -36,7 +36,7 @@ export default function NavSideBar() {
               </li>}
 
               { userData?
-              <li>
+              <li className="my-2">
                 <Link
                   href="/records"
                   className={`${currPage==="/records"?"text-red-900":""}`}
@@ -47,7 +47,7 @@ export default function NavSideBar() {
               :<></>}
 
               { userData?
-              <li>
+              <li className="my-2">
                 <Link
                   href="editandsave"
                   className={`${currPage==="/editandsave"?"text-red-900":""}`}
@@ -58,7 +58,7 @@ export default function NavSideBar() {
               :<></>}
 
               { userData?
-              <li>
+              <li className="my-2">
                 <Link
                   href="query"
                   className={`${currPage==="/query"?"text-red-900":""}`}
@@ -69,7 +69,7 @@ export default function NavSideBar() {
               :<></>}
 
               { userData?
-              <li>
+              <li className="my-2">
                 <Link
                   href="description"
                   className={`${currPage==="/description"?"text-red-900":""}`}
@@ -80,7 +80,7 @@ export default function NavSideBar() {
               :<></>}
 
               { userData?
-              <li>
+              <li className="my-2">
                 <Link
                   href="resume"
                   className={`${currPage==="/resume"?"text-red-900":""}`}
@@ -91,7 +91,7 @@ export default function NavSideBar() {
               :<></>}
 
               { userData?
-              <li>
+              <li className="my-2">
                 <Link
                   href="coverletter"
                   className={`${currPage==="/coverletter"?"text-red-900":""}`}

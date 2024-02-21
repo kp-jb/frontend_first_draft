@@ -1,5 +1,6 @@
 import { HomeIcon, PencilIcon, MagnifyingGlassIcon, BriefcaseIcon, ListBulletIcon, EnvelopeIcon } from '@heroicons/react/24/solid'
 
+
 export default function HomePage() {
   return (
       <div className="p-10">
