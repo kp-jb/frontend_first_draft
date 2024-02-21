@@ -43,6 +43,9 @@ module.exports = {
         "corona-kraplak-typewriter":"url('../public/images/daria-kraplak-unsplash.jpg')",
         "corona-fore-typewriter":"url('../public/images/patrick-fore-unsplash.jpg')",
       },
+      fontFamily: {
+        sans: ["Berkshire Swash","sans-serif"]
+      }
     },
   },
   plugins: [],
