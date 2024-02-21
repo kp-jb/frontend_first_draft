@@ -103,7 +103,7 @@ export default function EditAndSavePage() {
       <form>
         <fieldset>
           <div className="flex flex-col w-full">
-            <label>EDIT AND SAVE:</label>
+            <label className="my-1 font-semibold">EDIT AND SAVE:</label>
             <textarea
               placeholder={defaultEditAndSave}
               maxLength="10000"
@@ -115,9 +115,9 @@ export default function EditAndSavePage() {
               onChange={handlerChange}
             />
           </div>
-          <div className="m-1">
+          <div className="flex gap-4 p-4">
             <button
-              className="m-1 border bg-slate-100"
+              className="px-2 py-1 rounded-md text-slate-50 bg-slate-900 outline-double"
               onClick={() => handlerReset("content", "")}
               type="button"
             >
@@ -129,7 +129,7 @@ export default function EditAndSavePage() {
                   DOWNLOAD
               </button> */}
             <button
-              className="m-1 border bg-slate-100"
+              className="px-2 py-1 rounded-md text-slate-50 bg-slate-900 outline-double"
               onClick={handlerControlModal}
               type="button"
             >
