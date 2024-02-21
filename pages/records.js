@@ -137,18 +137,20 @@ export default function RecordsPage() {
             />
           ) : (
             <>
-              <h2>Resumes:</h2>
-              <table>
-                <thead>
-                  <tr>
-                    <th className="text-xs">Select</th>
-                    <th>Name</th>
-                    <th>Created</th>
-                    <th>Modified</th>
-                  </tr>
-                </thead>
-                <tbody>{resumeRows}</tbody>
-              </table>
+              <h2 className="text-lg font-bold text-center">Resumes:</h2>
+              <div className="m-4">
+                <table className="w-full text-center">
+                  <thead>
+                    <tr className="">
+                      <th className="px-4 py-2">Select</th>
+                      <th className="px-4 py-2">Name</th>
+                      <th className="px-4 py-2">Created</th>
+                      <th className="px-4 py-2">Modified</th>
+                    </tr>
+                  </thead>
+                  <tbody>{resumeRows}</tbody>
+                </table>
+              </div>
             </>
           )}
           {stateRecordsPage.selectedRecord &&
@@ -181,27 +183,30 @@ export default function RecordsPage() {
             />
           ) : (
             <>
-              <h2>Cover Letters:</h2>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Select</th>
-                    <th>Name</th>
-                    <th>Created</th>
-                    <th>Modified</th>
-                  </tr>
-                </thead>
-                <tbody>{coverLettersRows}</tbody>
-              </table>
+              <h2 className="text-lg font-bold text-center">Cover Letters:</h2>
+              <div className="m-4">
+                <table className="w-full text-center">
+                  <thead>
+                    <tr>
+                      <th className="px-4 py-2">Select</th>
+                      <th className="px-4 py-2">Name</th>
+                      <th className="px-4 py-2">Created</th>
+                      <th className="px-4 py-2">Modified</th>
+                    </tr>
+                  </thead>
+                  <tbody>{coverLettersRows}</tbody>
+                </table>
+              </div>
             </>
           )}
           {stateRecordsPage.selectedRecord &&
             !stateRecordsPage.selectedRecord.is_resume && (
-              <div>
+              <div className="flex gap-4 p-4 bg-blue-500 bg-opacity-50">
                 <button
                   onClick={() =>
                     handlerDeleteRecord(stateRecordsPage.selectedRecord)
                   }
+                  className="px-4 py-2 bg-white rounded"
                 >
                   DELETE
                 </button>
@@ -210,6 +215,7 @@ export default function RecordsPage() {
                   onClick={() =>
                     handlerEditRecord(stateRecordsPage.selectedRecord)
                   }
+                  className="px-4 py-2 bg-white rounded"
                 >
                   EDIT
                 </button>
