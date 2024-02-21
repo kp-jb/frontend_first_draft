@@ -6,26 +6,56 @@ import useChatGPT from "@/hooks/useChatGPT";
 import ErrorModal from "@/components/ErrorModal";
 import NoRecords from "@/components/NoRecords";
 import useRecords from "@/hooks/useRecords";
+
+import { useAuthContext } from "@/contexts/AuthContext";
 import { useErrorContext } from "@/contexts/ErrorContext";
 import { usePromptContext } from "@/contexts/PromptContext";
+import { useContentContext } from "@/contexts/ContentContext";
 
 
 export default function CoverLetterPage() {
   // unpack all user records
   let { recordsData } = useRecords();
   let { coverLetter, updatePrompt, formatPrompt } = usePromptContext();
+
   // unpack error context
   let { errorPages, errorMessage, updateError } = useErrorContext();
   let { getChatGPT } = useChatGPT();
+
+  // unpack userData
+  let { userData } = useAuthContext();
+
+  // unpack updateContent
+  let { updateContent } = useContentContext();
+
   let router = useRouter();
 
   async function handlerSubmit() {
     let formattedPrompt = await formatPrompt();
     let responseData = await getChatGPT(formattedPrompt);
-    console.log(responseData);
-    console.log(responseData.success);
-    console.log(responseData.generated_text);
+
+    // update ContentContext
+    refreshContent(responseData)
+
+    // move user to response page if request is OK
+    router.push("/editandsave")
   };
+
+  // enable user to
+  function refreshContent(data) {
+    let userId = userData.id
+
+    let info = {
+      content_name: "",
+      content: data.generated_text,
+      owner: userId,
+      is_resume: false,
+    };
+
+    Object.entries(info).map(([key, value]) => {
+      updateContent(key, value);
+    });
+  }
 
   function handlerUpdateCoverLetter(item) {
     updatePrompt("coverLetter", item);
@@ -97,7 +127,6 @@ export default function CoverLetterPage() {
             </div>
           )}
           <br></br>
-          {/* TODO: add submit function */}
           <button 
           type="button"
           onClick={handlerSubmit}>
