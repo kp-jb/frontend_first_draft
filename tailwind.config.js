@@ -46,7 +46,8 @@ module.exports = {
         "corona-fore-typewriter":"url('../public/images/patrick-fore-unsplash.jpg')",
       },
       fontFamily: {
-        sans: ["Berkshire Swash","sans-serif"]
+        sans: ["Berkshire Swash","sans-serif"],
+        serif: ["Monofett", "monospace"],
       }
     },
   },

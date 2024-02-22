@@ -82,7 +82,7 @@ export default function ResumePage() {
                 <button 
                   type="button" 
                   onClick={() => router.push("/description")}
-                  className="px-2 py-1 my-1 rounded-md text-slate-50 bg-slate-900 outline-double"
+                  className="p-1 rounded-md text-gray-950 ring-2 ring-slate-100 bg-ivory opacity-90"
                 >
                   Previous
                 </button>
@@ -91,7 +91,7 @@ export default function ResumePage() {
                 <div>
                   <button 
                     onClick={() => handlerUpdateResume("")}
-                    className="px-2 py-1 my-1 rounded-md text-slate-50 bg-slate-900 outline-double"
+                    className="p-1 rounded-md text-gray-950 ring-2 ring-slate-100 bg-ivory opacity-90"
                   >
                     Remove
                   </button>
@@ -102,7 +102,7 @@ export default function ResumePage() {
                 <button 
                   type="button" 
                   onClick={() => router.push("/coverletter")}
-                  className="px-2 py-1 my-1 rounded-md text-slate-50 bg-slate-900 outline-double"
+                  className="p-1 rounded-md text-gray-950 ring-2 ring-slate-100 bg-ivory opacity-90"
                 >
                   Next
                 </button>
