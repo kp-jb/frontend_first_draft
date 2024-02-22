@@ -11,7 +11,7 @@ export default function Header(props) {
   return(
       <>
       <div className="flex flex-row">
-        <header className="m-3 text-3xl text-gray-200">
+        <header className="m-3 text-3xl text-ivory">
         <h1 
           className="font-sans">
             First Draft

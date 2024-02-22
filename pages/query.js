@@ -53,7 +53,7 @@ export default function QueryPage() {
           <button 
             type="button"
             onClick={handlerReset}
-            className="px-2 py-1 rounded-md text-slate-50 bg-slate-900 outline-double"
+            className="p-1 rounded-md text-gray-950 ring-2 ring-slate-100 bg-ivory opacity-90"
           >
             Reset
           </button>
@@ -61,7 +61,7 @@ export default function QueryPage() {
           <button 
             type="button"
             onClick={()=>router.push("/description")}
-            className="px-2 py-1 rounded-md text-slate-50 bg-slate-900 outline-double"
+            className="p-1 rounded-md text-gray-950 ring-2 ring-slate-100 bg-ivory opacity-90"
           >
             Next
           </button>

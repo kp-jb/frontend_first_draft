@@ -117,7 +117,7 @@ export default function EditAndSavePage() {
           </div>
           <div className="flex gap-4 p-4">
             <button
-              className="px-2 py-1 rounded-md text-slate-50 bg-slate-900 outline-double"
+              className="p-1 rounded-md text-gray-950 ring-2 ring-slate-100 bg-ivory opacity-90"
               onClick={() => handlerReset("content", "")}
               type="button"
             >
@@ -129,7 +129,7 @@ export default function EditAndSavePage() {
                   DOWNLOAD
               </button> */}
             <button
-              className="px-2 py-1 rounded-md border-stone-950 text-slate-50 bg-slate-900 outline-double"
+              className="p-1 rounded-md text-gray-950 ring-2 ring-slate-100 bg-ivory opacity-90"
               onClick={handlerControlModal}
               type="button"
             >
