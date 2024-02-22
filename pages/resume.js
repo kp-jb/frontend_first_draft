@@ -40,9 +40,9 @@ export default function ResumePage() {
             checked={resume && resume.id === item.id}
           />
         </td>
-        <td>{item.name}</td>
-        <td>{createdDate.toLocaleDateString(undefined, options)}</td>
-        <td>{modifiedDate.toLocaleDateString(undefined, options)}</td>
+        <td className="border">{item.name}</td>
+        <td className="border">{createdDate.toLocaleDateString(undefined, options)}</td>
+        <td className="border">{modifiedDate.toLocaleDateString(undefined, options)}</td>
       </tr>
     );
   });
@@ -59,8 +59,8 @@ export default function ResumePage() {
           {resumesData.length === 0 ? (
               <NoRecords title="No Resumes:" message="Follow the link to create new resumes."/>
               ) : (
-              <>
-                <h2 className="text-lg font-bold text-center">Resumes:</h2>
+              <div className="text-ivory">
+                <h2 className="text-lg font-semibold text-center">Resumes:</h2>
                 <div className="m-4">
                   <table className="w-full text-center">
                   <thead>
@@ -76,7 +76,7 @@ export default function ResumePage() {
                   </tbody>
                   </table>
                 </div>
-              </>
+              </div>
               )}
               <div className="flex gap-4">
                 <button 

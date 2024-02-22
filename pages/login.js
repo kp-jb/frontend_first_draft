@@ -77,13 +77,13 @@ export default function LoginPage() {
         />
       {stateLoggingIn?
       
-        <form className="flex flex-col flex-nowrap justify-center items-center w-4/6 p-10 border border-red-500"
+        <form className="flex flex-col items-center justify-center w-4/6 p-10 border border-red-500 flex-nowrap"
           onSubmit={handlerOnLogin}>
           <h2 className="p-5 text-2xl font-bold">LOGIN FORM:</h2>
-          <label className="flex flex-col lg:flex-row lg:flex-nowrap lg:justify-between w-5/6 p-5 font-bold">
+          <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
             EMAIL:
             <input
-              className="w-full lg:w-4/5 border border-black mt-2 lg:mt-0 lg:ml-2"
+              className="w-full mt-2 border border-black lg:w-4/5 lg:mt-0 lg:ml-2"
               type="email"
               name="email"
               required
@@ -91,17 +91,17 @@ export default function LoginPage() {
               onChange={handlerOnChange}
             />
           </label>
-          <label className="flex flex-col lg:flex-row lg:flex-nowrap lg:justify-between w-5/6 p-5 font-bold">
+          <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
             PASSWORD:
             <input
-            className="w-full lg:w-4/5 border border-black mt-2 lg:mt-0 lg:ml-2"
+            className="w-full mt-2 border border-black lg:w-4/5 lg:mt-0 lg:ml-2"
               required
               type="password"
               name="loginPassword"
             />
           </label>
           <button 
-            className="w-full sm:w-1/2  md:w-1/3 lg:1/6 m-5 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg"
+            className="w-full px-4 py-2 m-5 font-bold text-white bg-gray-500 rounded-lg sm:w-1/2 md:w-1/3 lg:1/6 hover:bg-gray-700"
             type="submit">
               Login</button>
           <p
@@ -114,15 +114,15 @@ export default function LoginPage() {
         </form>
   
         :<form 
-          className="flex flex-col flex-nowrap justify-center items-center w-4/6 p-10 border border-red-500"
+          className="flex flex-col items-center justify-center w-4/6 p-10 border border-red-500 flex-nowrap"
           onSubmit={handlerOnRegistration}>
           <h2
             className="p-5 text-2xl font-bold"
             >REGISTRATION FORM:</h2>
-          <label className="flex flex-col lg:flex-row lg:flex-nowrap lg:justify-between w-5/6 p-5 font-bold">
+          <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
             FIRST NAME:
             <input
-              className="w-full lg:w-3/5 border border-black mt-2 lg:mt-0 lg:ml-2"
+              className="w-full mt-2 border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
               required
               type="text"
               name="first_name"
@@ -130,10 +130,10 @@ export default function LoginPage() {
               onChange={handlerOnChange}
             />
           </label>
-          <label className="flex flex-col lg:flex-row lg:flex-nowrap lg:justify-between w-5/6 p-5 font-bold">
+          <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
             LAST NAME:
             <input
-              className="w-full lg:w-3/5 border border-black mt-2 lg:mt-0 lg:ml-2"
+              className="w-full mt-2 border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
               required
               type="text"
               name="last_name"
@@ -141,10 +141,10 @@ export default function LoginPage() {
               onChange={handlerOnChange}
             />
           </label>
-          <label className="flex flex-col lg:flex-row lg:flex-nowrap lg:justify-between w-5/6 p-5 font-bold">
+          <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
             EMAIL:
             <input
-              className="w-full lg:w-3/5 border border-black mt-2 lg:mt-0 lg:ml-2"
+              className="w-full mt-2 border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
               required
               type="email"
               name="email"
@@ -152,26 +152,26 @@ export default function LoginPage() {
               onChange={handlerOnChange}
             />
           </label>
-          <label className="flex flex-col lg:flex-row lg:flex-nowrap lg:justify-between w-5/6 p-5 font-bold">
+          <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
             PASSWORD:
             <input
-              className="w-full lg:w-3/5 border border-black mt-2 lg:mt-0 lg:ml-2"
+              className="w-full mt-2 border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
               required
               type="password"
               name="registerPassword"
             />
           </label>
-          <label className="flex flex-col lg:flex-row lg:flex-nowrap lg:justify-between w-5/6 p-5 font-bold">
+          <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
             CONFIRM PASSWORD:
             <input
-              className="w-full lg:w-3/5 border border-black mt-2 lg:mt-0 lg:ml-2"
+              className="w-full mt-2 border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
               required
               type="password"
               name="confirmPassword"
             />
           </label>
           <button 
-            className="w-full sm:w-1/2  md:w-1/3 lg:1/6 m-5 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg"
+            className="w-full px-4 py-2 m-5 font-bold text-white bg-gray-500 rounded-lg sm:w-1/2 md:w-1/3 lg:1/6 hover:bg-gray-700"
             type="submit">
               Register</button>
           <p

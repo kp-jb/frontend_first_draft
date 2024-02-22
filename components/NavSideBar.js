@@ -118,7 +118,6 @@ export default function NavSideBar() {
               :<></>}
             </ul>
           </div>
-
       </nav>
     </div>
   );

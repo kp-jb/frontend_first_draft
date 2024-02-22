@@ -103,19 +103,20 @@ export default function EditAndSavePage() {
       <form>
         <fieldset>
           <div className="flex flex-col w-full">
-            <label className="my-1 font-semibold">EDIT AND SAVE:</label>
+            <label className="p-2 text-lg font-semibold text-center rounded-lg text-ivory bg-gray-950">EDIT AND SAVE:</label>
             <textarea
               placeholder={defaultEditAndSave}
               maxLength="10000"
               name="content"
               rows={20}
               columns={40}
-              className="w-full h-full border resize-none"
+              // className="w-full h-full border resize-none"
+              className="w-full h-full text-white border resize-none bg-gray-950"
               value={content || ""}
               onChange={handlerChange}
             />
           </div>
-          <div className="flex gap-4 p-4">
+          <div className="flex gap-4 p-4 bg-gray-950">
             <button
               className="p-1 rounded-md text-gray-950 ring-2 ring-slate-100 bg-ivory opacity-90"
               onClick={() => handlerReset("content", "")}
@@ -144,8 +145,8 @@ export default function EditAndSavePage() {
         onRequestClose={handlerControlModal}
         contentLabel="Save Modal"
         shouldCloseOnOverlayClick={false}
-        className="fixed inset-0 flex items-center justify-center"
-        overlayClassName="fixed inset-0 bg-black opacity-50"
+        className="fixed inset-0 flex items-center justify-center font-mono"
+        // overlayClassName="fixed inset-0 bg-black opacity-50"
       >
         <div className="p-6 bg-white rounded-lg w-[600px] h-[300px] flex flex-col">
           <label className="flex justify-between">
@@ -178,13 +179,16 @@ export default function EditAndSavePage() {
               FINAL DRAFT:
               <input type="radio" checked={isFinalDraft} onChange={handleIsFinalDraft}/>
             </label> */}
-          <div className="justify-center m-1">
-            <button onClick={handlerCancel} className="bg-red-400 border">
+          <div className="flex justify-center gap-20 m-1">
+            <button 
+              onClick={handlerCancel} 
+              className="p-1 rounded-md text-gray-950 ring-2 ring-slate-100 bg-ivory opacity-90"
+            >
               CANCEL
             </button>
             <button
               onClick={handlerSaveContent}
-              className="bg-green-400 border"
+              className="p-1 rounded-md text-gray-950 ring-2 ring-slate-100 bg-ivory opacity-90"
             >
               SAVE
             </button>

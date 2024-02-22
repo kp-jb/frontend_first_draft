@@ -32,17 +32,17 @@ export default function DescriptionPage() {
         updateError={updateError}
         errorMessage={errorMessage}
         />
-      <form>
-        <h2 className="font-semibold">Job Description:</h2>
+      <form className="bg-gray-950 text-ivory">
+        <h2 className="text-xl font-semibold text-center rounded-lg ">Job Description:</h2>
         <div className="flex flex-col">
-          <label>
+          <label className="italic">
           Enter job details below:
           <textarea
             type="text"
             name="description"
             value={description || ""}
             onChange={handlerOnChange}
-            className="w-full h-full"
+            className="w-full h-full border bg-gray-950 border-slate-50"
             rows={20}
             columns={40}
           />

@@ -34,8 +34,8 @@ export default function QueryPage() {
         updateError={updateError}
         errorMessage={errorMessage}
         />
-      <form>
-        <h2 className="font-semibold">Request Instructions:</h2>
+      <form className="bg-gray-950 text-ivory">
+        <h2 className="text-xl font-semibold text-center">Request Instructions:</h2>
         <label className="italic">
           Keep these instructions or update as needed:
           <textarea
@@ -43,13 +43,13 @@ export default function QueryPage() {
             name="query"
             value={query || ""}
             onChange={handlerOnChange}
-            className="w-full h-full border resize-none"
+            className="w-full h-full border resize-none bg-gray-950"
             rows={10}
             maxLength={1000}
           />
         </label>
         <br />
-        <div className="flex gap-3 p-4">
+        <div className="flex gap-3 p-4 bg-gray-950">
           <button 
             type="button"
             onClick={handlerReset}

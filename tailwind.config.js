@@ -47,7 +47,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Berkshire Swash","sans-serif"],
-        serif: ["Monofett", "monospace"],
+        // serif: ["Monofett", "monospace"],
       }
     },
   },
