@@ -1,6 +1,5 @@
 import { useAuthContext } from "@/contexts/AuthContext";
 import {useRouter} from "next/router";
-import Head from "next/head";
 
 export default function Header(props) {
   let { tokens, userData, logoutFunction } = useAuthContext();
@@ -11,12 +10,6 @@ export default function Header(props) {
   // }
   return(
       <>
-        <Head>
-          <title>First Draft</title>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-          <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet" />
-      </Head>
       <div className="flex flex-row">
         <header className="m-3 text-3xl text-gray-200">
         <h1 

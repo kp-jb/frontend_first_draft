@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import Modal from "react-modal";
 import React from "react";
+import Head from "next/head";
 
 import AuthProvider from "@/contexts/AuthContext";
 import ContentProvider from "@/contexts/ContentContext";
@@ -21,6 +22,9 @@ export default function App({ Component, pageProps }) {
             <AuthProvider>
                 <PromptProvider>
                   <ContentProvider>
+                    <Head>
+                      <title>First Draft</title>
+                    </Head>
                     <Layout>
                       <Component {...pageProps} />
                     </Layout>
