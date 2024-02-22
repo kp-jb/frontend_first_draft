@@ -12,6 +12,7 @@ const tokenRefreshUrl = process.env.NEXT_PUBLIC_API_URL + "api/token/refresh/";
 const registerUrl = process.env.NEXT_PUBLIC_API_URL + "api/register/";
 const AuthContext = React.createContext();
 
+
 // create function to export context consumer
 export function useAuthContext() {
   return React.useContext(AuthContext);
