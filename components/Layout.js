@@ -5,10 +5,10 @@ import Footer from "@/components/Footer";
 import NavSideBar from "@/components/NavSideBar";
 
 export default function Layout(props) {
-  return <div className="h-full font-mono text-xs text-gray-800 bg-cover bg-corona-fore-typewriter">
+  return <div className="h-full font-mono text-xs text-gray-800">
             <Header></Header>
-            <div className="flex w-full border-red-500">
-              <div className="w-1/6 border border-purple-700">
+            <div className="flex w-full">
+              <div className="w-1/6">
                 <NavSideBar></NavSideBar>
               </div>
 

@@ -12,13 +12,15 @@ export default function NavSideBar() {
   // console.log("NavSideBar",currPage);
   return (
     <div className="text-gray-50">
-      <nav className="flex flex-col items-start rounded-lg w-36 h-72 bg-gray-950">
+      <nav className="flex flex-col items-start rounded-lg bg-gray-950 w-36 h-72">
           <div className="p-4 m-1">
             <ul className="">
-              <li className="my-2">
+              <li className="my-6">
                 <Link
                   href="/"
-                  className={`${currPage==="/"?"text-red-900":""}`}
+                  className={`${currPage==="/" 
+                  ? "text-gray-950 rounded-md p-1 ring-2 ring-slate-100 bg-ivory opacity-90" 
+                  : ""}`}
                 >
                 Home
                 </Link>
@@ -26,20 +28,24 @@ export default function NavSideBar() {
 
               { userData?
                 <></>:
-              <li className="my-2">
+              <li className="my-6">
                 <Link
                   href="/login"
-                  className={`${currPage==="/login"?"text-red-900":""}`}
+                  className={`${currPage==="/login" 
+                  ? "text-gray-950 rounded-md p-1 ring-2 ring-slate-100 bg-ivory opacity-90"
+                  : ""}`}
                 >
                 Login
                 </Link>
               </li>}
 
               { userData?
-              <li className="my-2">
+              <li className="my-6">
                 <Link
                   href="/records"
-                  className={`${currPage==="/records"?"text-red-900":""}`}
+                  className={`${currPage==="/records"
+                  ? "text-gray-950 rounded-md p-1 ring-2 ring-slate-100 bg-ivory opacity-90"
+                  : ""}`}
                 >
                 Records
                 </Link>
@@ -47,10 +53,12 @@ export default function NavSideBar() {
               :<></>}
 
               { userData?
-              <li className="my-2">
+              <li className="my-6">
                 <Link
                   href="editandsave"
-                  className={`${currPage==="/editandsave"?"text-red-900":""}`}
+                  className={`${currPage==="/editandsave"
+                  ? "text-gray-950 rounded-md p-1 ring-2 ring-slate-100 bg-ivory opacity-90"
+                  : ""}`}
                 >
                 Edit and Save
                 </Link>
@@ -58,10 +66,12 @@ export default function NavSideBar() {
               :<></>}
 
               { userData?
-              <li className="my-2">
+              <li className="my-6">
                 <Link
                   href="query"
-                  className={`${currPage==="/query"?"text-red-900":""}`}
+                  className={`${currPage==="/query"
+                  ? "text-gray-950 rounded-md p-1 ring-2 ring-slate-100 bg-ivory opacity-90"
+                  : ""}`}
                 >
                 Query
                 </Link>
@@ -69,10 +79,12 @@ export default function NavSideBar() {
               :<></>}
 
               { userData?
-              <li className="my-2">
+              <li className="my-6">
                 <Link
                   href="description"
-                  className={`${currPage==="/description"?"text-red-900":""}`}
+                  className={`${currPage==="/description"
+                  ? "text-gray-950 rounded-md p-1 ring-2 ring-slate-100 bg-ivory opacity-90"
+                  : ""}`}
                 >
                 Description
                 </Link>
@@ -80,10 +92,12 @@ export default function NavSideBar() {
               :<></>}
 
               { userData?
-              <li className="my-2">
+              <li className="my-6">
                 <Link
                   href="resume"
-                  className={`${currPage==="/resume"?"text-red-900":""}`}
+                  className={`${currPage==="/resume"
+                  ? "text-gray-950 rounded-md p-1 ring-2 ring-slate-100 bg-ivory opacity-90"
+                  : ""}`}
                 >
                 Resume
                 </Link>
@@ -91,10 +105,12 @@ export default function NavSideBar() {
               :<></>}
 
               { userData?
-              <li className="my-2">
+              <li className="my-6">
                 <Link
                   href="coverletter"
-                  className={`${currPage==="/coverletter"?"text-red-900":""}`}
+                  className={`${currPage==="/coverletter"
+                  ? "text-gray-950 rounded-md p-1 ring-2 ring-slate-100 bg-ivory opacity-90"
+                  : ""}`}
                 >
                 Cover Letter
                 </Link>
