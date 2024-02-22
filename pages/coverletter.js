@@ -79,9 +79,9 @@ export default function CoverLetterPage() {
             checked={coverLetter && coverLetter.id === item.id}
           />
         </td>
-        <td>{item.name}</td>
-        <td>{createdDate.toLocaleDateString(undefined, options)}</td>
-        <td>{modifiedDate.toLocaleDateString(undefined, options)}</td>
+        <td className="border">{item.name}</td>
+        <td className="border">{createdDate.toLocaleDateString(undefined, options)}</td>
+        <td className="border">{modifiedDate.toLocaleDateString(undefined, options)}</td>
       </tr>
     );
   });
@@ -98,8 +98,8 @@ export default function CoverLetterPage() {
           {coverLettersData.length === 0 ? (
               <NoRecords title="No Cover Letters:" message="Follow the link to create new cover letters."/>
               ) : (
-              <>
-                <h2 className="text-lg font-bold text-center">Cover Letters:</h2>         
+              <div className="text-ivory">
+                <h2 className="text-lg font-semibold text-center">Cover Letters:</h2>         
                 <div className="m-4">
                   <table className="w-full text-center">
                     <thead>
@@ -115,13 +115,14 @@ export default function CoverLetterPage() {
                     </tbody>
                   </table>
                 </div>
-              </>
+              </div>
               )}
               <div className="flex gap-4">
                 <button 
                   type="button" 
                   onClick={() => router.push("/resume")}
-                  className="px-2 py-1 my-1 rounded-md text-slate-50 bg-slate-900 outline-double"
+                  // className="px-2 py-1 my-1 rounded-md text-slate-50 bg-slate-900 outline-double"
+                  className="p-1 rounded-md text-gray-950 ring-2 ring-slate-100 bg-ivory opacity-90"
                 >
                   Previous
                 </button>
@@ -130,7 +131,7 @@ export default function CoverLetterPage() {
                 <div>
                   <button 
                     onClick={() => handlerUpdateCoverLetter("")}
-                    className="px-2 py-1 my-1 rounded-md text-slate-50 bg-slate-900 outline-double"
+                    className="p-1 rounded-md text-gray-950 ring-2 ring-slate-100 bg-ivory opacity-90"
                   >
                     Remove
                   </button>
@@ -140,7 +141,7 @@ export default function CoverLetterPage() {
                 <button 
                   type="button"
                   onClick={handlerSubmit}
-                  className="px-2 py-1 my-1 rounded-md text-slate-50 bg-slate-900 outline-double"
+                  className="p-1 rounded-md text-gray-950 ring-2 ring-slate-100 bg-ivory opacity-90"
                 >
                   Submit
                 </button>

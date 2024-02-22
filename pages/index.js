@@ -2,7 +2,7 @@ import { HomeIcon, PencilIcon, MagnifyingGlassIcon, BriefcaseIcon, ListBulletIco
 
 export default function HomePage() {
   return (
-      <div className="p-10">
+      <div className="p-10 text-ivory">
         <h2 className="pt-5 pb-5 text-2xl font-bold">Our Motivation:</h2>
         <h4 className="text-md">Welcome to First Draft where we believe that "There is no such thing as good writing, only good rewriting"(Robert Graves). In that spirit we built this tool to help job seekers overcome their writers block by using ChatGPT creating a first draft cover letter to improve upon and make their own!</h4>
         <h4 className="pt-5 pb-5 text-2xl font-bold">Directions:</h4>

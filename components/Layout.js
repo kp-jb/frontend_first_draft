@@ -11,10 +11,11 @@ export default function Layout(props) {
               <div className="w-1/6">
                 <NavSideBar></NavSideBar>
               </div>
-
-              <div className="w-3/6 p-5 ml-4 border rounded-lg border-white-500 bg-opacity-35 bg-slate-100">
+              <div 
+                // className="w-3/6 p-5 ml-4 border rounded-lg border-white-500 bg-opacity-35 bg-slate-100">
+                // className="w-3/6 ml-4 border rounded-lg bg-opacity-30 p5 border-white-500 bg-gray-950">
+                className="w-3/6 ml-4 border rounded-lg p5 border-slate-50 bg-opacity-80 bg-gray-950">
                 {props.children}
-
               </div>
             </div>
             <Footer></Footer>

@@ -60,9 +60,9 @@ export default function RecordsPage() {
             }
           />
         </td>
-        <td>{item.name}</td>
-        <td>{createdDate.toLocaleDateString(undefined, options)}</td>
-        <td>{modifiedDate.toLocaleDateString(undefined, options)}</td>
+        <td className="border">{item.name}</td>
+        <td className="border">{createdDate.toLocaleDateString(undefined, options)}</td>
+        <td className="border">{modifiedDate.toLocaleDateString(undefined, options)}</td>
       </tr>
     );
   });
@@ -86,9 +86,9 @@ export default function RecordsPage() {
             }
           />
         </td>
-        <td>{item.name}</td>
-        <td>{createdDate.toLocaleDateString(undefined, options)}</td>
-        <td>{modifiedDate.toLocaleDateString(undefined, options)}</td>
+        <td className="border">{item.name}</td>
+        <td className="border">{createdDate.toLocaleDateString(undefined, options)}</td>
+        <td className="border">{modifiedDate.toLocaleDateString(undefined, options)}</td>
       </tr>
     );
   });
@@ -136,7 +136,7 @@ export default function RecordsPage() {
               message="Follow the link to create new resumes."
             />
           ) : (
-            <>
+            <div className="text-ivory">
               <h2 className="text-lg font-bold text-center">Resumes:</h2>
               <div className="m-4">
                 <table className="w-full text-center">
@@ -151,7 +151,7 @@ export default function RecordsPage() {
                   <tbody>{resumeRows}</tbody>
                 </table>
               </div>
-            </>
+            </div>
           )}
           {stateRecordsPage.selectedRecord &&
             stateRecordsPage.selectedRecord.is_resume && (
@@ -182,7 +182,7 @@ export default function RecordsPage() {
               message="Follow the link to create new cover letters."
             />
           ) : (
-            <>
+            <div className="text-ivory">
               <h2 className="text-lg font-bold text-center">Cover Letters:</h2>
               <div className="m-4">
                 <table className="w-full text-center">
@@ -197,7 +197,7 @@ export default function RecordsPage() {
                   <tbody>{coverLettersRows}</tbody>
                 </table>
               </div>
-            </>
+            </div>
           )}
           {stateRecordsPage.selectedRecord &&
             !stateRecordsPage.selectedRecord.is_resume && (
