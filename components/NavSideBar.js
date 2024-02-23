@@ -1,123 +1,156 @@
 import Link from "next/link";
+import { HomeIcon, BookOpenIcon, PencilIcon, MagnifyingGlassIcon, BriefcaseIcon, ListBulletIcon, EnvelopeIcon, LockClosedIcon } from '@heroicons/react/24/solid'
 import {useRouter} from "next/router";
+import React from "react";
 
 import { useAuthContext } from "@/contexts/AuthContext";
 
 export default function NavSideBar() {
-  const { userData } = useAuthContext();
+  const [stateHover,setStateHover] = React.useState(""
+  );
+  const { userData, logoutFunction } = useAuthContext();
   const router = useRouter();
   const currPage = router.pathname;
 
 
   // console.log("NavSideBar",currPage);
   return (
-    <div className="text-gray-50">
-      <nav className="flex flex-col items-start rounded-lg bg-gray-950 w-36 h-72">
-          <div className="p-4 m-1">
-            <ul className="">
-              <li className="my-6">
+    <div className="h-full flex flex-row flex-nowrap justify-center">
+      <nav className="h-full w-2/3 flex flex-col items-start rounded-lg bg-gray-950 border border-ivory">
+            <ul className="w-full pt-16 pb-16 flex flex-col flex-nowrap items-center justify-end space-y-14 text-sm">
+              <li 
+                className="w-full flex flex-row flex-nowrap justify-center"
+                onMouseOver={()=>setStateHover("HOME")}
+                onMouseLeave={()=>setStateHover("")}>
                 <Link
                   href="/"
                   className={`${currPage==="/" 
                   ? "text-gray-950 rounded-md p-1 ring-2 ring-slate-100 bg-ivory opacity-90" 
                   : ""}`}
                 >
-                Home
+                {stateHover==="HOME"? "HOME":<HomeIcon className="w-5"/>}
                 </Link>
               </li>
 
-              { userData?
-                <></>:
-              <li className="my-6">
-                <Link
-                  href="/login"
-                  className={`${currPage==="/login" 
-                  ? "text-gray-950 rounded-md p-1 ring-2 ring-slate-100 bg-ivory opacity-90"
-                  : ""}`}
-                >
-                Login
-                </Link>
-              </li>}
+              { !userData?
+                  <li className="flex flex-row flex-nowrap justify-center"
+                  onMouseOver={()=>setStateHover("LOGIN")}
+                  onMouseLeave={()=>setStateHover("")}>
+                    <Link
+                      href="/login"
+                      className={`${currPage==="/login" 
+                      ? "text-gray-950 rounded-md p-1 ring-2 ring-slate-100 bg-ivory opacity-90"
+                      : ""}`}
+                    >
+                    {stateHover==="LOGIN"? "LOGIN":<LockClosedIcon className="w-5"/>}
+                    </Link>
+                  </li>:
+                  <></>
+                }
 
               { userData?
-              <li className="my-6">
+              <li className="flex flex-row flex-nowrap justify-center"
+                onMouseOver={()=>setStateHover("RECORDS")}
+                onMouseLeave={()=>setStateHover("")}>
                 <Link
                   href="/records"
                   className={`${currPage==="/records"
                   ? "text-gray-950 rounded-md p-1 ring-2 ring-slate-100 bg-ivory opacity-90"
                   : ""}`}
                 >
-                Records
+                {stateHover==="RECORDS"? "RECORDS":<BookOpenIcon className="w-5"/>}
                 </Link>
               </li>
               :<></>}
 
               { userData?
-              <li className="my-6">
+              <li className="flex flex-row flex-nowrap justify-center"
+                onMouseOver={()=>setStateHover("EDITANDSAVE")}
+                onMouseLeave={()=>setStateHover("")}>
                 <Link
                   href="editandsave"
                   className={`${currPage==="/editandsave"
                   ? "text-gray-950 rounded-md p-1 ring-2 ring-slate-100 bg-ivory opacity-90"
                   : ""}`}
                 >
-                Edit and Save
+                {stateHover==="EDITANDSAVE"? "EDIT AND SAVE":<PencilIcon className="w-5"/>}
                 </Link>
               </li>
               :<></>}
 
               { userData?
-              <li className="my-6">
+              <li className="flex flex-row flex-nowrap justify-center"
+                onMouseOver={()=>setStateHover("QUERY")}
+                onMouseLeave={()=>setStateHover("")}>
                 <Link
                   href="query"
                   className={`${currPage==="/query"
                   ? "text-gray-950 rounded-md p-1 ring-2 ring-slate-100 bg-ivory opacity-90"
                   : ""}`}
                 >
-                Query
+                {stateHover==="QUERY"? "QUERY":<MagnifyingGlassIcon className="w-5"/>}
                 </Link>
               </li>
               :<></>}
 
               { userData?
-              <li className="my-6">
+              <li className="flex flex-row flex-nowrap justify-center"
+              onMouseOver={()=>setStateHover("DESCRIPTION")}
+                onMouseLeave={()=>setStateHover("")}>
                 <Link
                   href="description"
                   className={`${currPage==="/description"
                   ? "text-gray-950 rounded-md p-1 ring-2 ring-slate-100 bg-ivory opacity-90"
                   : ""}`}
                 >
-                Description
+                {stateHover==="DESCRIPTION"? "DESCRIPTION":<ListBulletIcon className="w-5"/>}
                 </Link>
               </li>
               :<></>}
 
               { userData?
-              <li className="my-6">
+              <li className="flex flex-row flex-nowrap justify-center"
+              onMouseOver={()=>setStateHover("RESUME")}
+                onMouseLeave={()=>setStateHover("")}>
                 <Link
                   href="resume"
                   className={`${currPage==="/resume"
                   ? "text-gray-950 rounded-md p-1 ring-2 ring-slate-100 bg-ivory opacity-90"
                   : ""}`}
                 >
-                Resume
+                {stateHover==="RESUME"? "RESUME":<BriefcaseIcon className="w-5"/>}
                 </Link>
               </li>
               :<></>}
 
               { userData?
-              <li className="my-6">
+              <li className="flex flex-row flex-nowrap justify-center"
+              onMouseOver={()=>setStateHover("COVERLETTER")}
+                onMouseLeave={()=>setStateHover("")}>
                 <Link
                   href="coverletter"
                   className={`${currPage==="/coverletter"
                   ? "text-gray-950 rounded-md p-1 ring-2 ring-slate-100 bg-ivory opacity-90"
                   : ""}`}
                 >
-                Cover Letter
+                {stateHover==="COVERLETTER"? "COVER LETTER":<EnvelopeIcon className="w-5"/>}
+                </Link>
+              </li>
+              :<></>}
+              { userData?
+              <li className="flex flex-row flex-nowrap justify-center"
+              onMouseOver={()=>setStateHover("LOGOUT")}
+                onMouseLeave={()=>setStateHover("")}>
+                <Link
+                  href="login"
+                  onClick={logoutFunction}
+                  className=""
+                >
+                {stateHover==="LOGOUT"? "LOG OUT":<LockClosedIcon className="w-5"/>}
                 </Link>
               </li>
               :<></>}
             </ul>
-          </div>
       </nav>
     </div>
   );

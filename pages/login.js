@@ -69,7 +69,7 @@ export default function LoginPage() {
 
   // console.log("Login Page:", userData);
   return (
-    <div className="flex justify-center">
+    <div className="h-full flex flex-row flex-nowrap justify-center">
       <ErrorModal 
         isOpen={Array.isArray(errorPages) && errorPages.includes("login")} 
         updateError={updateError}
@@ -77,13 +77,13 @@ export default function LoginPage() {
         />
       {stateLoggingIn?
       
-        <form className="flex flex-col items-center justify-center w-4/6 p-10 border border-red-500 flex-nowrap"
+        <form className="h-full w-4/6 p-10 flex flex-col flex-nowrap items-center justify-center"
           onSubmit={handlerOnLogin}>
           <h2 className="p-5 text-2xl font-bold">LOGIN FORM:</h2>
           <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
             EMAIL:
             <input
-              className="w-full mt-2 border border-black lg:w-4/5 lg:mt-0 lg:ml-2"
+              className="w-full mt-2 text-black border border-black lg:w-4/5 lg:mt-0 lg:ml-2"
               type="email"
               name="email"
               required
@@ -94,27 +94,27 @@ export default function LoginPage() {
           <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
             PASSWORD:
             <input
-            className="w-full mt-2 border border-black lg:w-4/5 lg:mt-0 lg:ml-2"
+            className="w-full mt-2 text-black border border-black lg:w-4/5 lg:mt-0 lg:ml-2"
               required
               type="password"
               name="loginPassword"
             />
           </label>
           <button 
-            className="w-full px-4 py-2 m-5 font-bold text-white bg-gray-500 rounded-lg sm:w-1/2 md:w-1/3 lg:1/6 hover:bg-gray-700"
+            className="w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory opacity-90 rounded-lg sm:w-1/2 md:w-1/3 lg:w-1/6"
             type="submit">
               Login</button>
           <p
-            className=""
+            className="flex flex-col text-gray-100 lg:flex-row lg:flex-nowrap lg:justify-between"
             >Not a member? <button 
-            className="font-bold text-blue-500 hover:text-blue-800"
+            className="ml-3 font-bold text-gray-100 hover:text-gray-400"
             type="button"
             onClick={handlerLoginOrRegistration}>
-              Register Instead</button></p>
+              Register</button></p>
         </form>
   
         :<form 
-          className="flex flex-col items-center justify-center w-4/6 p-10 border border-red-500 flex-nowrap"
+          className="h-full w-4/6 p-10 flex flex-col flex-nowrap items-center justify-center"
           onSubmit={handlerOnRegistration}>
           <h2
             className="p-5 text-2xl font-bold"
@@ -122,7 +122,7 @@ export default function LoginPage() {
           <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
             FIRST NAME:
             <input
-              className="w-full mt-2 border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
+              className="w-full mt-2 text-black border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
               required
               type="text"
               name="first_name"
@@ -133,7 +133,7 @@ export default function LoginPage() {
           <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
             LAST NAME:
             <input
-              className="w-full mt-2 border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
+              className="w-full mt-2 text-black border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
               required
               type="text"
               name="last_name"
@@ -144,7 +144,7 @@ export default function LoginPage() {
           <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
             EMAIL:
             <input
-              className="w-full mt-2 border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
+              className="w-full mt-2 text-black border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
               required
               type="email"
               name="email"
@@ -155,7 +155,7 @@ export default function LoginPage() {
           <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
             PASSWORD:
             <input
-              className="w-full mt-2 border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
+              className="w-full mt-2 text-black border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
               required
               type="password"
               name="registerPassword"
@@ -164,23 +164,23 @@ export default function LoginPage() {
           <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
             CONFIRM PASSWORD:
             <input
-              className="w-full mt-2 border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
+              className="w-full mt-2 text-black border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
               required
               type="password"
               name="confirmPassword"
             />
           </label>
           <button 
-            className="w-full px-4 py-2 m-5 font-bold text-white bg-gray-500 rounded-lg sm:w-1/2 md:w-1/3 lg:1/6 hover:bg-gray-700"
+            className="w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory opacity-90 rounded-lg sm:w-1/2 md:w-1/3 lg:w-1/6"
             type="submit">
               Register</button>
           <p
-            className="flex flex-col lg:flex-row lg:flex-nowrap lg:justify-between"
+            className="flex flex-col text-gray-100 lg:flex-row lg:flex-nowrap lg:justify-between"
             >Already a member?<button 
-            className="ml-3 font-bold text-blue-500 hover:text-blue-800"
+            className="ml-3 font-bold text-gray-100 hover:text-gray-400"
             type="button"
             onClick={handlerLoginOrRegistration}>
-              Login Instead</button></p>
+              Login</button></p>
         </form>
         }
     </div>
