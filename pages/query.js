@@ -35,7 +35,7 @@ export default function QueryPage() {
         <fieldset className="h-full">
           <div className="h-5/6 flex flex-col w-full">
             <label className="pt-5 font-bold text-center rounded-lg text-ivory">
-              <h2 className="underline text-xl">REQUEST INSTRUCTIONS</h2>
+              <h2 className="underline text-xl">QUERY INSTRUCTIONS</h2>
               <p className="p-3 text-sm no-underline">
                 Change the instructions as needed or use the default...
               </p>
@@ -53,10 +53,10 @@ export default function QueryPage() {
           </div>
           <div className="h-1/6 flex flex-row flex-nowrap items-center justify-between">
             <button
-              type="button"
               className="opacity-0 h-10 w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory rounded-lg sm:w-1/2 md:w-1/3 lg:w-1/6"
+              type="button"
             >
-              HIDDEN
+              RECORDS
             </button>
             <button
               type="button"

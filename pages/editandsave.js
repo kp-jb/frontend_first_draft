@@ -103,17 +103,22 @@ export default function EditAndSavePage() {
       <form className="h-full w-5/6 flex flex-col flex-nowrap justify-between">
         <fieldset className="h-full">
           <div className="h-5/6 flex flex-col w-full">
-            <label className="p-5 text-xl font-bold text-center rounded-lg text-ivory underline">EDIT AND SAVE</label>
+            <label className="pt-5 font-bold text-center rounded-lg text-ivory">
+              <h2 className="underline text-xl">EDIT AND SAVE</h2>
+              <p className="p-3 text-sm no-underline">
+                Add, edit, and save resumes and cover letters here.
+              </p>
             <textarea
               placeholder={defaultEditAndSave}
               maxLength="10000"
               name="content"
-              rows={20}
-              columns={40}
+              rows={16}
+              columns={20}
               className="w-full h-full p-3 text-gray-400 border resize-none bg-gray-950"
               value={content || ""}
               onChange={handlerChange}
             />
+            </label>
           </div>
           <div className="h-1/6 flex flex-row flex-nowrap items-center justify-between">
             <button
@@ -121,7 +126,7 @@ export default function EditAndSavePage() {
               onClick={() => handlerReset("content", "")}
               type="button"
             >
-              CLEAR
+              RESET
             </button>
             <button
               className="h-10 w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory opacity-90 rounded-lg sm:w-1/2 md:w-1/3 lg:w-1/6"
@@ -139,17 +144,19 @@ export default function EditAndSavePage() {
         onRequestClose={handlerControlModal}
         contentLabel="Save Modal"
         shouldCloseOnOverlayClick={false}
-        className="fixed inset-0 flex items-center justify-center font-mono"
+        className="fixed inset-0 flex items-center justify-center font-mono text-gray-950 text-center"
+        overlayClassName="opacity-100"
       >
-        <div className="p-6 bg-white rounded-lg w-[600px] h-[300px] flex flex-col">
-          <label className="flex justify-between">
+        <div className="p-10 bg-white rounded-lg w-1/3 h-1/3 flex flex-col flex-nowrap justify-evenly">
+          <h3 className="text-xl font-bold underline">SAVE RECORD</h3>
+          <label className="flex justify-between font-bold">
             FILE TYPE:
-            <select name="is_resume" value={is_resume || "false"} onChange={handlerChange}>
-              <option value="true">Resume</option>
-              <option value="false">Cover Letter</option>
+            <select className=" w-1/2 p-1 border border-gray-950" name="is_resume" value={is_resume || "false"} onChange={handlerChange}>
+              <option value="true">RESUME</option>
+              <option value="false">COVER LETTER</option>
             </select>
           </label>
-          <label className="flex justify-between">
+          <label className="flex justify-between font-bold">
             FILE NAME:
             <input
               type="text"
@@ -157,19 +164,19 @@ export default function EditAndSavePage() {
               value={content_name || ""}
               placeholder={content_name}
               onChange={handlerChange}
-              className="border text-slate-600"
+              className="w-1/2 pl-1 border border-gray-950"
             />
           </label>
-          <div className="flex justify-center gap-20 m-1">
+          <div className="flex flex-row flex-nowrap justify-between">
             <button 
               onClick={handlerCancel} 
-              className="p-1 rounded-md text-gray-950 ring-2 ring-slate-100 bg-ivory opacity-90"
+              className="text-ivory h-10 w-full px-4 py-2 m-5 font-bold p-1 ring-2 ring-slate-100 bg-gray-950 rounded-lg"
             >
               CANCEL
             </button>
             <button
               onClick={handlerSaveContent}
-              className="p-1 rounded-md text-gray-950 ring-2 ring-slate-100 bg-ivory opacity-90"
+              className="text-ivory h-10 w-full px-4 py-2 m-5 font-bold p-1 ring-2 ring-slate-100 bg-gray-950 rounded-lg"
             >
               SAVE
             </button>
