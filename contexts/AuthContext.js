@@ -93,11 +93,7 @@ export default function AuthProvider(props) {
     };
     axios(options)
       .then(response => {
-        if (response && response.status == 201){
-          loginFunction(email, password);
-        } else {
-          updateError(["login"],`Failure to login:`,false)
-        }})
+        loginFunction(email, password);})
       .catch(error => updateError(["login"],`Failure to register:\n\nEmail is already registered.`,false));   
   };
 
