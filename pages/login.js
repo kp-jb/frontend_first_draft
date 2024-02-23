@@ -69,19 +69,21 @@ export default function LoginPage() {
 
   // console.log("Login Page:", userData);
   return (
-    <div>
+    <div className="h-full flex flex-row flex-nowrap justify-center">
       <ErrorModal 
         isOpen={Array.isArray(errorPages) && errorPages.includes("login")} 
         updateError={updateError}
         errorMessage={errorMessage}
         />
       {stateLoggingIn?
-
-        <form onSubmit={handlerOnLogin}>
-          <h2>LOGIN FORM:</h2>
-          <label>
-            Email:
+      
+        <form className="h-full w-4/6 p-10 flex flex-col flex-nowrap items-center justify-center"
+          onSubmit={handlerOnLogin}>
+          <h2 className="p-5 text-2xl font-bold">LOGIN FORM:</h2>
+          <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
+            EMAIL:
             <input
+              className="w-full mt-2 text-black border border-black lg:w-4/5 lg:mt-0 lg:ml-2"
               type="email"
               name="email"
               required
@@ -89,30 +91,38 @@ export default function LoginPage() {
               onChange={handlerOnChange}
             />
           </label>
-          <br />
-          <label>
-            Password:
+          <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
+            PASSWORD:
             <input
+            className="w-full mt-2 text-black border border-black lg:w-4/5 lg:mt-0 lg:ml-2"
               required
               type="password"
               name="loginPassword"
             />
           </label>
-          <br />
           <button 
-            type="button"
-            onClick={handlerLoginOrRegistration}>
-              Register Instead</button>
-          <button 
+            className="w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory opacity-90 rounded-lg sm:w-1/2 md:w-1/3 lg:w-1/6"
             type="submit">
               Login</button>
+          <p
+            className="flex flex-col text-gray-100 lg:flex-row lg:flex-nowrap lg:justify-between"
+            >Not a member? <button 
+            className="ml-3 font-bold text-gray-100 hover:text-gray-400"
+            type="button"
+            onClick={handlerLoginOrRegistration}>
+              Register</button></p>
         </form>
   
-        :<form onSubmit={handlerOnRegistration}>
-          <h2>REGISTRATION FORM:</h2>
-          <label>
-            First Name:
+        :<form 
+          className="h-full w-4/6 p-10 flex flex-col flex-nowrap items-center justify-center"
+          onSubmit={handlerOnRegistration}>
+          <h2
+            className="p-5 text-2xl font-bold"
+            >REGISTRATION FORM:</h2>
+          <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
+            FIRST NAME:
             <input
+              className="w-full mt-2 text-black border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
               required
               type="text"
               name="first_name"
@@ -120,10 +130,10 @@ export default function LoginPage() {
               onChange={handlerOnChange}
             />
           </label>
-          <br />
-          <label>
-            Last Name:
+          <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
+            LAST NAME:
             <input
+              className="w-full mt-2 text-black border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
               required
               type="text"
               name="last_name"
@@ -131,10 +141,10 @@ export default function LoginPage() {
               onChange={handlerOnChange}
             />
           </label>
-          <br />
-          <label>
-            Email:
+          <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
+            EMAIL:
             <input
+              className="w-full mt-2 text-black border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
               required
               type="email"
               name="email"
@@ -142,32 +152,35 @@ export default function LoginPage() {
               onChange={handlerOnChange}
             />
           </label>
-          <br />
-          <label>
-            Password:
+          <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
+            PASSWORD:
             <input
+              className="w-full mt-2 text-black border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
               required
               type="password"
               name="registerPassword"
             />
           </label>
-          <br />
-          <label>
-            Confirm Password:
+          <label className="flex flex-col w-5/6 p-5 font-bold lg:flex-row lg:flex-nowrap lg:justify-between">
+            CONFIRM PASSWORD:
             <input
+              className="w-full mt-2 text-black border border-black lg:w-3/5 lg:mt-0 lg:ml-2"
               required
               type="password"
               name="confirmPassword"
             />
           </label>
-          <br />
           <button 
-            type="button"
-            onClick={handlerLoginOrRegistration}>
-              Login Instead</button>
-          <button 
+            className="w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory opacity-90 rounded-lg sm:w-1/2 md:w-1/3 lg:w-1/6"
             type="submit">
               Register</button>
+          <p
+            className="flex flex-col text-gray-100 lg:flex-row lg:flex-nowrap lg:justify-between"
+            >Already a member?<button 
+            className="ml-3 font-bold text-gray-100 hover:text-gray-400"
+            type="button"
+            onClick={handlerLoginOrRegistration}>
+              Login</button></p>
         </form>
         }
     </div>
