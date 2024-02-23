@@ -133,12 +133,12 @@ export default function RecordsPage() {
       <div className="h-[35vh] flex flex-col flex-nowrap align-center justify-between">
         {resumesData.length === 0 ? (
           <NoRecords
-            title="NO RESUMES:"
+            title="NO RESUMES"
             message="Follow the link to create new resumes."
           />
         ) : (
           <div className="h-5/6 m-5/6 p-5 overflow-y-auto">
-            <h2 className="mb-3 text-xl font-bold text-center underline">RESUMES:</h2>
+            <h2 className="mb-3 text-xl font-bold text-center underline">RESUMES</h2>
               <table className="w-full text-center table-auto border border-collapse border-ivory">
                 <colgroup>
                   <col style={{ width: '10%' }} />
@@ -185,12 +185,12 @@ export default function RecordsPage() {
       <div className="h-[35vh] flex flex-col flex-nowrap align-center justify-between">
         {coverLettersData.length === 0 ? (
           <NoRecords
-            title="NO COVER LETTERS:"
+            title="NO COVER LETTERS"
             message="Follow the link to create new cover letters."
           />
         ) : (
           <div className="h-5/6 min-h-5/6 p-5 overflow-y-auto">
-            <h2 className="mb-3 text-xl font-bold text-center underline">COVER LETTERS:</h2>
+            <h2 className="mb-3 text-xl font-bold text-center underline">COVER LETTERS</h2>
               <table className="w-full text-center table-auto border border-collapse border-ivory">
                 <colgroup>
                   <col style={{ width: '10%' }} />
