@@ -9,7 +9,7 @@ export default function QueryPage() {
   // unpack prompt context
   let { query, updatePrompt } = usePromptContext();
   // unpack error context
-  let { errorPages, errorMessage, updateError } = useErrorContext();
+  let { errorPages, errorMessage, loading, updateError } = useErrorContext();
   let router = useRouter();
 
   // update prompt context with each edit
@@ -27,7 +27,7 @@ export default function QueryPage() {
   return (
     <div className="h-full w-full flex flex-col flex-nowrap justify-evenly items-center">
       <ErrorModal
-        isOpen={Array.isArray(errorPages) && errorPages.includes("query")}
+        isOpen={Array.isArray(errorPages) && errorPages.includes("query") && loading===false}
         updateError={updateError}
         errorMessage={errorMessage}
       />

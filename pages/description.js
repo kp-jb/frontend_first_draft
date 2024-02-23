@@ -8,7 +8,7 @@ export default function DescriptionPage() {
   // unpack prompt context
   let { description, updatePrompt } = usePromptContext();
   // unpack error context
-  let { errorPages, errorMessage, updateError } = useErrorContext();
+  let { errorPages, errorMessage, loading, updateError } = useErrorContext();
   let router = useRouter();
 
   // update prompt context
@@ -26,7 +26,7 @@ export default function DescriptionPage() {
   return (
     <div className="h-full w-full flex flex-col flex-nowrap justify-evenly items-center">
       <ErrorModal
-        isOpen={Array.isArray(errorPages) && errorPages.includes("description")}
+        isOpen={Array.isArray(errorPages) && errorPages.includes("description") && loading===false}
         updateError={updateError}
         errorMessage={errorMessage}
       />

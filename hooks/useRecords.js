@@ -16,6 +16,7 @@ export default function useRecords() {
   
 
   function getRecords(url) {
+    updateError(["records"],"",true);
     // TODO: handle token refresh here
     // if (!isTokenValid(tokens)) {
     //   updateError(["*"],"Unable to fetch user resumes, access token has expired. New token has be requested. If problem persists, logout and login again.")
@@ -25,10 +26,12 @@ export default function useRecords() {
     return axios(options)
       .then(response => {
         return response.data})
-      .catch(error => updateError(["records","editandsave"],`Unable to fetch user records:\n\n${error.message}`));
+      .catch(error => updateError(["records"],`Unable to fetch user records:\n\n${error.message}`,false));
   };
 
   function createRecord(info) {
+    updateError(["records","editandsave"],"",true);
+    
     let options = config(RecordsUrl);
     options.method = 'POST';
     options.data = JSON.stringify(info);
@@ -46,11 +49,13 @@ export default function useRecords() {
         }; 
         return})
       .catch(error => {
-        updateError(["records","editandsave"],`Unable to create record:\n\n${error.message}`);
+        updateError(["records","editandsave"],`Unable to create record:\n\n${error.message}`,false);
       });
   }
 
   function deleteRecord(id) {
+    updateError(["records"],"",true);
+
     let options = config(RecordsUrl+id+"/");
     options.method = 'DELETE';
     
@@ -66,10 +71,12 @@ export default function useRecords() {
           throw new Error(`Response status ${response.status}.`);
         };
         return})
-      .catch(error => updateError(["records"],`Unable to delete record:\n\n${error.message}`)); 
+      .catch(error => updateError(["records"],`Unable to delete record:\n\n${error.message}`,false)); 
   }
 
   function updateRecord(resource) {
+    updateError(["records","editandsave"],"",true);
+
     let options = config(RecordsUrl+resource.id+"/");
     options.method = 'PUT';
     options.data = JSON.stringify(resource);
@@ -85,7 +92,7 @@ export default function useRecords() {
           throw new Error(`Response status ${response.status}.`);
         };
         return})
-      .catch(error => updateError(["records","editandsave"],`Unable to update record:\n\n${error.message}`)); 
+      .catch(error => updateError(["records","editandsave"],`Unable to update record:\n\n${error.message}`,false)); 
   }
 
   function config(url) {

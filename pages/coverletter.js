@@ -18,7 +18,7 @@ export default function CoverLetterPage() {
   let { coverLetter, updatePrompt, formatPrompt } = usePromptContext();
 
   // unpack error context
-  let { errorPages, errorMessage, updateError } = useErrorContext();
+  let { errorPages, errorMessage, loading, updateError } = useErrorContext();
   let { getChatGPT } = useChatGPT();
 
   // unpack userData
@@ -30,14 +30,24 @@ export default function CoverLetterPage() {
   let router = useRouter();
 
   async function handlerSubmit() {
+    updateError(["coverletter"],"",true);
     let formattedPrompt = await formatPrompt();
-    let responseData = await getChatGPT(formattedPrompt);
+    if (!formattedPrompt){return;}
+    let response = await getChatGPT(formattedPrompt);
 
     // update ContentContext
-    refreshContent(responseData);
-
-    // move user to response page if request is OK
-    router.push("/editandsave");
+    if (response.status == "200") {
+      refreshContent(response.data);
+      updatePrompt("resume", "");
+      updatePrompt("coverLetter", "");
+      router.push("/editandsave");
+    } else {
+      updateError(
+        ["coverletter"],
+        `Request failed with response status of ${response.status}.`,
+        false
+      );
+    }
   }
 
   // enable user to
@@ -57,12 +67,12 @@ export default function CoverLetterPage() {
   }
 
   function handlerUpdateCoverLetter(item) {
-    if (item===coverLetter){
-      updatePrompt("coverLetter","");
+    if (item === coverLetter) {
+      updatePrompt("coverLetter", "");
     } else {
       updatePrompt("coverLetter", item);
-    };
-  };
+    }
+  }
 
   // filter down to only cover letters
   let coverLettersData = recordsData.filter((item) => !item.is_resume);
@@ -101,13 +111,14 @@ export default function CoverLetterPage() {
   return (
     <div className="h-full w-full flex flex-col flex-nowrap justify-evenly items-center">
       <ErrorModal
-        isOpen={Array.isArray(errorPages) && errorPages.includes("coverletter")}
+        isOpen={Array.isArray(errorPages) && errorPages.includes("coverletter") && loading===false}
         updateError={updateError}
         errorMessage={errorMessage}
       />
       <div className="h-full w-5/6 flex flex-col flex-nowrap justify-evenly">
         {coverLettersData.length === 0 ? (
           <NoRecords
+            loading={Array.isArray(errorPages) && errorPages.includes("coverletter") && loading}
             title="NO COVER LETTERS"
             message="Follow the link to create new cover letters."
           />
@@ -123,48 +134,57 @@ export default function CoverLetterPage() {
                 <col style={{ width: "25%" }} />
                 <col style={{ width: "25%" }} />
               </colgroup>
-                <thead>
-                  <tr>
+              <thead>
+                <tr>
                   <th className="px-4 py-2">SELECT</th>
                   <th className="px-4 py-2">NAME</th>
                   <th className="px-4 py-2">DATE CREATED</th>
                   <th className="px-4 py-2">DATE MODIFIED</th>
-                  </tr>
-                </thead>
-                <tbody>{coverLettersRows}</tbody>
-              </table>
-            </div>
+                </tr>
+              </thead>
+              <tbody>{coverLettersRows}</tbody>
+            </table>
+          </div>
         )}
         {coverLettersData.length > 0 ? (
           <div className="h-1/6 flex flex-row flex-nowrap items-center justify-between">
-          <button
-            type="button"
-            onClick={() => router.push("/resume")}
-            className="h-10 w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory rounded-lg opacity-90 sm:w-1/2 md:w-1/3 lg:w-1/6"
-          >
-            PREVIOUS
-          </button>
-        
-          <button
-            onClick={() => handlerUpdateCoverLetter(coverLetter)}
-            className={`${
-              coverLetter ? "opacity-90" : "opacity-0"
-            } h-10 w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory rounded-lg sm:w-1/2 md:w-1/3 lg:w-1/6`}
-          >
-            UNSELECT
-          </button>
-            
-          <button
-            type="button"
-            onClick={handlerSubmit}
-            className="h-10 w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory rounded-lg opacity-90 sm:w-1/2 md:w-1/3 lg:w-1/6"
-          >
-            SUBMIT
-          </button>
-        </div>
-              ) : (
-                <></>
-              )}
+            <button
+              type="button"
+              onClick={() => router.push("/resume")}
+              className="h-10 w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory rounded-lg opacity-90 sm:w-1/2 md:w-1/3 lg:w-1/6"
+            >
+              PREVIOUS
+            </button>
+
+            <button
+              onClick={() => handlerUpdateCoverLetter(coverLetter)}
+              className={`${
+                coverLetter ? "opacity-90" : "opacity-0"
+              } h-10 w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory rounded-lg sm:w-1/2 md:w-1/3 lg:w-1/6`}
+            >
+              UNSELECT
+            </button>
+
+            {loading && errorPages.includes("coverletter") ? 
+                <button
+                type="button"
+                className="h-10 w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory rounded-lg opacity-90 sm:w-1/2 md:w-1/3 lg:w-1/6"
+              >
+                LOADING...
+              </button>
+             : 
+              <button
+                type="button"
+                onClick={handlerSubmit}
+                className="h-10 w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory rounded-lg opacity-90 sm:w-1/2 md:w-1/3 lg:w-1/6"
+              >
+                SUBMIT
+              </button>
+            }
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

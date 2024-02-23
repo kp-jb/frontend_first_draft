@@ -22,7 +22,7 @@ export default function LoginPage() {
   );
 
   // unpack error context
-  let { errorPages, errorMessage, updateError } = useErrorContext();
+  let { errorPages, errorMessage, loading, updateError } = useErrorContext();
 
   // change state between login and registration
   function handlerLoginOrRegistration() {
@@ -46,7 +46,7 @@ export default function LoginPage() {
     if (email && password){
       loginFunction(email,password)
     } else {
-      updateError(["login"],"Failure to login:\n\nMust provide a email address and password.");
+      updateError(["login"],"Failure to login:\n\nMust provide a email address and password.",false);
     };
   };
 
@@ -61,7 +61,7 @@ export default function LoginPage() {
     // console.log("Login Page:",first_name, last_name, email, registerPassword, confirmPassword);
 
     if (registerPassword !== confirmPassword){
-      updateError(["login"],"Failure to register:\n\nPasswords must match.");
+      updateError(["login"],"Failure to register:\n\nPasswords must match.",false);
     } else {
       registerFunction(first_name, last_name, email, registerPassword);
     };
@@ -71,7 +71,7 @@ export default function LoginPage() {
   return (
     <div className="h-full flex flex-row flex-nowrap justify-center">
       <ErrorModal 
-        isOpen={Array.isArray(errorPages) && errorPages.includes("login")} 
+        isOpen={Array.isArray(errorPages) && errorPages.includes("login") && loading===false} 
         updateError={updateError}
         errorMessage={errorMessage}
         />
@@ -100,10 +100,15 @@ export default function LoginPage() {
               name="loginPassword"
             />
           </label>
-          <button 
-            className="w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory opacity-90 rounded-lg sm:w-1/2 md:w-1/3 lg:w-1/6"
-            type="submit">
-              Login</button>
+          {loading && errorPages.includes("login")?
+              <button 
+              className="w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory opacity-90 rounded-lg sm:w-1/2 md:w-1/3 lg:w-1/6"
+              type="button">
+                LOADING...</button>:
+              <button 
+              className="w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory opacity-90 rounded-lg sm:w-1/2 md:w-1/3 lg:w-1/6"
+              type="submit">
+                LOGIN</button>}
           <p
             className="flex flex-col text-gray-100 lg:flex-row lg:flex-nowrap lg:justify-between"
             >Not a member? <button 
@@ -170,10 +175,15 @@ export default function LoginPage() {
               name="confirmPassword"
             />
           </label>
-          <button 
-            className="w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory opacity-90 rounded-lg sm:w-1/2 md:w-1/3 lg:w-1/6"
-            type="submit">
-              Register</button>
+          {loading && errorPages.includes("login")?
+              <button 
+              className="w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory opacity-90 rounded-lg sm:w-1/2 md:w-1/3 lg:w-1/6"
+              type="button">
+                LOADING...</button>:
+              <button 
+              className="w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory opacity-90 rounded-lg sm:w-1/2 md:w-1/3 lg:w-1/6"
+              type="submit">
+                REGISTER</button>}
           <p
             className="flex flex-col text-gray-100 lg:flex-row lg:flex-nowrap lg:justify-between"
             >Already a member?<button 

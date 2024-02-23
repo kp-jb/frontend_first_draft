@@ -5,44 +5,6 @@ import { useErrorContext } from "./ErrorContext";
 
 const PromptContext = React.createContext();
 
-function formatQuery(query) {
-  let queryDemarc = ["[INSTRUCTIONS_STARTS]", "[INSTRUCTIONS_ENDS]"];
-  let trimQuery = query.trim();
-  let combinedQuery = `${queryDemarc[0]} ${trimQuery} ${queryDemarc[1]}`;
-  return combinedQuery;
-}
-
-function formatJobDesc(desc) {
-  let jobDescDemarc = ["[JOB_DESCRIPTION_STARTS]", "JOB_DESCRIPTION_ENDS"];
-  let trimJobDesc = desc.trim();
-  let combinedJobDesc = `${jobDescDemarc[0]} ${trimJobDesc} ${jobDescDemarc[1]}`;
-  return combinedJobDesc;
-}
-
-function formatResume(resume) {
-  // TODO: account for when resume is undefined
-  try {
-    let resumeDemarc = ["[RESUME_STARTS]", "[RESUME_ENDS]"];
-    let trimResume = resume.trim();
-    let combinedResume = `${resumeDemarc[0]} ${trimResume} ${resumeDemarc[1]}`;
-    return combinedResume;
-  } catch (TypeError) {
-    console.error()
-  }
-}
-
-function formatCoverLetter(letter) {
-  // TODO: account for when letter is undefined
-  try {
-    let coverLetterDemarc = ["[COVER_LETTER_STARTS]", "[COVER_LETTER_ENDS]"];
-    let trimCoverLetter = letter.trim();
-    let combinedCoverLetter = `${coverLetterDemarc[0]} ${trimCoverLetter} ${coverLetterDemarc[1]}`;
-    return combinedCoverLetter;
-  } catch (TypeError) {
-    console.error()
-  }
-}
-
 export function usePromptContext() {
   return React.useContext(PromptContext);
 };
@@ -75,8 +37,56 @@ export default function PromptProvider(props) {
     try{
       setStatePrompt({type:type,payload:payload});    
     } catch(error){
-      updateError(["query","description","resume","coverletter"],`Failure to update prompt:\n\n${error.message}`);
+      updateError(["query","description","resume","coverletter"],`Failure to update prompt:\n\n${error.message}`,false);
     };  
+  };
+
+  function formatQuery(query) {
+    if (typeof query === "string" && query.length>0) {
+      let queryDemarc = ["[INSTRUCTIONS_STARTS]", "[INSTRUCTIONS_ENDS]"];
+      let trimQuery = query.trim();
+      let combinedQuery = `${queryDemarc[0]} ${trimQuery} ${queryDemarc[1]}`;
+      return combinedQuery;
+    } else {
+      updateError(["coverletter"],"Query instructions cannot be left empty.",false)
+      return "";
+    };
+  };
+  
+  function formatJobDesc(desc) {
+    if (typeof desc === "string" && desc.length>0){
+      let jobDescDemarc = ["[JOB_DESCRIPTION_STARTS]", "JOB_DESCRIPTION_ENDS"];
+      let trimJobDesc = desc.trim();
+      let combinedJobDesc = `${jobDescDemarc[0]} ${trimJobDesc} ${jobDescDemarc[1]}`;
+      return combinedJobDesc;
+    } else {
+      updateError(["coverletter"],"Job description cannot be left empty.",false)
+      return "";
+    };
+  };
+  
+  function formatResume(resume) {
+    if (typeof resume === "string" && resume.length>0){
+      let resumeDemarc = ["[RESUME_STARTS]", "[RESUME_ENDS]"];
+      let trimResume = resume.trim();
+      let combinedResume = `${resumeDemarc[0]} ${trimResume} ${resumeDemarc[1]}`;
+      return combinedResume;
+    } else {
+      updateError(["coverletter"],"Resume cannot be left empty.",false);
+      return "";
+    };
+  };
+  
+  function formatCoverLetter(letter) {
+    if (typeof letter === "string" && letter.length>0){
+      let coverLetterDemarc = ["[COVER_LETTER_STARTS]", "[COVER_LETTER_ENDS]"];
+      let trimCoverLetter = letter.trim();
+      let combinedCoverLetter = `${coverLetterDemarc[0]} ${trimCoverLetter} ${coverLetterDemarc[1]}`;
+      return combinedCoverLetter;
+    } else {
+      updateError(["coverletter"],"Cover letter cannot be left empty.",false);
+      return "";
+    };
   };
 
   function formatPrompt() {
@@ -86,15 +96,10 @@ export default function PromptProvider(props) {
     let revisedResume = formatResume(statePrompt.resume.content);
     let revisedCoverLetter = formatCoverLetter(statePrompt.coverLetter.content);
     let revisedPrompt = `${revisedQuery} ${revisedJobDesc} ${revisedResume} ${revisedCoverLetter}`;
-    // console.log(revisedPrompt);
-    return JSON.stringify(revisedPrompt)
-  }
 
-  // console.log("PromptContext", statePrompt.query);
-  // console.log("Description", statePrompt.description);
-  // console.log("Resume", statePrompt.resume);
-  // console.log("Resume content", statePrompt.resume.content)
-  // console.log("Cover Letter", statePrompt.coverLetter.content);
+    if (!revisedQuery || !revisedJobDesc || !revisedResume || !revisedCoverLetter){return ""};
+    return JSON.stringify(revisedPrompt)
+  };
 
   return <PromptContext.Provider value={{...statePrompt, updatePrompt, formatPrompt}}>
             {props.children}
