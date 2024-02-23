@@ -69,7 +69,7 @@ export default function LoginPage() {
 
   // console.log("Login Page:", userData);
   return (
-    <div className="h-full flex flex-row flex-nowrap justify-center">
+    <div className="h-full flex flex-row flex-nowrap justify-center overflow-y-auto">
       <ErrorModal 
         isOpen={Array.isArray(errorPages) && errorPages.includes("login") && loading===false} 
         updateError={updateError}

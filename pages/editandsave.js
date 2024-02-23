@@ -123,22 +123,21 @@ export default function EditAndSavePage() {
       />
       <form className="h-full w-5/6 flex flex-col flex-nowrap justify-between">
         <fieldset className="h-full">
-          <div className="h-5/6 flex flex-col w-full">
-            <label className="pt-5 font-bold text-center rounded-lg text-ivory">
+          <div className="h-5/6 flex flex-col border-b border-ivory">
+            <label className="pt-5 font-bold text-center rounded text-ivory overflow-y-auto">
               <h2 className="underline text-xl">EDIT AND SAVE</h2>
               <p className="p-3 text-sm no-underline">
                 Add, edit, and save resumes and cover letters here.
               </p>
-              <textarea
-                placeholder={defaultEditAndSave}
-                maxLength="10000"
-                name="content"
-                rows={16}
-                columns={20}
-                className="w-full h-full p-3 text-gray-400 border resize-none bg-gray-950"
-                value={content || ""}
-                onChange={handlerChange}
-              />
+                <textarea
+                  placeholder={defaultEditAndSave}
+                  maxLength="10000"
+                  name="content"
+                  rows={100}
+                  className="w-full p-3 text-gray-400 border resize-none bg-gray-950"
+                  value={content || ""}
+                  onChange={handlerChange}
+                />
             </label>
           </div>
           <div className="h-1/6 flex flex-row flex-nowrap items-center justify-between">

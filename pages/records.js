@@ -137,7 +137,7 @@ export default function RecordsPage() {
 
   // console.log("Records Page: ", recordsData);
   return (
-    <div className="h-full w-full flex flex-col flex-nowrap border justify-evenly">
+    <div className="h-full w-full flex flex-col flex-nowrap border justify-evenly overflow-y-auto">
       <ErrorModal
         isOpen={
           Array.isArray(errorPages) &&

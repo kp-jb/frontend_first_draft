@@ -61,7 +61,7 @@ export default function ResumePage() {
 
   // console.log("Resume Page: ", resume);
   return (
-    <div className="h-full w-full flex flex-col flex-nowrap justify-evenly items-center">
+    <div className="h-full w-full flex flex-col flex-nowrap justify-evenly items-center overflow-y-auto">
       <ErrorModal
         isOpen={Array.isArray(errorPages) && errorPages.includes("resume") && loading===false}
         updateError={updateError}

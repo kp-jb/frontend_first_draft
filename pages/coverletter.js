@@ -109,7 +109,7 @@ export default function CoverLetterPage() {
 
   // console.log("CoverLetter Page: ", recordsData);
   return (
-    <div className="h-full w-full flex flex-col flex-nowrap justify-evenly items-center">
+    <div className="h-full w-full flex flex-col flex-nowrap justify-evenly items-center overflow-y-auto">
       <ErrorModal
         isOpen={Array.isArray(errorPages) && errorPages.includes("coverletter") && loading===false}
         updateError={updateError}

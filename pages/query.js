@@ -25,16 +25,16 @@ export default function QueryPage() {
 
   // console.log("Query Page",query);
   return (
-    <div className="h-full w-full flex flex-col flex-nowrap justify-evenly items-center">
+    <div className="h-full w-full flex flex-col flex-nowrap justify-evenly items-center overflow-y-auto">
       <ErrorModal
         isOpen={Array.isArray(errorPages) && errorPages.includes("query") && loading===false}
         updateError={updateError}
         errorMessage={errorMessage}
       />
-      <form className="h-full w-5/6 flex flex-col flex-nowrap justify-between">
+      <form className="h-full w-5/6 flex flex-col flex-wrap justify-between overflow-y-auto">
         <fieldset className="h-full">
           <div className="h-5/6 flex flex-col w-full">
-            <label className="pt-5 font-bold text-center rounded-lg text-ivory">
+            <label className="pt-5 font-bold text-center rounded text-ivory overflow-y-auto border-b border-ivory">
               <h2 className="underline text-xl">QUERY INSTRUCTIONS</h2>
               <p className="p-3 text-sm no-underline">
                 Change the instructions as needed or use the default...
@@ -42,11 +42,10 @@ export default function QueryPage() {
               <textarea
                 type="text"
                 name="query"
-                rows={16}
-                columns={20}
+                rows={50}
                 value={query || ""}
                 onChange={handlerOnChange}
-                className="w-full h-full p-3 text-gray-400 border resize-none bg-gray-950"
+                className="w-full p-3 text-gray-400 border resize-none bg-gray-950"
                 maxLength={1000}
               />
             </label>
