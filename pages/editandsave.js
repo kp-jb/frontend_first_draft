@@ -123,8 +123,8 @@ export default function EditAndSavePage() {
       />
       <form className="h-full w-5/6 flex flex-col flex-nowrap justify-between">
         <fieldset className="h-full">
-          <div className="h-5/6 flex flex-col border-b border-ivory">
-            <label className="pt-5 font-bold text-center rounded text-ivory overflow-y-auto">
+          <div className="h-5/6 flex flex-col border-b border-ivory overflow-y-auto">
+            <label className="pt-5 font-bold text-center rounded text-ivory">
               <h2 className="underline text-xl">EDIT AND SAVE</h2>
               <p className="p-3 text-sm no-underline">
                 Add, edit, and save resumes and cover letters here.

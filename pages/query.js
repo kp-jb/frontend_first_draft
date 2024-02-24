@@ -33,7 +33,7 @@ export default function QueryPage() {
       />
       <form className="h-full w-5/6 flex flex-col flex-wrap justify-between overflow-y-auto">
         <fieldset className="h-full">
-          <div className="h-5/6 flex flex-col w-full">
+          <div className="h-5/6 flex flex-col border-b border-ivory overflow-y-auto">
             <label className="pt-5 font-bold text-center rounded text-ivory overflow-y-auto border-b border-ivory">
               <h2 className="underline text-xl">QUERY INSTRUCTIONS</h2>
               <p className="p-3 text-sm no-underline">
