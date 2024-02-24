@@ -91,7 +91,6 @@ export default function PromptProvider(props) {
 
   function formatPrompt() {
     let revisedQuery = formatQuery(statePrompt.query);
-    // console.log(revisedQuery);
     let revisedJobDesc = formatJobDesc(statePrompt.description);
     let revisedResume = formatResume(statePrompt.resume.content);
     let revisedCoverLetter = formatCoverLetter(statePrompt.coverLetter.content);
