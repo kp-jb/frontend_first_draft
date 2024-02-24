@@ -116,6 +116,7 @@ export default function RecordsPage() {
 
   // enable user to
   function handlerEditRecord(item) {
+    updateContent("id", null);
     // move record data to contentContext
     let info = {
       content_name: item.name,
