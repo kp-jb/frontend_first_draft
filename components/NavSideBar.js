@@ -16,7 +16,7 @@ export default function NavSideBar() {
   // console.log("NavSideBar",currPage);
   return (
     <div className="h-full flex flex-row flex-nowrap justify-center">
-      <nav className="h-full w-2/3 flex flex-col items-start rounded-lg bg-gray-950 border border-ivory">
+      <nav className="h-full w-2/3 flex flex-col items-start rounded-lg bg-gray-950 border border-ivory overflow-y-auto">
             <ul className="w-full pt-16 pb-16 flex flex-col flex-nowrap items-center justify-end space-y-14 text-sm">
               <li 
                 className="w-full flex flex-row flex-nowrap justify-center"

@@ -8,7 +8,7 @@ export default function DescriptionPage() {
   // unpack prompt context
   let { description, updatePrompt } = usePromptContext();
   // unpack error context
-  let { errorPages, errorMessage, updateError } = useErrorContext();
+  let { errorPages, errorMessage, loading, updateError } = useErrorContext();
   let router = useRouter();
 
   // update prompt context
@@ -24,16 +24,20 @@ export default function DescriptionPage() {
 
   // console.log("Description Page",description);
   return (
-    <div className="h-full w-full flex flex-col flex-nowrap justify-evenly items-center">
+    <div className="h-full w-full flex flex-col flex-nowrap justify-evenly items-center overflow-y-auto">
       <ErrorModal
-        isOpen={Array.isArray(errorPages) && errorPages.includes("description")}
+        isOpen={
+          Array.isArray(errorPages) &&
+          errorPages.includes("description") &&
+          loading === false
+        }
         updateError={updateError}
         errorMessage={errorMessage}
       />
       <form className="h-full w-5/6 flex flex-col flex-nowrap justify-between">
         <fieldset className="h-full">
-          <div className="h-5/6 flex flex-col w-full">
-            <label className="pt-5 font-bold text-center rounded-lg text-ivory">
+          <div className="h-5/6 flex flex-col border-b border-ivory">
+            <label className="pt-5 font-bold text-center rounded text-ivory overflow-y-auto">
               <h2 className="underline text-xl">JOB DESCRIPTION</h2>
               <p className="p-3 text-sm no-underline">
                 Add all relevant job details below.
@@ -44,8 +48,7 @@ export default function DescriptionPage() {
                 value={description || ""}
                 onChange={handlerOnChange}
                 className="w-full h-full p-3 text-gray-400 border resize-none bg-gray-950"
-                rows={16}
-                columns={20}
+                rows={100}
               />
             </label>
           </div>

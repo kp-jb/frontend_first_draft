@@ -20,7 +20,7 @@ export default function EditAndSavePage() {
   // unpack auth context, user login
   let { userData } = useAuthContext();
   // unpack error context
-  let { errorPages, errorMessage, updateError } = useErrorContext();
+  let { errorPages, errorMessage, loading, updateError } = useErrorContext();
   let router = useRouter();
 
   // control modal state
@@ -53,28 +53,45 @@ export default function EditAndSavePage() {
   // output false and raise local error otherwise
   function inputIsInvalid(content_name, content, is_resume) {
     const forbiddenCharacters = /[!@#\$%\^&*\(\)\+={}\[\];:'\,<>/\\|]/;
-    if (typeof content_name !== "string" || content_name.trim() === "" || content_name.length > 50 || forbiddenCharacters.test(content_name)) {
-      updateError(["editandsave"],"Invalid file name:\nCannot be empty.\nMust be less than 50 characters.\nCannot contain these characters: ! @ # $ % ^ & * ( ) + = { } [ ] ; : ' , < > / ? \ |.");
+    if (
+      typeof content_name !== "string" ||
+      content_name.trim() === "" ||
+      content_name.length > 50 ||
+      forbiddenCharacters.test(content_name)
+    ) {
+      updateError(
+        ["editandsave"],
+        "Invalid file name:\nCannot be empty.\nMust be less than 50 characters.\nCannot contain these characters: ! @ # $ % ^ & * ( ) + = { } [ ] ; : ' , < > / ?  |.",
+        false
+      );
       return true;
-    };
+    }
     if (typeof content_name !== "string" || content === "") {
-      updateError(["editandsave"],"Invalid file contents:\t Cannot be empty.");
+      updateError(
+        ["editandsave"],
+        "Invalid file contents:\t Cannot be empty.",
+        false
+      );
       return true;
-    };
+    }
     if (typeof is_resume !== "boolean") {
-      updateError(["editandsave"],"Invalid file contents:\tFile type must be specified.");
+      updateError(
+        ["editandsave"],
+        "Invalid file contents:\tFile type must be specified.",
+        false
+      );
       return true;
-    };
+    }
   }
 
   // save new records
   // or update old records
   function handlerSaveContent() {
-    handlerControlModal()
+    handlerControlModal();
     // raise errors and stop function if input is invalid
     if (inputIsInvalid(content_name, content, is_resume)) {
       return;
-    };
+    }
 
     let info = {
       name: content_name,
@@ -90,34 +107,37 @@ export default function EditAndSavePage() {
     } else {
       createRecord(info);
     }
-  };
+  }
 
   // console.log("Editandsave Page", recordsData);
   return (
     <div className="w-full h-full flex flex-col flex-nowrap jusitfy-center items-center">
-      <ErrorModal 
-        isOpen={Array.isArray(errorPages) && errorPages.includes("editandsave")} 
+      <ErrorModal
+        isOpen={
+          Array.isArray(errorPages) &&
+          errorPages.includes("editandsave") &&
+          loading === false
+        }
         updateError={updateError}
         errorMessage={errorMessage}
-        />
+      />
       <form className="h-full w-5/6 flex flex-col flex-nowrap justify-between">
         <fieldset className="h-full">
-          <div className="h-5/6 flex flex-col w-full">
-            <label className="pt-5 font-bold text-center rounded-lg text-ivory">
+          <div className="h-5/6 flex flex-col border-b border-ivory">
+            <label className="pt-5 font-bold text-center rounded text-ivory overflow-y-auto">
               <h2 className="underline text-xl">EDIT AND SAVE</h2>
               <p className="p-3 text-sm no-underline">
                 Add, edit, and save resumes and cover letters here.
               </p>
-            <textarea
-              placeholder={defaultEditAndSave}
-              maxLength="10000"
-              name="content"
-              rows={16}
-              columns={20}
-              className="w-full h-full p-3 text-gray-400 border resize-none bg-gray-950"
-              value={content || ""}
-              onChange={handlerChange}
-            />
+                <textarea
+                  placeholder={defaultEditAndSave}
+                  maxLength="10000"
+                  name="content"
+                  rows={100}
+                  className="w-full p-3 text-gray-400 border resize-none bg-gray-950"
+                  value={content || ""}
+                  onChange={handlerChange}
+                />
             </label>
           </div>
           <div className="h-1/6 flex flex-row flex-nowrap items-center justify-between">
@@ -151,7 +171,12 @@ export default function EditAndSavePage() {
           <h3 className="text-xl font-bold underline">SAVE RECORD</h3>
           <label className="flex justify-between font-bold">
             FILE TYPE:
-            <select className=" w-1/2 p-1 border border-gray-950" name="is_resume" value={is_resume || "false"} onChange={handlerChange}>
+            <select
+              className=" w-1/2 p-1 border border-gray-950"
+              name="is_resume"
+              value={is_resume || "false"}
+              onChange={handlerChange}
+            >
               <option value="true">RESUME</option>
               <option value="false">COVER LETTER</option>
             </select>
@@ -168,18 +193,26 @@ export default function EditAndSavePage() {
             />
           </label>
           <div className="flex flex-row flex-nowrap justify-between">
-            <button 
-              onClick={handlerCancel} 
+            <button
+              onClick={handlerCancel}
               className="text-ivory h-10 w-full px-4 py-2 m-5 font-bold p-1 ring-2 ring-slate-100 bg-gray-950 rounded-lg"
             >
               CANCEL
             </button>
-            <button
-              onClick={handlerSaveContent}
-              className="text-ivory h-10 w-full px-4 py-2 m-5 font-bold p-1 ring-2 ring-slate-100 bg-gray-950 rounded-lg"
-            >
-              SAVE
-            </button>
+            {Array.isArray(errorPages) &&
+            errorPages.includes("editandsave") &&
+            loading ? (
+              <button className="text-ivory h-10 w-full px-4 py-2 m-5 font-bold p-1 ring-2 ring-slate-100 bg-gray-950 rounded-lg">
+                LOADING...
+              </button>
+            ) : (
+              <button
+                onClick={handlerSaveContent}
+                className="text-ivory h-10 w-full px-4 py-2 m-5 font-bold p-1 ring-2 ring-slate-100 bg-gray-950 rounded-lg"
+              >
+                SAVE
+              </button>
+            )}
           </div>
         </div>
       </Modal>
