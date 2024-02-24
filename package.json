@@ -6,12 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "test": "jest --coverage"
+    "lint": "next lint"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
     "axios": "^1.6.7",
+    "dotenv": "^16.4.5",
     "jsonwebtoken": "^9.0.2",
     "next": "14.1.0",
     "react": "^18",
@@ -21,8 +21,10 @@
     "swr": "^2.2.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.41.2",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
+    "@types/node": "^20.11.20",
     "autoprefixer": "^10.4.17",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
