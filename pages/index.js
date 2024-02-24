@@ -19,7 +19,7 @@ export default function HomePage() {
         <h4 className="pl-5 text-md">
           Welcome to First Draft where we believe that{" "}
           <strong className="text-lg">
-            "There is no such thing as good writing, only good rewriting"
+          &quotThere is no such thing as good writing, only good rewriting&quot
           </strong>
           (Robert Graves). In that spirit we built this tool to help job seekers
           overcome their writers block by using ChatGPT creating a first draft
