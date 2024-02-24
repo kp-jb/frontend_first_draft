@@ -45,10 +45,9 @@ export default function AuthProvider(props) {
           'Content-Type': 'application/json',
         },
       };
-      console.log("login function",options);
+ 
       axios(options)
         .then(response => {
-          console.log("login function", response);
           const data = response.data; 
           const decoded = jwt.decode(data.access);
           return {
