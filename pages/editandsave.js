@@ -38,14 +38,17 @@ export default function EditAndSavePage() {
   };
 
   // for returning content context to default
-  const handlerReset = (type, newState) => {
-    updateContent(type, newState);
+  const handlerReset = () => {
+    updateContent("content","");
+    updateContent("content_name", "");
+    updateContent("is_resume", false);
+    updateContent("id",null);
   };
 
   // to clear content context and close modal
   const handlerCancel = () => {
-    handlerReset("content_name", "");
-    handlerReset("is_resume", false);
+    updateContent("content_name", "");
+    updateContent("is_resume", false);
     handlerControlModal();
   };
 
@@ -123,8 +126,8 @@ export default function EditAndSavePage() {
       />
       <form className="h-full w-5/6 flex flex-col flex-nowrap justify-between">
         <fieldset className="h-full">
-          <div className="h-5/6 flex flex-col border-b border-ivory overflow-y-auto">
-            <label className="pt-5 font-bold text-center rounded text-ivory">
+          <div className="h-5/6 flex flex-col border-b border-ivory">
+            <label className="pt-5 font-bold text-center rounded text-ivory overflow-y-auto">
               <h2 className="underline text-xl">EDIT AND SAVE</h2>
               <p className="p-3 text-sm no-underline">
                 Add, edit, and save resumes and cover letters here.
@@ -143,7 +146,7 @@ export default function EditAndSavePage() {
           <div className="h-1/6 flex flex-row flex-nowrap items-center justify-between">
             <button
               className="h-10 w-full px-4 py-2 m-5 font-bold text-gray-950 p-1 ring-2 ring-slate-100 bg-ivory opacity-90 rounded-lg sm:w-1/2 md:w-1/3 lg:w-1/6"
-              onClick={() => handlerReset("content", "")}
+              onClick={handlerReset}
               type="button"
             >
               RESET
@@ -168,8 +171,19 @@ export default function EditAndSavePage() {
         overlayClassName="opacity-100"
       >
         <div className="p-10 bg-white rounded-lg w-1/3 h-1/3 flex flex-col flex-nowrap justify-evenly">
-          <h3 className="text-xl font-bold underline">SAVE RECORD</h3>
-          <label className="flex justify-between font-bold">
+          <h3 className="text-xl font-bold underline mb-2">SAVE RECORD</h3>
+          <label className="flex justify-between font-bold mb-2">
+            FILE NAME:
+            <input
+              type="text"
+              name="content_name"
+              value={content_name || ""}
+              placeholder={content_name}
+              onChange={handlerChange}
+              className="w-1/2 pl-1 border border-gray-950"
+            />
+          </label>
+          <label className="flex justify-between font-bold mb-2">
             FILE TYPE:
             <select
               className=" w-1/2 p-1 border border-gray-950"
@@ -181,14 +195,13 @@ export default function EditAndSavePage() {
               <option value="false">COVER LETTER</option>
             </select>
           </label>
+
           <label className="flex justify-between font-bold">
-            FILE NAME:
+            UPDATES EXISTING FILE:
             <input
               type="text"
-              name="content_name"
-              value={content_name || ""}
-              placeholder={content_name}
-              onChange={handlerChange}
+              name=""
+              value={id?"TRUE":"FALSE"}
               className="w-1/2 pl-1 border border-gray-950"
             />
           </label>

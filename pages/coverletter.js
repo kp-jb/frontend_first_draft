@@ -57,8 +57,8 @@ export default function CoverLetterPage() {
     let info = {
       content_name: "",
       content: data.generated_text,
-      owner: userId,
       is_resume: false,
+      id:null
     };
 
     Object.entries(info).map(([key, value]) => {
