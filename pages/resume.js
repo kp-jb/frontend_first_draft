@@ -13,7 +13,7 @@ export default function ResumePage() {
   // unpack prompt context
   let { resume, updatePrompt } = usePromptContext();
   // unpack error context
-  let { errorPages, errorMessage, updateError } = useErrorContext();
+  let { errorPages, errorMessage, loading, updateError } = useErrorContext();
   let router = useRouter();
 
   // on select, update resume in prompt context
@@ -61,15 +61,16 @@ export default function ResumePage() {
 
   // console.log("Resume Page: ", resume);
   return (
-    <div className="h-full w-full flex flex-col flex-nowrap justify-evenly items-center">
+    <div className="h-full w-full flex flex-col flex-nowrap justify-evenly items-center overflow-y-auto">
       <ErrorModal
-        isOpen={Array.isArray(errorPages) && errorPages.includes("resume")}
+        isOpen={Array.isArray(errorPages) && errorPages.includes("resume") && loading===false}
         updateError={updateError}
         errorMessage={errorMessage}
       />
       <div className="h-full w-5/6 flex flex-col flex-nowrap justify-evenly">
         {resumesData.length === 0 ? (
           <NoRecords
+            loading={Array.isArray(errorPages) && errorPages.includes("resume") && loading}
             title="NO RESUMES"
             message="Follow the link to create new resumes."
           />

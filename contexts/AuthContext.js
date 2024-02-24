@@ -32,6 +32,7 @@ export default function AuthProvider(props) {
 
     // login user
     function loginFunction(email, password) {
+      updateError(["login"],``,true);
       const requestData = {
         email,
         password,
@@ -44,8 +45,10 @@ export default function AuthProvider(props) {
           'Content-Type': 'application/json',
         },
       };
+      console.log("login function",options);
       axios(options)
         .then(response => {
+          console.log("login function", response);
           const data = response.data; 
           const decoded = jwt.decode(data.access);
           return {
@@ -62,7 +65,7 @@ export default function AuthProvider(props) {
         .then(last => router.push("/records"))
         .catch(error => {
           // console.log("AuthContext:",error);
-          updateError(["login"],`Failure to login:\n\nEmail or password is incorrect.`);});
+          updateError(["login"],`Failure to login:\n\nEmail or password is incorrect.`, false);});
     };
     
 
@@ -75,6 +78,7 @@ export default function AuthProvider(props) {
   };
 
   function registerFunction(first_name, last_name, email, password) {
+    updateError(["login"],``,true);
     const requestData = {
       first_name,
       last_name,
@@ -91,12 +95,8 @@ export default function AuthProvider(props) {
     };
     axios(options)
       .then(response => {
-        if (response && response.status == 201){
-          loginFunction(email, password);
-        } else {
-          updateError(["login"],`Failure to login:`)
-        }})
-      .catch(error => updateError(["login"],`Failure to register:\n\nEmail is already registered.`));   
+        loginFunction(email, password);})
+      .catch(error => updateError(["login"],`Failure to register:\n\nEmail is already registered.`,false));   
   };
 
 

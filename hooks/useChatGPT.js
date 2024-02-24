@@ -19,8 +19,9 @@ export default function useChatGPT() {
     };
     return axios(options)
       .then(response => {
-        return response.data})
-      .catch(error => updateError(["coverletter"],`Failed to generate cover letter:\n\n${error.message}`));
+        updateError([""],``,false);
+        return response})
+      .catch(error => updateError(["coverletter"],`Failed to generate cover letter:\n\n${error.message}`,false));
   };
 
   return { getChatGPT };
