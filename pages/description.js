@@ -24,7 +24,7 @@ export default function DescriptionPage() {
 
   // console.log("Description Page",description);
   return (
-    <div className="h-full w-full flex flex-col flex-nowrap justify-evenly items-center overflow-y-auto">
+    <div className="h-full w-full flex flex-col flex-nowrap justify-evenly items-center">
       <ErrorModal
         isOpen={
           Array.isArray(errorPages) &&
@@ -36,8 +36,8 @@ export default function DescriptionPage() {
       />
       <form className="h-full w-5/6 flex flex-col flex-nowrap justify-between">
         <fieldset className="h-full">
-          <div className="h-5/6 flex flex-col border-b border-ivory overflow-y-auto">
-            <label className="pt-5 font-bold text-center rounded text-ivory">
+          <div className="h-5/6 flex flex-col border-b border-ivory">
+            <label className="pt-5 font-bold text-center rounded text-ivory overflow-y-auto">
               <h2 className="underline text-xl">JOB DESCRIPTION</h2>
               <p className="p-3 text-sm no-underline">
                 Add all relevant job details below.
